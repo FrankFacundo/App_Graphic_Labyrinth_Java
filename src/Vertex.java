@@ -14,7 +14,7 @@ public class Vertex implements VertexInterface {
 	@Override
 	public int getDistance() {
 		// TODO Auto-generated method stub
-		return 0;
+		return 1;
 	}
 
 }
