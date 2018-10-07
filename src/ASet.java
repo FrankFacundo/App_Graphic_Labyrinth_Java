@@ -1,25 +1,48 @@
 
 public class ASet implements ASetInterface {
 	
-	public Vertex[] vertexes;
+	public VertexInterface[] vertexes;
 	
 	public ASet(){
 		this.vertexes = null;
 	}
 	
+	@Override
+	public int getIndexOfVertex(VertexInterface vertex) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
 
 	@Override
-	public void setASet(Vertex[] vertexes) {
+	public void addVertex(VertexInterface vertex) {
 		// TODO Auto-generated method stub
-		this.vertexes = vertexes;
-		return;
 		
 	}
 
+
+
 	@Override
-	public ASet getASet() {
+	public boolean hasVertex(VertexInterface vertex) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+
+	@Override
+	public VertexInterface[] getVertexes() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+
+	@Override
+	public int getLength() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
