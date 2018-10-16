@@ -1,48 +1,36 @@
+import java.util.ArrayList;
 
 public class ASet implements ASetInterface {
-	
-	public VertexInterface[] vertexes;
-	
+
+	/**
+	 * The list of vertexes, whose distances have already been calculated thanks to Dijsktra's algorithm
+	 */
+	private ArrayList<VertexInterface> vertexes;
+
 	public ASet(){
-		this.vertexes = null;
-	}
-	
-	@Override
-	public int getIndexOfVertex(VertexInterface vertex) {
-		// TODO Auto-generated method stub
-		return 0;
+
+		this.vertexes = new ArrayList<VertexInterface>();
 	}
 
 
-
-	@Override
 	public void addVertex(VertexInterface vertex) {
-		// TODO Auto-generated method stub
-		
+
+		this.vertexes.add(vertex);
+
 	}
 
 
+	public boolean containsVertex(VertexInterface vertex) {
 
-	@Override
-	public boolean hasVertex(VertexInterface vertex) {
-		// TODO Auto-generated method stub
-		return false;
+		return vertexes.contains(vertex);
 	}
 
 
+	public ArrayList<VertexInterface> getVertexes() {
 
-	@Override
-	public VertexInterface[] getVertexes() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.vertexes;
 	}
 
 
-
-	@Override
-	public int getLength() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 }

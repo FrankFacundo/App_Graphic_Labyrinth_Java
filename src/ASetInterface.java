@@ -1,19 +1,25 @@
+import java.util.ArrayList;
+
 public interface ASetInterface {
     
-    // To add a vertex to the set
+	/**
+	 * To add a vertex to the set
+	 * @param vertex, the vertex to add
+	 */
 	public void addVertex(VertexInterface vertex);
-	
-    // To get the index of a vertex in the set
-    public int getIndexOfVertex(VertexInterface vertex);
     
-	// To verify if a vertex is in the set
-    public boolean hasVertex(VertexInterface vertex);
+	/**
+	 * To verify whether a vertex is contained in ASet or not
+	 * @param vertex, the vertex
+	 * @return true if vertex is contained in ASet, else false
+	 */
+    public boolean containsVertex(VertexInterface vertex);
 	
-	// To get the values of all vertexes
-	public VertexInterface[] getVertexes();
+    /**
+     * To get the list of all vertexes in ASet
+     * @return the list of vertexes in ASet
+     */
+	public ArrayList<VertexInterface> getVertexes();
 	
-	// To get the number of vertexes in the set
-    public int getLength();
-
 
 }
