@@ -1,17 +1,42 @@
+import java.util.ArrayList;
 
 public class Pi implements PiInterface {
 
-	// In the constructor: indicate the source vertex
-	
-	@Override
-	public int pi(VertexInterface vertex) {
-		// TODO Auto-generated method stub
-		return 0;
+	/**
+	 * This list will contain the vertexes 
+	 */
+    private ArrayList<VertexInterface> vertexes;
+    /**
+     * This list will contain the distance source-vertex
+     * Same indexes as in pathList list
+     */
+    private ArrayList<Integer> distances;
+
+    /**
+     * The constructor initializes both the vertex and the distance list
+     */
+	public Pi() {
+		
+		this.vertexes = new ArrayList<VertexInterface>();
+		this.distances = new ArrayList<Integer>();
+		
+	}
+    
+	public int getPi(VertexInterface vertex) {
+		
+		if (this.vertexes.contains(vertex)){
+			  int index = this.vertexes.indexOf(vertex);
+			  return this.distances.get(index);
+			  
+			} else {
+				return -1;
+			}
 	}
 
-	@Override
 	public void setPi(VertexInterface vertex, int newPi) {
-		// TODO Auto-generated method stub
+		
+		this.vertexes.add(vertex);
+		this.distances.add(newPi);
 		
 	}
 
