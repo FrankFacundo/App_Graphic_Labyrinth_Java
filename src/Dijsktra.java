@@ -148,7 +148,7 @@ public class Dijsktra {
 		str = str.substring(("<-").length());
 		System.out.println(str);
 		
-		System.out.println("Number of vertexes in the shorstest path: "+previousVertexes.size());
+		System.out.println("Number of vertexes in the shortest path: "+previousVertexes.size());
 	}
 	
 	
