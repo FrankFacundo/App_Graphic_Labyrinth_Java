@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public interface VertexInterface {
 
@@ -29,8 +30,6 @@ public interface VertexInterface {
 	 */
 	public int getDistanceTo(VertexInterface anotherVertex);
 
-	// To set the distance to a vertex (?)
-	public void setDistanceTo(VertexInterface anotherVertex, int distance);
 
 	/**
 	 * To add an adjacent vertex
@@ -44,6 +43,8 @@ public interface VertexInterface {
 	 * @return a list containing all adjacent vertexes
 	 */
 	public ArrayList<VertexInterface> getAdjacentVertexes(); 
+	
+	public HashMap<VertexInterface, Integer> getAdjacentVertexesAndDistances();
 
 
 }

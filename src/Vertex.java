@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Vertex implements VertexInterface {
 
@@ -9,12 +10,15 @@ public class Vertex implements VertexInterface {
 	/**
 	 * The list of vertexes that are adjacent to the current vertex
 	 */
-	private ArrayList<VertexInterface> adjacents;
+	
+	private final HashMap<VertexInterface, Integer> adjacents; 
+	
+	//private ArrayList<VertexInterface> adjacents;
 	/**
 	 * The list of distances between the current vertex and the adjacent ones
 	 * Same indexes as in adjacents list
 	 */
-	private ArrayList<Integer> distanceToAdjacents;
+	//private ArrayList<Integer> distanceToAdjacents;
 
 	/**
 	 * Vertex constructor
@@ -23,8 +27,9 @@ public class Vertex implements VertexInterface {
 	public Vertex(String value){
 
 		this.value = value;
-		this.adjacents = new ArrayList<VertexInterface>();
-		this.distanceToAdjacents = new ArrayList<Integer>();
+		this.adjacents = new HashMap<VertexInterface, Integer>();
+		//this.adjacents = new ArrayList<VertexInterface>();
+		//this.distanceToAdjacents = new ArrayList<Integer>();
 	}
 
 
@@ -71,23 +76,19 @@ public class Vertex implements VertexInterface {
 
 	}
 
-	@Override
-	public String toString(){
+	public String toString() {
 
 		return "[" + this.value + "]";
 
 	}
 
 
-	
-	/* (non-Javadoc)
-	 * @see VertexInterface#getDistanceTo(VertexInterface)
-	 */
 	public int getDistanceTo(VertexInterface anotherVertex) {
 		
-		if (this.adjacents.contains(anotherVertex)){
-		  int index = this.adjacents.indexOf(anotherVertex);
-		  return this.distanceToAdjacents.get(index);
+		
+		if (this.adjacents.containsKey(anotherVertex)){
+			
+			return this.adjacents.get(anotherVertex);
 		  
 		} else {
 			return -1;
@@ -98,24 +99,34 @@ public class Vertex implements VertexInterface {
 	
 	public void addAdjacentVertex(VertexInterface vertex, int distance) {
 		
-		this.adjacents.add(vertex);
-		this.distanceToAdjacents.add(distance);
+		this.adjacents.put(vertex, distance);
 
 	}
 
 	public ArrayList<VertexInterface> getAdjacentVertexes() {
 
-		return this.adjacents;
+		
+		ArrayList<VertexInterface> vertexesList = new ArrayList<VertexInterface>();
+		
+		for(VertexInterface v: this.adjacents.keySet()) {	
+			vertexesList.add(v); 
+		}
+		//ArrayList<VertexInterface> vertexesList = new ArrayList<VertexInterface>(this.adjacents.keySet());
+		
+		return vertexesList;
+		//return (ArrayList<VertexInterface>) this.adjacents.keySet();
 	}
 
+	public HashMap<VertexInterface, Integer> getAdjacentVertexesAndDistances() {
 
-	public void setDistanceTo(VertexInterface anotherVertex, int distance) {
-
-		if (this.adjacents.contains(anotherVertex)){
-			  int index = this.adjacents.indexOf(anotherVertex);
-			  this.distanceToAdjacents.set(index, distance);		  
-		} 
-
+		/*
+		ArrayList<VertexInterface>  = new ArrayList<VertexInterface>();
+		for(VertexInterface v: adjacents.keySet())
+			vertexesList.add(v.clone()); */
+		
+		//ArrayList<VertexInterface> vertexesList = new ArrayList<VertexInterface>(this.adjacents.keySet());
+		
+		return this.adjacents;
 	}
 
 

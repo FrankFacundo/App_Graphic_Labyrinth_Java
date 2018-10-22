@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public interface PreviousInterface {
  
 	/**
@@ -15,5 +17,6 @@ public interface PreviousInterface {
 	public void setPreviousVertex(VertexInterface vertex, VertexInterface previousVertex);
 
 	// By going through the previous vertexes we will find the shortest path
+	public ArrayList<VertexInterface> getShortestPath(VertexInterface vertex);
 
 }
