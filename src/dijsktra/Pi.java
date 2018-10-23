@@ -1,3 +1,4 @@
+package dijsktra;
 import java.util.HashMap;
 
 public class Pi implements PiInterface {

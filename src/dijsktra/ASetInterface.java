@@ -1,3 +1,4 @@
+package dijsktra;
 import java.util.ArrayList;
 
 public interface ASetInterface {
