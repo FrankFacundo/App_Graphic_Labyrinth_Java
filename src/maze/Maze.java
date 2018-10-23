@@ -6,6 +6,16 @@ import dijsktra.GraphInterface;
 import dijsktra.VertexInterface;
 
 public class Maze implements GraphInterface{
+	
+	private int size; 
+	private int[][] vertexMatrix;
+	
+	public Maze(int size){
+		
+		this.size = size;
+		this.vertexMatrix = new int[this.size][this.size];
+	}
+	
 
 	@Override
 	public ArrayList<VertexInterface> getAllVertexes() {
