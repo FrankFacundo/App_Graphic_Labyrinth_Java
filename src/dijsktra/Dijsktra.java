@@ -137,7 +137,7 @@ public class Dijsktra {
 		
 		ArrayList <VertexInterface> previousVertexes = previous.getShortestPath(v3);
 		
-		System.out.println("The shortest path to " + v3.getValue() + ": ");
+		System.out.println("The shortest path to " + v3.getLabel() + ": ");
 
 		
 		String str = "";

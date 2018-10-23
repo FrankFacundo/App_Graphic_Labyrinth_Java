@@ -1,5 +1,7 @@
 package maze;
 
-public class MBox {
+import dijsktra.VertexInterface;
+
+public abstract class MBox implements VertexInterface{
 
 }

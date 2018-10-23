@@ -9,7 +9,8 @@ public interface VertexInterface {
 	 * To get the String value contained in the vertex
 	 * @return the String associated to the vertex
 	 */
-	public String getValue();
+	
+	public String getLabel();
 	
 	/**
 	 * 
