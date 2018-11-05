@@ -9,7 +9,7 @@ public abstract class MBox implements VertexInterface{
 	private int row;
 	private String label;
 	
-	public MBox(Maze maze, int column, int row, String label){
+	public MBox(Maze maze, int column, int row){
 	
 		this.maze = maze;
 		this.column = column;

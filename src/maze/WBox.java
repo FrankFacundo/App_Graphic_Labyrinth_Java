@@ -5,11 +5,12 @@ import java.util.HashMap;
 
 import dijsktra.VertexInterface;
 
-public class WBox extends MBox
+public abstract class WBox extends MBox
 {
-	public WBox(int column, int row)
+	
+	public WBox(Maze maze, int column, int row)
 	{
-		super(column, row, "W");
+		super(maze, column, row);
 	}
 	
 	public void setLabel()
@@ -17,6 +18,10 @@ public class WBox extends MBox
 		
 	}
 	
+	public boolean isEmpty()
+	{
+		return true;
+	}
 
 	public String getLabel() {
 		return super.getLabel();

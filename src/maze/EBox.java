@@ -1,19 +1,20 @@
 package maze;
 
-public class EBox extends Mbox
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import dijsktra.VertexInterface;
+
+public abstract class EBox extends MBox
 {
-	public EBox(int column, int row)
+	public EBox(Maze maze , int column, int row)
 	{
-		super(column, row, "E");
+		super(maze, column, row);
 	}
 	
-	public void setLabel()
+	public boolean isEmpty()
 	{
-		
+		return true;
 	}
 	
-	public void getLabel()
-	{
-		
-	}
 }

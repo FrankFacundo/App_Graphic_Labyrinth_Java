@@ -1,19 +1,50 @@
 package maze;
 
-public class ABox extends Mbox
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import dijsktra.VertexInterface;
+
+public abstract class ABox extends MBox
 {
 	
-	public ABox(int column, int row)
+	public ABox(Maze maze, int column, int row)
 	{
-		super(column, row, "A");
+		super(maze , column, row);
 	}
 	public void setLabel()
 	{
 		
 	}
 	
-	public void getLabel()
+	public boolean isEmpty()
 	{
+		return false;
+	}
+	
+	@Override
+	public String getLabel() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public int getDistanceTo(VertexInterface anotherVertex) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public void addAdjacentVertex(VertexInterface vertex, int distance) {
+		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public ArrayList<VertexInterface> getAdjacentVertexes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public HashMap<VertexInterface, Integer> getAdjacentVertexesAndDistances() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
