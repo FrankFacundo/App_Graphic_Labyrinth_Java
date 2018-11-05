@@ -7,22 +7,79 @@ import dijsktra.VertexInterface;
 
 public class Maze implements GraphInterface{
 	
-	// private int size; 
-	
-	private width;
-	private height; 
+	// The determine the size
+	private int width;
+	private int height; 
  
-	private Mbox[][] mboxes;
-	VertexInterface depart arrive
+	private MBox[][] boxes;
 	
-	// private boolean gameOver = false 
+	private VertexInterface depart;
+	private VertexInterface arrival;
 	
-	// width, height
-	public Maze(int size){
+	private boolean gameOver = false; 
+	
+
+	public Maze(int width, int height){
 		
-		this.size = size;
-		this.vertexMatrix = new int[this.size][this.size];
+		this.width = width;
+		this.height = height;
+		// or +2 to have walls in the end 
+		
+		this.boxes = new MBox[this.width][this.height];
+		
+		// Cases initialization
+		for(int i = 0; i < width; i++) {
+		
+			for(int j = 0; j < height; j++) {
+				
+				this.setBox(i,j,'E');
+				
+			}
+			
+		}
+		
 	}
+	
+	private void setBox(int row, int column, char type){
+		
+		switch (type) {
+		
+		case 'E':
+			this.boxes[column][row] = new EBox(this, column, row);
+		break; 
+		
+		case 'W':
+			this.boxes[column][row] = new WBox(this, column, row);
+		break; 
+		
+		
+		case 'A':
+			this.boxes[column][row] = new ABox(this, column, row);
+		break; 
+		
+		case 'D':
+			this.boxes[column][row] = new DBox(this, column, row);
+		break; 
+		
+		default:
+			return;
+		
+		
+		}
+		
+	}
+	
+
+	public MBox getBox(int row, int column){
+		
+		return this.boxes[column][row];
+		
+	}
+	
+	
+	
+	
+	
 	
 
 	@Override
