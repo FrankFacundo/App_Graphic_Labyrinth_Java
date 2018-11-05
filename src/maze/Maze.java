@@ -7,12 +7,13 @@ import dijsktra.VertexInterface;
 
 public class Maze implements GraphInterface{
 	
-	private int size; 
+	// private int size; 
 	
-	//private width, private height; 
-	// 
+	private width;
+	private height; 
+ 
 	private Mbox[][] mboxes;
-	// VertexInterface depart arrive
+	VertexInterface depart arrive
 	
 	// private boolean gameOver = false 
 	
