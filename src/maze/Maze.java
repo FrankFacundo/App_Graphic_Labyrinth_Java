@@ -8,8 +8,15 @@ import dijsktra.VertexInterface;
 public class Maze implements GraphInterface{
 	
 	private int size; 
-	private int[][] vertexMatrix;
 	
+	//private width, private height; 
+	// 
+	private Mbox[][] mboxes;
+	// VertexInterface depart arrive
+	
+	// private boolean gameOver = false 
+	
+	// width, height
 	public Maze(int size){
 		
 		this.size = size;
