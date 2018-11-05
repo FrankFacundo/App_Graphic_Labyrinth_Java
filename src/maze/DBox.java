@@ -16,7 +16,7 @@ public abstract class DBox extends MBox
 	{
 		
 	}
-	
+	//
 	public boolean isEmpty()
 	{
 		return false;
