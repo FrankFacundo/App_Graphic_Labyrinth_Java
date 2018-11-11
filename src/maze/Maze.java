@@ -1,3 +1,5 @@
+// hello I'm making a comment to update my brunch
+
 package maze;
 
 import java.util.ArrayList;
@@ -55,6 +57,8 @@ public class Maze implements GraphInterface{
 		
 		case 'A':
 			this.boxes[column][row] = new ABox(this, column, row);
+			
+			
 		break; 
 		
 		case 'D':
