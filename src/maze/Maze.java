@@ -1,7 +1,9 @@
-// hello I'm making a comment to update my brunch
+// hello I'm making a comment to update my branch
 
 package maze;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import dijsktra.GraphInterface;
@@ -74,23 +76,75 @@ public class Maze implements GraphInterface{
 	}
 	
 
-	public MBox getBox(int row, int column){
+	public MBox getBox(int column, int row){
 		
 		return this.boxes[column][row];
 		
 	}
 	
-	
-	
-	
-	
-	
 
 	@Override
 	public ArrayList<VertexInterface> getAllVertexes() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		ArrayList<VertexInterface> allVertexes = new ArrayList<VertexInterface>();
+
+		for (int i = 0 ; i < this.height ; i++)
+		{
+			MBox[] row = boxes[i];
+			for (int j = 0 ; j < this.width ; j++)
+				
+				allVertexes.add(row[j]);
+		}
+
+		return allVertexes;
+	
 	}
+	
+	/**
+	 * 
+	 * @param vertex
+	 * @return the list of vertexes accessible to a vertex 
+	 */
+	public final ArrayList<VertexInterface> getAccessibleVertexes(VertexInterface vertex) 
+	{
+		MBox box = (MBox)vertex ; 
+		ArrayList<VertexInterface> accessibleVertexes = new ArrayList<VertexInterface>();
+		
+		int row = box.getRow();
+		int column = box.getColumn();
+		MBox neighbor;
+		
+		// upper neighbors
+		if (row > 0) { 
+			neighbor = boxes[column][row-1];
+			if (neighbor.isEmpty())
+				accessibleVertexes.add(neighbor);
+		}
+
+		// lower neighbors
+		if (row < this.height - 1) { 
+			neighbor = boxes[column][row+1];
+			if (neighbor.isEmpty())
+				accessibleVertexes.add(neighbor);
+		}
+		
+		// left neighbors
+		if (column > 0) { 
+			neighbor = boxes[column-1][row];
+			if (neighbor.isEmpty())
+				accessibleVertexes.add(neighbor);
+		}
+		
+		// right neighbors
+		if (column < width - 1) { 
+			neighbor = boxes[column+1][row];
+			if (neighbor.isEmpty())
+				accessibleVertexes.add(neighbor);
+		}	
+		
+		return accessibleVertexes;
+	}
+	
 
 	@Override
 	public int getWeight(VertexInterface vertex1, VertexInterface vertex2) {
@@ -116,5 +170,14 @@ public class Maze implements GraphInterface{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public void createFromTextFile(String textFileName) throws FileNotFoundException, IOException, Exception {
+	
+	}
+	
+	public void saveToTextFile(String textFileName) throws FileNotFoundException, IOException, Exception {
+
+	}
+	
 
 }
