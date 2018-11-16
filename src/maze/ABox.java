@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 import dijsktra.VertexInterface;
 
-public abstract class ABox extends MBox
+public class ABox extends MBox
 {
 	
 	public ABox(Maze maze, int column, int row)
@@ -46,5 +46,10 @@ public abstract class ABox extends MBox
 	public HashMap<VertexInterface, Integer> getAdjacentVertexesAndDistances() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	@Override
+	public char getChar() {
+	
+		return 'A';
 	}
 }
