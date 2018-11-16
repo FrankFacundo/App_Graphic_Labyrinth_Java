@@ -7,11 +7,10 @@ import dijsktra.VertexInterface;
 
 public class EBox extends MBox
 {
-	public EBox(Maze maze , int column, int row)
-	{
+	public EBox(Maze maze , int column, int row) {
 		super(maze, column, row);
 	}
-{
+
 	
 	public boolean isEmpty()
 	{
@@ -44,12 +43,8 @@ public class EBox extends MBox
 
 	@Override
 	public char getChar() {
-		// TODO Auto-generated method stub
+		
 		return 'E';
 	}
 	
-	public void getLabel()
-	{
-		
-	}
 }
