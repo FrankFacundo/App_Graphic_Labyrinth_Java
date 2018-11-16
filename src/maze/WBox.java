@@ -7,9 +7,10 @@ import dijsktra.VertexInterface;
 
 public class WBox extends MBox
 {
-	public WBox(int column, int row)
+	
+	public WBox(Maze maze, int column, int row)
 	{
-		super(column, row, "W");
+		super(maze, column, row);
 	}
 	
 	public void setLabel()
@@ -17,6 +18,10 @@ public class WBox extends MBox
 		
 	}
 	
+	public boolean isEmpty()
+	{
+		return false;
+	}
 
 	public String getLabel() {
 		return super.getLabel();
@@ -44,5 +49,11 @@ public class WBox extends MBox
 	public HashMap<VertexInterface, Integer> getAdjacentVertexesAndDistances() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public char getChar() {
+		
+		return 'W';
 	}
 }
