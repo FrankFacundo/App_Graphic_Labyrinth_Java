@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 import dijsktra.VertexInterface;
 
-public class WBox extends MBox
+public abstract class WBox extends MBox
 {
 	
 	public WBox(Maze maze, int column, int row)

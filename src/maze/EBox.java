@@ -48,8 +48,4 @@ public class EBox extends MBox
 		return 'E';
 	}
 	
-	public void getLabel()
-	{
-		
-	}
 }
