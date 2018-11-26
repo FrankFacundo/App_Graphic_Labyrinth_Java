@@ -18,7 +18,6 @@ public class EBox extends MBox
 	}
 
 
-
 	@Override
 	public char getChar() {
 		
