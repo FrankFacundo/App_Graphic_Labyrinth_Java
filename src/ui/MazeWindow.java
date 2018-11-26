@@ -56,6 +56,9 @@ public class MazeWindow {
 		JMenuItem mntmOpen = new JMenuItem("Open..");
 		mnNewMenu.add(mntmOpen);
 		
+		JMenuItem mntmNewMenuItem = new JMenuItem("Exit");
+		mnNewMenu.add(mntmNewMenuItem);
+		
 		JMenu mnNewMenu_1 = new JMenu("Tools");
 		menuBar.add(mnNewMenu_1);
 		
