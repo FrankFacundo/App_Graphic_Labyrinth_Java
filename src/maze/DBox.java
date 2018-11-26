@@ -23,7 +23,6 @@ public class DBox extends MBox
 	}
 
 
-
 	@Override
 	public char getChar() {
 	
