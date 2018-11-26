@@ -11,7 +11,7 @@ public class EBox extends MBox
 	{
 		super(maze, column, row);
 	}
-{
+
 	
 	public boolean isEmpty()
 	{
