@@ -20,7 +20,7 @@ public abstract class WBox extends MBox
 	
 	public boolean isEmpty()
 	{
-		return true;
+		return false;
 	}
 
 	public String getLabel() {
@@ -49,5 +49,11 @@ public abstract class WBox extends MBox
 	public HashMap<VertexInterface, Integer> getAdjacentVertexesAndDistances() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public char getChar() {
+		
+		return 'W';
 	}
 }

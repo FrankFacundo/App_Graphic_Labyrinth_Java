@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 import dijsktra.VertexInterface;
 
-public abstract class DBox extends MBox
+public class DBox extends MBox
 {
 	public DBox(Maze maze, int column, int row)
 	{
@@ -16,7 +16,7 @@ public abstract class DBox extends MBox
 	{
 		
 	}
-	//
+	
 	public boolean isEmpty()
 	{
 		return false;
@@ -50,5 +50,11 @@ public abstract class DBox extends MBox
 	public HashMap<VertexInterface, Integer> getAdjacentVertexesAndDistances() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public char getChar() {
+	
+		return 'D';
 	}
 }

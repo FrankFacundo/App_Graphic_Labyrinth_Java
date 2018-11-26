@@ -2,7 +2,7 @@ package maze;
 
 import dijsktra.VertexInterface;
 
-public abstract class MBox implements VertexInterface{
+public  abstract class MBox implements VertexInterface{
 	
 	private Maze maze;
 	private int column; 
@@ -35,6 +35,13 @@ public abstract class MBox implements VertexInterface{
 		
 		return this.row;
 	}
+	
+	public boolean isEmpty()
+	{
+		return true;
+	}
+	
+	public abstract char getChar();
 
 	
 }
