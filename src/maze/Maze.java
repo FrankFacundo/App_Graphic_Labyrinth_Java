@@ -231,10 +231,15 @@ public class Maze implements GraphInterface{
 		maze.setBox(2, 3, 'D');
 		maze.setBox(3, 3, 'W');
 		// make it empty 
-		maze.setBox(3, 3, 'E');
+		//maze.setBox(3, 3, 'E');
 		
 		System.out.println(maze.getBox(1,2).getLabel());
-		
+		System.out.println(maze.getBox(1,2).getChar());
+		System.out.println(maze.getBox(1,3).getLabel());
+		System.out.println(maze.getBox(1,3).getChar());
+		System.out.println(maze.getBox(2,3).getLabel());
+		System.out.println(maze.getBox(3,3).getLabel());
+		System.out.println(maze.getBox(3,3).getChar());
 		maze.saveToTextFile(Maze.PATH);
 		
 		
