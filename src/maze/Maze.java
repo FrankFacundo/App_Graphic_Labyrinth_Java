@@ -34,9 +34,9 @@ public class Maze implements GraphInterface{
 		this.boxes = new MBox[this.width][this.height];
 
 		// Cases initialization
-		for(int i = 0; i < width; i++) {
+		for(int i = 0; i < height; i++) {
 
-			for(int j = 0; j < height; j++) {
+			for(int j = 0; j < width; j++) {
 
 				this.setBox(i,j,'E');
 
@@ -51,22 +51,23 @@ public class Maze implements GraphInterface{
 		switch (type) {
 
 		case 'E':
-			this.boxes[column][row] = new EBox(this, column, row);
+			// pay attention when accessing directly to this.boxes [row][column]
+			this.boxes[row][column] = new EBox(this, column, row);
 			break; 
 
 		case 'W':
-			this.boxes[column][row] = new WBox(this, column, row);
+			this.boxes[row][column] = new WBox(this, column, row);
 			break; 
 
 
 		case 'A':
-			this.boxes[column][row] = new ABox(this, column, row);
+			this.boxes[row][column] = new ABox(this, column, row);
 
 
 			break; 
 
 		case 'D':
-			this.boxes[column][row] = new DBox(this, column, row);
+			this.boxes[row][column] = new DBox(this, column, row);
 			break; 
 
 		default:
@@ -148,10 +149,13 @@ public class Maze implements GraphInterface{
 	}
 
 
+	/**
+	 * Weight between two neighbor cases 
+	 * */
 	@Override
 	public int getWeight(VertexInterface vertex1, VertexInterface vertex2) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return 1;
 	}
 
 	@Override
@@ -195,8 +199,10 @@ public class Maze implements GraphInterface{
 				for (int j = 0 ; j < this.width ; j++) {	
 					
 					pw.print(rows[j].getChar());
+					// System.out.print("index: "+ rows[j].getLabel());
 				} 
 				
+				// System.out.println();
 				pw.println();
 
 			}
@@ -226,7 +232,8 @@ public class Maze implements GraphInterface{
 		
 		Maze maze = new Maze(10, 10);
 		
-		maze.setBox(1, 2, 'W');
+		maze.setBox(1, 2, 'W'); // column number starts at 0, so 1 is for second column
+		// 2 is for third row 
 		maze.setBox(1, 3, 'A');
 		maze.setBox(2, 3, 'D');
 		maze.setBox(3, 3, 'W');
