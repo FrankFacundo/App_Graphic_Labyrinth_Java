@@ -2,7 +2,9 @@
 
 package maze;
 
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -12,8 +14,7 @@ import dijsktra.VertexInterface;
 
 public class Maze implements GraphInterface{
 
-	// The determine the size
-	private final static String PATH = "/Users/Sheila/Desktop/maze.txt";
+	// To determine the size
 	private int width;
 	private int height; 
 
@@ -46,7 +47,7 @@ public class Maze implements GraphInterface{
 
 	}
 
-	private void setBox(int column, int row, char type){
+	public void setBox(int column, int row, char type){
 
 		switch (type) {
 
@@ -154,7 +155,7 @@ public class Maze implements GraphInterface{
 	 * */
 	@Override
 	public int getWeight(VertexInterface vertex1, VertexInterface vertex2) {
-		
+
 		return 1;
 	}
 
@@ -177,9 +178,103 @@ public class Maze implements GraphInterface{
 
 	}
 
-	public void createFromTextFile(String textFileName) throws FileNotFoundException, IOException, Exception {
+	public void initFromTextFile(String fileName) throws FileNotFoundException, IOException, MazeReadingException, Exception {
+
+		FileReader fr =  null; 
+		BufferedReader bufferedReader = null;
 
 
+		try {
+
+			fr = new FileReader(fileName);
+			bufferedReader = new BufferedReader(fr);	
+
+			// the object already exists so height and width are already determined
+			for (int i = 0 ; i < this.height ; i++) {
+
+				String row = bufferedReader.readLine();
+
+				// If the row we are reading is null 
+				if (row == null) {
+
+					// System.err.println("Insufficient number of rows");
+					throw new MazeReadingException(fileName, i, " Insufficient number of rows." );
+
+				} else {
+
+					// we check the size
+					if (row.length() < this.width) {
+
+						// System.err.println("The row "+ i + 1 + " does not contain enough cases");
+						throw new MazeReadingException(fileName, i, "The row " + i + 1 +
+								" does not contain enough cases" );
+
+					} else if (row.length() > this.width) {
+
+
+						// System.err.println("The row "+ i + 1 + " contains too many cases");
+						throw new MazeReadingException(fileName, i, "The row " + i + 1 + " contains too many cases" );
+
+					} else {
+
+						for (int j = 0 ; j < this.width ; j++)
+						{
+							switch (row.charAt(j)) 
+							{
+							case 'D' :
+								this.boxes[i][j] = new DBox(this, j, i); 
+								break;
+							case 'A' :
+								boxes[i][j] = new ABox(this, j, i);
+								break;
+							case 'W' :
+								boxes[i][j] = new WBox(this, j, i); 
+								break;
+							case 'E' :
+								boxes[i][j] = new EBox(this, j, i);
+								break;         	
+							default :
+
+								//System.err.println("Invalid character");
+								throw new MazeReadingException(fileName, i, " Unknown character: " +
+										boxes[j][i] + "." );
+
+							}
+						} 
+
+					}
+
+				}
+
+			}
+
+		} finally {
+
+			if (fr != null) {
+				try {
+
+					fr.close(); 
+
+				} catch (Exception e) {
+
+					System.err.println("Failed to close file");
+				};		
+			}
+
+			if (bufferedReader != null) {
+				try {
+
+					bufferedReader.close(); 
+
+				} catch (Exception e) {
+
+					System.err.println("Failed to close reader");
+
+				};		
+			}
+
+
+		}
 
 
 	}
@@ -195,13 +290,13 @@ public class Maze implements GraphInterface{
 			for (int i = 0; i < this.height; i++) {
 
 				MBox[] rows = boxes[i] ;
-				
+
 				for (int j = 0 ; j < this.width ; j++) {	
-					
+
 					pw.print(rows[j].getChar());
 					// System.out.print("index: "+ rows[j].getLabel());
 				} 
-				
+
 				// System.out.println();
 				pw.println();
 
@@ -217,7 +312,7 @@ public class Maze implements GraphInterface{
 				try {
 					pw.close(); 
 				} catch (Exception e) {
-					
+
 					System.err.println("Failed to close file");
 				};		
 			}		
@@ -225,33 +320,5 @@ public class Maze implements GraphInterface{
 		}
 
 	}
-	
-	public static void main(String[] args) throws FileNotFoundException, IOException, Exception {
-		
-		System.out.println("hello, I will try to save to a file");
-		
-		Maze maze = new Maze(10, 10);
-		
-		maze.setBox(1, 2, 'W'); // column number starts at 0, so 1 is for second column
-		// 2 is for third row 
-		maze.setBox(1, 3, 'A');
-		maze.setBox(2, 3, 'D');
-		maze.setBox(3, 3, 'W');
-		// make it empty 
-		//maze.setBox(3, 3, 'E');
-		
-		System.out.println(maze.getBox(1,2).getLabel());
-		System.out.println(maze.getBox(1,2).getChar());
-		System.out.println(maze.getBox(1,3).getLabel());
-		System.out.println(maze.getBox(1,3).getChar());
-		System.out.println(maze.getBox(2,3).getLabel());
-		System.out.println(maze.getBox(3,3).getLabel());
-		System.out.println(maze.getBox(3,3).getChar());
-		maze.saveToTextFile(Maze.PATH);
-		
-		
-		
-	}
-
 
 }
