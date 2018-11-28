@@ -6,14 +6,14 @@ public interface PiInterface {
 	 * @param vertex, the vertex
 	 * @return the distance between the source and the vertex
 	 */
-	public int getPi(VertexInterface vertex);
+	public int getValue(VertexInterface vertex);
 
 	/**
 	 * To set the distance from the source to a vertex
 	 * @param vertex, the vertex
 	 * @param newPi, the distance to be set 
 	 */
-	public void setPi(VertexInterface vertex, int newPi);
+	public void setValue(VertexInterface vertex, int newPi);
 
 
 }

@@ -11,13 +11,18 @@ public class Graph implements GraphInterface {
 	private VertexInterface source; 
 
 	// The constructor must contain the source vertex (?)
-	public Graph(VertexInterface sourceVertex) {
+	public Graph() {
 
-		this.source = sourceVertex; 
+		// this.source = sourceVertex; 
 		this.vertexes = new ArrayList<VertexInterface>();
 	}
 
 
+	public void setSourceVertex(VertexInterface sourceVertex){
+
+		this.source = sourceVertex;
+	}
+	
 	public VertexInterface getSourceVertex(){
 
 		return this.source;

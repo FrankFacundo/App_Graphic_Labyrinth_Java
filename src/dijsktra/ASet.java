@@ -1,37 +1,37 @@
 package dijsktra;
-import java.util.ArrayList;
+import java.util.HashSet;
 
 public class ASet implements ASetInterface {
 
 	/**
-	 * The list of vertexes, whose distances have already been calculated thanks to Dijsktra's algorithm
+	 * The vertexes, whose distances have already been calculated
+	 * thanks to Dijsktra's algorithm
 	 */
-	private ArrayList<VertexInterface> vertexes;
+	private HashSet<VertexInterface> vertexes;
 
 	public ASet(){
 
-		this.vertexes = new ArrayList<VertexInterface>();
+		this.vertexes = new HashSet<VertexInterface>();
 	}
 
 
-	public void addVertex(VertexInterface vertex) {
+	public void add(VertexInterface vertex) {
 
 		this.vertexes.add(vertex);
 
 	}
 
 
-	public boolean containsVertex(VertexInterface vertex) {
+	public boolean contains(VertexInterface vertex) {
 
 		return vertexes.contains(vertex);
 	}
 
 
-	public ArrayList<VertexInterface> getVertexes() {
+	public HashSet<VertexInterface> getVertexes() {
 
 		return this.vertexes;
 	}
-
 
 
 }
