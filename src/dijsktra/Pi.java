@@ -1,48 +1,30 @@
 package dijsktra;
-import java.util.HashMap;
+import java.util.Hashtable;
 
 public class Pi implements PiInterface {
 
-	/**
-	 * This list will contain the vertexes 
-	 */
-    //private ArrayList<VertexInterface> vertexes;
-    /**
-     * This list will contain the distance source-vertex
-     * Same indexes as in pathList list
-     */
-    //private ArrayList<Integer> distances;
-	
-	private final HashMap<VertexInterface, Integer> piMap;
 
-    /**
-     * The constructor initializes both the vertex and the distance list
-     */
+    // HashTable will contain the vertexes and the corresponding distance source-vertex
+	private final Hashtable<VertexInterface, Integer> piTable;
+
+	
 	public Pi() {
 		
-		this.piMap = new HashMap<VertexInterface, Integer>();
+		this.piTable = new Hashtable<VertexInterface, Integer>();
 		
 	}
     
-	public int getPi(VertexInterface vertex) {
-		/*
-		if (this.vertexes.contains(vertex)){
-			  int index = this.vertexes.indexOf(vertex);
-			  return this.distances.get(index);
-			  
-			} else {
-				return -1;
-			}*/
-		return piMap.get(vertex).intValue();
+	public int getValue(VertexInterface vertex) {
+	
+		
+		return piTable.get(vertex).intValue();
 		
 	}
 
-	public void setPi(VertexInterface vertex, int newPi) {
+	public void setValue(VertexInterface vertex, int newPi) {
 		
-		piMap.put(vertex, new Integer(newPi));
-		
-		//this.vertexes.add(vertex);
-		//this.distances.add(newPi);
+		piTable.put(vertex, new Integer(newPi));
+	
 		
 	}
 

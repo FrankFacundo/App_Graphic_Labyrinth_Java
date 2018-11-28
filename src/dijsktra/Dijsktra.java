@@ -3,34 +3,31 @@ import java.util.ArrayList;
 
 public class Dijsktra {
 
-	// necessary to pass aSet empty as attribut ?
-	// what if r is the source att of the graph? 
-	// pi attribut not neccessary 
-	
-	private static final PreviousInterface dijkstra(GraphInterface graph){
-		/**
-		 * "aSet" is initially empty
-		 */
+
+	// Public method of Dijkstra's algorithm	
+	public static PreviousInterface dijkstra(GraphInterface graph, VertexInterface r) {
+		// what if r is the source attribute of the graph? 
+		
 		Pi pi = new Pi();
 		Previous prev = new Previous();
+		ASet aSet = new ASet(); // initially empty 
 		
-		VertexInterface r = graph.getSourceVertex();
-		ASet aSet = new ASet();
+		graph.setSourceVertex(r);
+		
 		ArrayList<VertexInterface> allVertexes = graph.getAllVertexes();
 		int n = allVertexes.size();	
 		
-	
 		//"aSet" receives the root vertex "r"
-		aSet.addVertex(r);
+		aSet.add(r);
 		
-		//We assign great values to all vertexes 
+		//Initialization: we assign great values to all vertexes 
 		for (VertexInterface v : allVertexes)
 		{
-			pi.setPi(v, Integer.MAX_VALUE);
+			pi.setValue(v, Integer.MAX_VALUE);
 		}
 		
 		//The Pi value of root vertex receives 0 
-		pi.setPi(r,0);
+		pi.setValue(r,0);
 		
 		//The first pivot is root "r"
 		VertexInterface pivot = r;
@@ -46,15 +43,14 @@ public class Dijsktra {
 			
 			for (VertexInterface v : pivotSuccessors)
 			{
-				if (!aSet.containsVertex(v))
+				if (!aSet.contains(v))
 				{
 					int newPi = piPivot + graph.getWeight(pivot, v);
 					
-					if (newPi < pi.getPi(v))
+					if (newPi < pi.getValue(v))
 					{
-						pi.setPi(v, newPi);
-						
-						prev.setPreviousVertex(v, pivot);
+						pi.setValue(v, newPi);
+						prev.setValue(v, pivot);
 					}
 				}
 			}
@@ -65,14 +61,13 @@ public class Dijsktra {
 			//We search the new pivot and its Pi value
 			for (VertexInterface v : allVertexes)
 			{
-				if (!aSet.containsVertex(v))
+				if (!aSet.contains(v))
 				{
-					int piV = pi.getPi(v);
+					int piV = pi.getValue(v);
 					if (piV < piNewPivot)
 					{
 						newPivot = v;
 						piNewPivot = piV;
-
 
 					}
 				}
@@ -86,7 +81,7 @@ public class Dijsktra {
 			
 			pivot = newPivot;
 			piPivot = piNewPivot;
-			aSet.addVertex(pivot);		
+			aSet.add(pivot);		
 		}		
 
 		return prev;
@@ -104,7 +99,9 @@ public class Dijsktra {
 		Vertex v6 = new Vertex("Loreto");
 
 		
-		Graph graph = new Graph(v1);
+		Graph graph = new Graph();
+		//graph.setSourceVertex(v1);
+		
 		graph.addVertex(v1);
 		graph.addVertex(v2);
 		graph.addVertex(v3);
@@ -129,11 +126,12 @@ public class Dijsktra {
 		
 		graph.addEdge(v5, v6, 2); 
 		
+		// System.out.println("Number of vertexes adjacent to the source : "+v1.getAdjacentVertexesAndDistances().size());
+		
+		PreviousInterface previous = dijkstra(graph, v1);
+		
 		System.out.println("The graph: \n" + graph.toString());
 		
-		// System.out.println("Number of vertexes adjacents to the source : "+v1.getAdjacentVertexesAndDistances().size());
-		
-		PreviousInterface previous = dijkstra(graph);
 		
 		ArrayList <VertexInterface> previousVertexes = previous.getShortestPath(v3);
 		
