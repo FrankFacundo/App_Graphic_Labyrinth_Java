@@ -9,6 +9,8 @@ public interface GraphInterface {
 	// To get the weight of an edge joining two vertexes 
 	public int getWeight(VertexInterface vertex1, VertexInterface vertex2);
 	
+	public void setSourceVertex(VertexInterface sourceVertex);
+	
 	public VertexInterface getSourceVertex();
 
 	// To add a vertex to the graph 
