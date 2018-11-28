@@ -1,64 +1,34 @@
 package dijsktra;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
 
 public class Previous implements PreviousInterface{
 
-	// We could use hashmap (associative array instead of two lists)
-	
-	/**
-	 * This list will contain the vertexes 
-	 */
-	//private ArrayList<VertexInterface> vertexes;
-	/**
-	 * This list will contain the previous vertexes (associated with the vertexes in the vertexes list)
-	 * Same indexes as in pathList list
-	 */
-	//private ArrayList<VertexInterface> previousVertexes;
-	
-	private final HashMap<VertexInterface, VertexInterface> previousMap; 
+	// We use Hashtable (associative array instead of two lists)
+	private final Hashtable<VertexInterface, VertexInterface> previousTable; 
 
 	/**
-	 * The constructor initializes both the vertex and the previous vertex list
+	 * The constructor initializes the Hashtable containing both the vertex and the previous vertex
 	 */
 	public Previous(){
 
-		//this.vertexes = new ArrayList<VertexInterface>();
-		//this.previousVertexes = new ArrayList<VertexInterface>();
-		this.previousMap = new HashMap<VertexInterface, VertexInterface>(); // will contain the vertex and the previous vertex (father) 
+		this.previousTable = new Hashtable<VertexInterface, VertexInterface>(); // will contain the vertex and the previous vertex (father) 
 
 	}
 
-	public VertexInterface getPreviousVertex(VertexInterface vertex) {
+	public VertexInterface getValue(VertexInterface vertex) {
 
-		/*
-		if (this.vertexes.contains(vertex)){
-			int index = this.vertexes.indexOf(vertex);
-			return this.previousVertexes.get(index);
 
-		} else {
-			return null;
-		}*/
-
-		return this.previousMap.get(vertex);
-		
+		return this.previousTable.get(vertex);
 		
 
 	}
 
-	public void setPreviousVertex(VertexInterface vertex, VertexInterface previousVertex) {
-		/*
-		if (this.vertexes.contains(vertex)){
-			
-			int index = this.vertexes.indexOf(vertex);
-			this.previousVertexes.set(index, previousVertex);
-
-		} else {
-			this.vertexes.add(vertex);
-			this.previousVertexes.add(previousVertex);
-
-		}*/
-		this.previousMap.put(vertex, previousVertex);
+	public void setValue(VertexInterface vertex, VertexInterface previousVertexVal) {
+		
+		
+		this.previousTable.put(vertex, previousVertexVal);
 
 	}
 
@@ -71,7 +41,7 @@ public class Previous implements PreviousInterface{
 		while (vertex != null) {
 			
 			path.add(vertex);
-			vertex = this.getPreviousVertex(vertex);
+			vertex = this.getValue(vertex);
 		}
 
 		return path;
