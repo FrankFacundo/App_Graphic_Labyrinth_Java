@@ -9,4 +9,5 @@ public final class QuitMenuItem extends JMenuItem
     super("Quit");
     this.drawingApp = drawingApp;
   }
+  
 }
