@@ -327,5 +327,7 @@ public class Maze implements GraphInterface{
 		this.depart = sourceVertex;
 		
 	}
+	
+	
 
 }
