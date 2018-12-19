@@ -321,4 +321,11 @@ public class Maze implements GraphInterface{
 
 	}
 
+	
+	public void setSourceVertex(VertexInterface sourceVertex) {
+		
+		this.depart = sourceVertex;
+		
+	}
+
 }
