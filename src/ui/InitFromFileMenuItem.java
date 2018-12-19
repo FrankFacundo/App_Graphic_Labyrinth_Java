@@ -2,11 +2,11 @@ package ui;
 
 
 import javax.swing.JMenuItem;
-public final class InitFromTextFile extends JMenuItem
+public final class InitFromFileMenuItem extends JMenuItem
 {
   private final DrawingApp drawingApp;
 
-  public InitFromTextFile (DrawingApp drawingApp)
+  public InitFromFileMenuItem (DrawingApp drawingApp)
   {
     super("Intialize from file");
     this.drawingApp = drawingApp;
