@@ -17,5 +17,10 @@ public final class WindowPanel extends JPanel {
 		
 	}
 	
+	public void notifyForUpdate() {
+	   mazePanel.notifyForUpdate() ;
+	   buttonsPanel.notifyForUpdate() ;
+	}
+	
 }
 

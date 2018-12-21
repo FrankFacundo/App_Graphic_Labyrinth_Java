@@ -3,6 +3,10 @@ package maze;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+//import com.sun.prism.Graphics;
+
+import java.awt.Graphics;
+
 import dijsktra.VertexInterface;
 
 public  abstract class MBox implements VertexInterface{
@@ -70,5 +74,7 @@ public  abstract class MBox implements VertexInterface{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public abstract void paintCase(Graphics g, int h, int w);
 	
 }

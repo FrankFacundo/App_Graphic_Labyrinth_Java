@@ -29,6 +29,40 @@ public final class MazePanel extends JPanel {
 		}
 
 	}
+	
+	/*
+	public void paintComponents(Graphics g) {
+		
+		super.paintComponent(g);
+		int h = this.getHeight();
+		int w = this.getWidth();
+		
+		for(int i = 0; i < 10; i++) {
+			
+			for(int j = 0; j < 10; j++) {
+
+				maze[i][j].paint(g, h, w);
+			}
+		}
+		
+		
+	}
+	*/
+	
+	@Override
+	protected void paintComponent(Graphics g)
+   {
+      // Paint the background
+      super.paintComponent(g) ;
+		
+      // Ask the model to draw the cases
+      app.getModel().paintCases(g) ;
+   }
+	
+	public void notifyForUpdate() 
+	{
+	   repaint() ;		
+	}
 
 }
 
