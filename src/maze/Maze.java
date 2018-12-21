@@ -2,6 +2,7 @@
 
 package maze;
 
+import java.awt.Graphics;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -327,6 +328,15 @@ public class Maze implements GraphInterface{
 		this.depart = sourceVertex;
 		
 	}
+	
+
+	public void paint(int i, int j, Graphics g, int h, int w) {
+		
+		this.boxes[i][j].paintCase(g, h, w);
+	
+	}
+	
+	
 	
 	
 

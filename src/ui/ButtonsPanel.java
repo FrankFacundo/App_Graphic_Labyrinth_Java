@@ -19,4 +19,8 @@ public final class ButtonsPanel extends JPanel {
 		add(solveButton = new SolveButton(app));
 		
 	}
+	
+	public void notifyForUpdate() {
+		solveButton.notifyForUpdate() ;
+	}
 }
