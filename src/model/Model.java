@@ -10,7 +10,7 @@ public class Model extends Observable {
 
 
 	private final ArrayList<Case> editedCases  = new ArrayList<Case>(10) ;
-	private Case selectedCase = new Case();
+	private Case selectedCase = new Case(); 
 
 
 	public Case getSelectedCase() {
