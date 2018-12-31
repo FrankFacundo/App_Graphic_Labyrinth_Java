@@ -56,7 +56,7 @@ public final class MazePanel extends JPanel {
       super.paintComponent(g) ;
 		
       // Ask the model to draw the cases
-      app.getModel().paintCases(g) ;
+      app.getModel().paintCase(g) ;
    }
 	
 	public void notifyForUpdate() 

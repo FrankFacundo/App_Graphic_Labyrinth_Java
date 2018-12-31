@@ -1,32 +1,49 @@
 package ui;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
-public final class QuitMenuItem extends JMenuItem
-{
-  private final DrawingApp drawingApp;
+import model.Model;
 
-  public QuitMenuItem (DrawingApp drawingApp)
-  {
-    super("Quit");
-    this.drawingApp = drawingApp;
-    /* Example of Action listener
-     *    @Override
-    	public void actionPerformed(ActionEvent e) {
+public final class QuitMenuItem extends JMenuItem implements ActionListener {
+	private final DrawingApp app;
 
-       if("exit".equals(e.getActionCommand())){
+	public QuitMenuItem (DrawingApp app) {
+		super("Quit");
+		this.app = app;
+		addActionListener(this) ;
+	}
 
-         int dialogButton = JOptionPane.YES_NO_OPTION;
-         JOptionPane.showConfirmDialog (null, "Would You Like to Save your Previous Laberynth First?","Warning",dialogButton);
 
-         if(dialogButton == JOptionPane.YES_OPTION){
-            System.exit(NORMAL);
-         }
+	@Override
+	public void actionPerformed(ActionEvent evt){
+		Model model = app.getModel();
 
-    }
-     * 
-     * 
-     * 
-     * */
-    
-  }
-  
+		//if (!model.isSolved()) {
+			int response = JOptionPane.showInternalOptionDialog(this,
+					"You are about to quit the application. Do you want to save this maze before quitting?",
+					"Quit Maze by Sheila & Frank",
+					JOptionPane.YES_NO_CANCEL_OPTION,
+					JOptionPane.WARNING_MESSAGE,
+					null,null,null) ;
+			
+			
+			switch (response) {
+			case JOptionPane.CANCEL_OPTION:
+				return ; // go back to the application 
+			case JOptionPane.OK_OPTION:
+				//drawingAppModel.saveToFile() ;
+				break ;
+			case JOptionPane.NO_OPTION:
+				break ;
+			}
+		//} 
+		
+		System.exit(0) ;
+	}
+
+
+
 }
+
+
+

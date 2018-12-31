@@ -35,8 +35,9 @@ public class ABox extends MBox
 	
 
 	@Override
-	public void paintCase(Graphics g, int h, int w) {
-		// TODO Auto-generated method stub
+	public void paint(Graphics g, int h, int w) {
+		
+		g.drawRect(5, 5, w - 10, h - 10);
 		
 	}
 	

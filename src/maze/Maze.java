@@ -332,7 +332,7 @@ public class Maze implements GraphInterface{
 
 	public void paint(int i, int j, Graphics g, int h, int w) {
 		
-		this.boxes[i][j].paintCase(g, h, w);
+		this.boxes[i][j].paint(g, h, w);
 	
 	}
 	
