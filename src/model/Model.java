@@ -6,10 +6,18 @@ import java.util.Observable;
 
 import javax.swing.*;
 
+import maze.MBox;
+
 public class Model extends Observable {
 
 
+	private  boolean  gameOver  = false ;
+	// booléen disant si le modèle a été modifié afin de proposer une sauvegarde en cas de fermeture de l'application
+
+	private MBox[][] boxes;
+
 	private final ArrayList<Case> editedCases  = new ArrayList<Case>(10) ;
+
 	private Case selectedCase = new Case(); 
 
 
