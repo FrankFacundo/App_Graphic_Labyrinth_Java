@@ -1,5 +1,6 @@
 package ui;
 import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.*;
 
@@ -8,7 +9,7 @@ import com.sun.prism.Graphics;
 import model.Model;
 import maze.Maze;
 
-public class DrawingApp extends JFrame 
+public class DrawingApp extends JFrame implements Observer
 {
 	private final DrawingMenuBar drawingMenuBar;
 	private final WindowPanel windowPanel;
@@ -20,11 +21,13 @@ public class DrawingApp extends JFrame
 
 		drawingMenuBar = new DrawingMenuBar(this);
 		this.setJMenuBar(drawingMenuBar);
+		
 		this.setContentPane(windowPanel = new WindowPanel(this));
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.pack();
 		this.setVisible(true);
+		model.addObserver(this);
 	}
 
 
@@ -45,9 +48,6 @@ public class DrawingApp extends JFrame
 
 	}
 
-	public void update(Observable observable, Object parameter) {
-		windowPanel.notifyForUpdate() ;	
-	}
 
 	public Model getModel() {
 		return this.model;
@@ -56,6 +56,10 @@ public class DrawingApp extends JFrame
 
 	public void setModel(Model model) {
 		this.model = model;
+	}
+	
+	public void update(Observable observable, Object parameter) {
+		windowPanel.notifyForUpdate() ;	
 	}
 
 }

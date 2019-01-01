@@ -32,4 +32,11 @@ public class EBox extends MBox
 		
 	}
 	
+	@Override
+	public void draw(Graphics g, int h, int w) {
+		
+		g.drawRect(5, 5, w - 10, h - 10);
+		
+	}
+	
 }

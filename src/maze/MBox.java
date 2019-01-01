@@ -77,4 +77,6 @@ public  abstract class MBox implements VertexInterface{
 	
 	public abstract void paint(Graphics g, int h, int w);
 	
+	public abstract void draw(Graphics g, int h, int w);
+	
 }
