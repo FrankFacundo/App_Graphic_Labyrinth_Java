@@ -50,8 +50,7 @@ public final class MazePanel extends JPanel {
 	*/
 	
 	@Override
-	protected void paintComponent(Graphics g)
-   {
+	protected void paintComponent(Graphics g)  {
       // Paint the background
       super.paintComponent(g) ;
 		

@@ -9,8 +9,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Iterator;
 
+import javax.swing.JOptionPane;
+
+import dijsktra.Dijsktra;
 import dijsktra.GraphInterface;
+import dijsktra.Previous;
 import dijsktra.VertexInterface;
 
 public class Maze implements GraphInterface{
@@ -24,7 +29,7 @@ public class Maze implements GraphInterface{
 	private VertexInterface depart;
 	private VertexInterface arrival;
 
-	private boolean end = false; 
+	private boolean solved = false; 
 
 
 	public Maze(int width, int height){
@@ -149,6 +154,7 @@ public class Maze implements GraphInterface{
 
 		return accessibleVertexes;
 	}
+
 
 
 	/**
@@ -298,7 +304,6 @@ public class Maze implements GraphInterface{
 					// System.out.print("index: "+ rows[j].getLabel());
 				} 
 
-				// System.out.println();
 				pw.println();
 
 			}
@@ -308,8 +313,7 @@ public class Maze implements GraphInterface{
 			System.err.println("Printer failed");
 		} finally {
 
-			if (pw != null)
-			{
+			if (pw != null) {
 				try {
 					pw.close(); 
 				} catch (Exception e) {
@@ -322,22 +326,242 @@ public class Maze implements GraphInterface{
 
 	}
 
-	
-	public void setSourceVertex(VertexInterface sourceVertex) {
-		
-		this.depart = sourceVertex;
-		
+
+	public final MBox getCase(int column, int row) {
+		return this.boxes[column][row];
 	}
-	
+
+
+	// Getter for the case's symbol (char)  ui will call this method
+	public char getCaseSymbol(int column, int row) {		
+		try {
+			char symbol = boxes[column][row].getChar();
+			return symbol;
+
+		} catch (Exception e) {
+			System.err.println("Error: impossible to access this case");
+
+			JOptionPane.showMessageDialog(null, "Impossible to access this case", "Case error", JOptionPane.ERROR_MESSAGE);
+		
+			return ' ';
+
+		}
+	}	
+
+
+
+	public void setSourceVertex(VertexInterface sourceVertex) {
+
+		this.depart = sourceVertex;
+
+	}
+
+
+	public void draw(int i, int j, Graphics g, int h, int w) {
+
+		this.boxes[i][j].draw(g, h, w);
+
+	}
 
 	public void paint(int i, int j, Graphics g, int h, int w) {
-		
+
 		this.boxes[i][j].paint(g, h, w);
-	
+
 	}
-	
-	
-	
-	
+
+	// To change the case's symbol 
+	public void setCaseSymbol(int row, int column, char c) {   
+		if (row <= 0 || column <= 0 || row >= this.height-1 || column >= this.width-1)	{
+			System.err.println("Error: impossible to edit this case");
+			JOptionPane.showMessageDialog(null, "Impossible to edit this case", "Case error", JOptionPane.ERROR_MESSAGE);
+			return;
+		}     
+
+		else if (this.solved) {
+			askToReinit();
+			return;
+		}
+
+		else {    	
+			try{
+				switch (c)     	
+				{
+				case 'D' :
+					boxes[row][column] = new DBox(this,column,row); break;
+				case 'A' :
+					boxes[row][column] = new ABox(this,column,row); break;
+				case 'W' :
+					boxes[row][column] = new WBox(this,column,row); break;
+				case 'E' :
+					boxes[row][column] = new EBox(this,column,row); break;  
+				case 'X' :
+					return;
+					//	boxes[row][column] = new other Type      		
+				default :  
+					return;
+				}
+
+			}  catch (Exception e) {    	
+
+				System.err.println("Error: impossible to edit this case");
+
+				JOptionPane.showMessageDialog(null, "Impossible to edit this case", "Case error", JOptionPane.ERROR_MESSAGE);
+
+			}
+		}    
+
+	}
+
+
+	// To reinitialize the maze
+	private void askToReinit() {
+
+		int option = JOptionPane.showConfirmDialog(null, "The shortest path has been found for this maze. Do you want to reinitialize the maze?", 
+				"Maze reinitialization", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);	
+
+		if(option == JOptionPane.OK_OPTION) {
+			for (int i=1 ; i < this.height-1 ; i++)
+			{
+				for (int j=1 ; j < this.width-1 ; j++)
+				{					
+					//if(this.getCaseSymbol(j, i) == '*')	{
+					setBox(j, i, 'E');
+				}
+			}
+
+			this.solved = false;
+
+		} else {
+
+			return;
+		}
+
+
+	}
+
+	// To verify that the maze is valid 
+	public boolean isValid() {
+
+
+		boolean valid = false; 
+
+		int i = 0;
+		int j = 0; 
+		int a = 0; 
+		int d = 0;
+
+		while (i < this.height && !valid) {
+
+			while (j < this.width && !valid) {
+
+				if (this.getCaseSymbol(j, i) == 'D') {
+					d++;
+				} else if (this.getCaseSymbol(j,i) == 'A'){
+					a++;
+				}
+
+
+				if (a == 1 && d == 1) {
+
+					valid = true;
+				}
+
+				j++;
+
+			}
+
+			i++;
+
+		}
+
+		return valid;
+
+
+	}
+
+
+	// Finds the shortest path between d and a cases
+
+	public void calculateShortestPath() throws NullPointerException {		
+
+		try {   
+
+			if (this.solved) {
+
+				this.askToReinit();
+				
+			} else if (this.isValid()) {
+
+				int i = 0;
+				int j = 0; 
+				int flags = 0;
+
+				while (i < this.height && flags < 2) {
+
+					while (j < this.width && flags < 2) {
+
+						if (this.getCaseSymbol(j, i) == 'D') {
+							this.depart = getBox(j,i);
+							flags++;
+						} else if (this.getCaseSymbol(j,i) == 'A'){
+							this.arrival = getBox(j,i);
+							flags++;
+						}
+
+						j++;
+
+					}
+
+					i++;
+				}
+
+
+				Previous p = (Previous) Dijsktra.dijkstra(this, depart);      	    	
+				ArrayList<VertexInterface> shortestPath = p.getShortestPath(arrival);
+
+				this.printShortestPath(shortestPath); 
+				this.solved = true;				
+				return;
+
+			} else {
+				
+				System.err.println("Error: the maze is not valid. A case for the depart and another one for the arrival must be chosen.");
+				JOptionPane.showMessageDialog(null, "The maze is not valid. A case for the depart and another one for the arrival must be chosen", "Maze error", JOptionPane.ERROR_MESSAGE);
+			
+				return;
+			} 
+
+		} catch(NullPointerException e){
+			
+			System.err.println("Error: no maze has been initialized.");
+			JOptionPane.showMessageDialog(null, "No maze has been initialized", "Maze error", JOptionPane.ERROR_MESSAGE);
+
+		} finally {
+			
+			// repaint cases with paint();
+			// TO DO 
+		
+		}
+	}  
+
+
+	// To print the shortest path later on 
+	private void printShortestPath(ArrayList<VertexInterface> shortestPath) {
+
+		if(shortestPath != null) {
+
+			Iterator<VertexInterface> iterator = shortestPath.iterator();
+			int i, j;
+
+			while(iterator.hasNext()) {
+
+				MBox c = (MBox)iterator.next();
+				i = c.getRow();
+				j = c.getColumn();
+				this.setCaseSymbol(i, j, 'X'); 
+			}			
+		}
+	}
 
 }
+
