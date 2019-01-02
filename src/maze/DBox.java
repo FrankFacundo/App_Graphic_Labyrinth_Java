@@ -36,4 +36,11 @@ public class DBox extends MBox
 		g.drawRect(5, 5, w - 10, h - 10);
 		
 	}
+	
+	@Override
+	public void draw(Graphics g, int h, int w) {
+		
+		g.drawRect(5, 5, w - 10, h - 10);
+		
+	}
 }

@@ -19,26 +19,63 @@ public final class QuitMenuItem extends JMenuItem implements ActionListener {
 		Model model = app.getModel();
 
 		//if (!model.isSolved()) {
+
+		/*
 			int response = JOptionPane.showInternalOptionDialog(this,
 					"You are about to quit the application. Do you want to save this maze before quitting?",
 					"Quit Maze by Sheila & Frank",
 					JOptionPane.YES_NO_CANCEL_OPTION,
 					JOptionPane.WARNING_MESSAGE,
 					null,null,null) ;
-			
-			
+
+
 			switch (response) {
 			case JOptionPane.CANCEL_OPTION:
-				return ; // go back to the application 
+				//JOptionPane.
+				 System.out.println("Cancel");
+				 return ; // go back to the application 
+
 			case JOptionPane.OK_OPTION:
 				//drawingAppModel.saveToFile() ;
 				break ;
 			case JOptionPane.NO_OPTION:
 				break ;
 			}
+
+		 */
 		//} 
-		
-		System.exit(0) ;
+
+
+
+		//Object[] options = {"Cancel", "Yes", "No"};
+		int n = JOptionPane.showOptionDialog(this,
+				"You are about to quit the application. Do you want to save this maze before quitting?",
+				"Quit Maze by Sheila & Frank",
+				//JOptionPane.YES_NO_OPTION,
+				JOptionPane.YES_NO_CANCEL_OPTION,
+				JOptionPane.WARNING_MESSAGE,
+				null,
+				null,
+				null);
+		if (n == JOptionPane.YES_OPTION) {
+
+			//drawingAppModel.saveToFile() ;
+			System.exit(0) ;
+
+		} else if (n == JOptionPane.NO_OPTION) {
+
+			System.exit(0) ;
+
+		} else if (n == JOptionPane.CANCEL_OPTION){
+
+			return;
+
+		} else {
+
+			return;
+		}
+
+
 	}
 
 
