@@ -1,10 +1,6 @@
 package maze;
-
 import java.awt.Graphics;
-import java.util.ArrayList;
-import java.util.HashMap;
 
-import dijsktra.VertexInterface;
 
 public class EBox extends MBox
 {
@@ -13,8 +9,7 @@ public class EBox extends MBox
 	}
 
 	
-	public boolean isEmpty()
-	{
+	public boolean isEmpty() {
 		return true;
 	}
 

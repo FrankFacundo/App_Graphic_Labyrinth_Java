@@ -6,7 +6,7 @@ public interface VertexInterface {
 
 
 	/**
-	 * To get the String value contained in the vertex
+	 * To get the String associated with the vertex
 	 * @return the String associated to the vertex
 	 */
 	

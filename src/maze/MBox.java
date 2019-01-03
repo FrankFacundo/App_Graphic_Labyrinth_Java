@@ -14,20 +14,22 @@ public  abstract class MBox implements VertexInterface{
 	private Maze maze;
 	private int column; 
 	private int row;
-	private String label;
+	//private String label;
 	
 	public MBox(Maze maze, int column, int row){
 	
 		this.maze = maze;
 		this.column = column;
 		this.row = row;
-		this.label = "(" + this.column + "," + this.row  + ")";
+		// this.label = "(" + this.column + "," + this.row  + ")";
 		
 	}
 
 	public String getLabel() {
 		
-		return this.label;
+		return "(" + this.column + "," + this.row  + ")";
+				
+		//this.label;
 		
 		
 	}
@@ -43,8 +45,7 @@ public  abstract class MBox implements VertexInterface{
 		return this.row;
 	}
 	
-	public boolean isEmpty()
-	{
+	public boolean isEmpty() {
 		return true;
 	}
 	

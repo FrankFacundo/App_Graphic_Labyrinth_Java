@@ -1,3 +1,16 @@
+import ui.DrawingApp;
+
+public class MainTest {
+	
+	public static void main(String[] args)  {
+		
+		new DrawingApp();
+	}
+
+}
+
+
+
 /*
 import java.io.FileNotFoundException;
 import java.io.IOException;

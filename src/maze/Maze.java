@@ -1,5 +1,3 @@
-// hello I'm making a comment to update my branch
-
 package maze;
 
 import java.awt.Graphics;
@@ -53,7 +51,7 @@ public class Maze implements GraphInterface{
 
 	}
 
-	public void setBox(int column, int row, char type){
+	public void setBox(int column, int row, char type) {
 
 		switch (type) {
 
@@ -98,8 +96,7 @@ public class Maze implements GraphInterface{
 
 		ArrayList<VertexInterface> allVertexes = new ArrayList<VertexInterface>();
 
-		for (int i = 0 ; i < this.height ; i++)
-		{
+		for (int i = 0 ; i < this.height ; i++) {
 			MBox[] row = boxes[i];
 			for (int j = 0 ; j < this.width ; j++)
 
@@ -113,10 +110,52 @@ public class Maze implements GraphInterface{
 	/**
 	 * 
 	 * @param vertex
+	 * @return the list of a vertexe's successors
+	 */
+	public final ArrayList<VertexInterface> getSuccessors(VertexInterface vertex) {
+
+		MBox box = (MBox)vertex ; 
+		MBox successor;
+		ArrayList<VertexInterface> successors = new ArrayList<VertexInterface>();
+
+		int row = box.getRow();
+		int column = box.getColumn();
+
+		// upper neighbors
+		if (row > 0) { 
+			successor = boxes[column][row-1];
+			successors.add(successor);
+		}
+
+		// lower neighbors
+		if (row < this.height - 1) { 
+			successor = boxes[column][row+1];
+			successors.add(successor);
+		}
+
+		// left neighbors
+		if (column > 0) { 
+			successor = boxes[column-1][row];
+			successors.add(successor);
+		}
+
+		// right neighbors
+		if (column < width - 1) { 
+			successor = boxes[column+1][row];
+			successors.add(successor);
+		}	
+
+		return successors;
+
+	}
+
+
+	/**
+	 * 
+	 * @param vertex
 	 * @return the list of vertexes accessible to a vertex 
 	 */
-	public final ArrayList<VertexInterface> getAccessibleVertexes(VertexInterface vertex) 
-	{
+	public final ArrayList<VertexInterface> getAccessibleVertexes(VertexInterface vertex) {
 		MBox box = (MBox)vertex ; 
 		ArrayList<VertexInterface> accessibleVertexes = new ArrayList<VertexInterface>();
 
@@ -158,38 +197,21 @@ public class Maze implements GraphInterface{
 
 
 	/**
-	 * Weight between two neighbor cases 
-	 * */
+	 * 
+	 * @param vertex
+	 * @return the weight of an edge joining two cases
+	 */
 	@Override
 	public int getWeight(VertexInterface vertex1, VertexInterface vertex2) {
 
 		return 1;
 	}
 
-	@Override
-	public VertexInterface getSourceVertex() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void addVertex(VertexInterface vertex) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void addEdge(VertexInterface vertex1, VertexInterface vertex2,
-			int weight) {
-		// TODO Auto-generated method stub
-
-	}
 
 	public void initFromTextFile(String fileName) throws FileNotFoundException, IOException, MazeReadingException, Exception {
 
 		FileReader fr =  null; 
 		BufferedReader bufferedReader = null;
-
 
 		try {
 
@@ -327,13 +349,8 @@ public class Maze implements GraphInterface{
 	}
 
 
-	public final MBox getCase(int column, int row) {
-		return this.boxes[column][row];
-	}
-
-
 	// Getter for the case's symbol (char)  ui will call this method
-	public char getCaseSymbol(int column, int row) {		
+	public char getBoxSymbol(int column, int row) {		
 		try {
 			char symbol = boxes[column][row].getChar();
 			return symbol;
@@ -342,35 +359,15 @@ public class Maze implements GraphInterface{
 			System.err.println("Error: impossible to access this case");
 
 			JOptionPane.showMessageDialog(null, "Impossible to access this case", "Case error", JOptionPane.ERROR_MESSAGE);
-		
+
 			return ' ';
 
 		}
 	}	
 
-
-
-	public void setSourceVertex(VertexInterface sourceVertex) {
-
-		this.depart = sourceVertex;
-
-	}
-
-
-	public void draw(int i, int j, Graphics g, int h, int w) {
-
-		this.boxes[i][j].draw(g, h, w);
-
-	}
-
-	public void paint(int i, int j, Graphics g, int h, int w) {
-
-		this.boxes[i][j].paint(g, h, w);
-
-	}
-
 	// To change the case's symbol 
-	public void setCaseSymbol(int row, int column, char c) {   
+	public void setBoxSymbol(int column, int row, char c) {  
+
 		if (row <= 0 || column <= 0 || row >= this.height-1 || column >= this.width-1)	{
 			System.err.println("Error: impossible to edit this case");
 			JOptionPane.showMessageDialog(null, "Impossible to edit this case", "Case error", JOptionPane.ERROR_MESSAGE);
@@ -383,9 +380,8 @@ public class Maze implements GraphInterface{
 		}
 
 		else {    	
-			try{
-				switch (c)     	
-				{
+			try {
+				switch (c) {
 				case 'D' :
 					boxes[row][column] = new DBox(this,column,row); break;
 				case 'A' :
@@ -395,8 +391,8 @@ public class Maze implements GraphInterface{
 				case 'E' :
 					boxes[row][column] = new EBox(this,column,row); break;  
 				case 'X' :
-					return;
-					//	boxes[row][column] = new other Type      		
+					boxes[row][column] = new PBox(this,column,row); break; 
+					   		
 				default :  
 					return;
 				}
@@ -413,6 +409,22 @@ public class Maze implements GraphInterface{
 	}
 
 
+
+
+	public void drawBox(int i, int j, Graphics g, int h, int w) {
+
+		this.boxes[i][j].draw(g, h, w);
+
+	}
+
+	public void paintBox(int i, int j, Graphics g, int h, int w) {
+
+		this.boxes[i][j].paint(g, h, w);
+
+	}
+
+
+
 	// To reinitialize the maze
 	private void askToReinit() {
 
@@ -424,7 +436,7 @@ public class Maze implements GraphInterface{
 			{
 				for (int j=1 ; j < this.width-1 ; j++)
 				{					
-					//if(this.getCaseSymbol(j, i) == '*')	{
+					//if(this.getBoxSymbol(j, i) == '*')	{
 					setBox(j, i, 'E');
 				}
 			}
@@ -454,15 +466,14 @@ public class Maze implements GraphInterface{
 
 			while (j < this.width && !valid) {
 
-				if (this.getCaseSymbol(j, i) == 'D') {
+				if (this.getBoxSymbol(j, i) == 'D') {
 					d++;
-				} else if (this.getCaseSymbol(j,i) == 'A'){
+					
+				} else if (this.getBoxSymbol(j,i) == 'A'){
 					a++;
 				}
 
-
 				if (a == 1 && d == 1) {
-
 					valid = true;
 				}
 
@@ -476,20 +487,19 @@ public class Maze implements GraphInterface{
 
 		return valid;
 
-
 	}
 
 
 	// Finds the shortest path between d and a cases
 
-	public void calculateShortestPath() throws NullPointerException {		
+	public void findShortestPath() throws NullPointerException {		
 
 		try {   
 
 			if (this.solved) {
 
 				this.askToReinit();
-				
+
 			} else if (this.isValid()) {
 
 				int i = 0;
@@ -500,10 +510,10 @@ public class Maze implements GraphInterface{
 
 					while (j < this.width && flags < 2) {
 
-						if (this.getCaseSymbol(j, i) == 'D') {
+						if (this.getBoxSymbol(j, i) == 'D') {
 							this.depart = getBox(j,i);
 							flags++;
-						} else if (this.getCaseSymbol(j,i) == 'A'){
+						} else if (this.getBoxSymbol(j,i) == 'A'){
 							this.arrival = getBox(j,i);
 							flags++;
 						}
@@ -524,23 +534,23 @@ public class Maze implements GraphInterface{
 				return;
 
 			} else {
-				
+
 				System.err.println("Error: the maze is not valid. A case for the depart and another one for the arrival must be chosen.");
 				JOptionPane.showMessageDialog(null, "The maze is not valid. A case for the depart and another one for the arrival must be chosen", "Maze error", JOptionPane.ERROR_MESSAGE);
-			
+
 				return;
 			} 
 
 		} catch(NullPointerException e){
-			
+
 			System.err.println("Error: no maze has been initialized.");
 			JOptionPane.showMessageDialog(null, "No maze has been initialized", "Maze error", JOptionPane.ERROR_MESSAGE);
 
 		} finally {
-			
+
 			// repaint cases with paint();
 			// TO DO 
-		
+
 		}
 	}  
 
@@ -558,10 +568,42 @@ public class Maze implements GraphInterface{
 				MBox c = (MBox)iterator.next();
 				i = c.getRow();
 				j = c.getColumn();
-				this.setCaseSymbol(i, j, 'X'); 
+				this.setBoxSymbol(i, j, 'X'); 
 			}			
 		}
 	}
+
+
+	
+	// Test method
+	@Override
+	public VertexInterface getSourceVertex() {
+
+		return this.depart;
+	}
+
+	// Test method
+	public void setSourceVertex(VertexInterface sourceVertex) {
+
+		this.depart = sourceVertex;
+
+	}
+
+	// Test method
+	@Override
+	public void addVertex(VertexInterface vertex) {
+		// TODO Auto-generated method stub
+
+	}
+
+	// Test method
+	@Override
+	public void addEdge(VertexInterface vertex1, VertexInterface vertex2,
+			int weight) {
+		// TODO Auto-generated method stub
+
+	}
+
 
 }
 

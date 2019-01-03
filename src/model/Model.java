@@ -31,7 +31,7 @@ public class Model extends Observable {
 	}
 	
 	/**
-	 *  Method to paint all cases at the beginning 
+	 *  Method to draw all cases at the beginning 
 	 * 
 	 * */
 	public final void drawCases(Graphics g) {
