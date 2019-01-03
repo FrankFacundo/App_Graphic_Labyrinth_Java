@@ -1,3 +1,16 @@
+import ui.MazeApp;
+
+public class MainTest {
+	
+	public static void main(String[] args)  {
+		
+		new MazeApp();
+	}
+
+}
+
+
+
 /*
 import java.io.FileNotFoundException;
 import java.io.IOException;

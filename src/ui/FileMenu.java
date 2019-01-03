@@ -6,13 +6,13 @@ public final class FileMenu extends JMenu
   private final SaveToFileMenuItem saveToFileMenuItem;
   private final InitFromFileMenuItem initFromFileMenuItem;
 
-  public FileMenu (DrawingApp drawingApp)
+  public FileMenu (MazeApp MazeApp)
   {
     super("Options");
 
-    add(initFromFileMenuItem = new InitFromFileMenuItem(drawingApp));
-    add(saveToFileMenuItem = new SaveToFileMenuItem(drawingApp));
-    add(quitMenuItem = new QuitMenuItem(drawingApp));
+    add(initFromFileMenuItem = new InitFromFileMenuItem(MazeApp));
+    add(saveToFileMenuItem = new SaveToFileMenuItem(MazeApp));
+    add(quitMenuItem = new QuitMenuItem(MazeApp));
 
     
   }

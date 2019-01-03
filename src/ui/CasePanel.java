@@ -1,17 +1,47 @@
 package ui;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.*;
 
-public final class  CasePanel extends JPanel{
+public final class  CasePanel extends JButton implements ActionListener{
 	
-	private final DrawingApp app;
+	private final MazeApp mazeApp;
+	int column; 
+	int row;
 	
-	public CasePanel(DrawingApp app) {
+	public CasePanel(MazeApp mazeApp, int column, int row) {
+		
 		super();
-		this.app = app;
+		
+		this.mazeApp = mazeApp;
+		this.column = column;
+		this.row = row;
+		
+		this.addActionListener(this); // its own action listener
+		this.setBackground(Color.WHITE); // default 
+		this.repaint(); // paint or update
+		
 	}
 	
+	// If an event occurs
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		// this.mazeApp.getModel().setModified(true);
+		
+		this.mazeApp.getModel().setSelectedCase(this.column, this.row);
+		
+		// this.mazeApp.getModel().colorSelection();
+		
+		
+	}
+	
+	
+	// Bellot ?
 	@Override
 	public void paintComponent(Graphics g) {
 		
@@ -26,4 +56,7 @@ public final class  CasePanel extends JPanel{
 		
 		// ens d elements qui servent a redessiner la fenetre, case par case, au moins le paneau : matrice de cases 
 	}
+
+
+	
 }

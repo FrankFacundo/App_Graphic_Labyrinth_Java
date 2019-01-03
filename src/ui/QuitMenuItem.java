@@ -5,9 +5,9 @@ import javax.swing.*;
 import model.Model;
 
 public final class QuitMenuItem extends JMenuItem implements ActionListener {
-	private final DrawingApp app;
+	private final MazeApp app;
 
-	public QuitMenuItem (DrawingApp app) {
+	public QuitMenuItem (MazeApp app) {
 		super("Quit");
 		this.app = app;
 		addActionListener(this) ;
@@ -36,7 +36,7 @@ public final class QuitMenuItem extends JMenuItem implements ActionListener {
 				 return ; // go back to the application 
 
 			case JOptionPane.OK_OPTION:
-				//drawingAppModel.saveToFile() ;
+				//MazeAppModel.saveToFile() ;
 				break ;
 			case JOptionPane.NO_OPTION:
 				break ;
@@ -59,7 +59,7 @@ public final class QuitMenuItem extends JMenuItem implements ActionListener {
 				null);
 		if (n == JOptionPane.YES_OPTION) {
 
-			//drawingAppModel.saveToFile() ;
+			//MazeAppModel.saveToFile() ;
 			System.exit(0) ;
 
 		} else if (n == JOptionPane.NO_OPTION) {

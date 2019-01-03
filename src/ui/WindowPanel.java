@@ -7,7 +7,7 @@ public final class WindowPanel extends JPanel {
 	private final MazePanel mazePanel;
 	private final ButtonsPanel buttonsPanel;
 	
-	public WindowPanel(DrawingApp app) {
+	public WindowPanel(MazeApp app) {
 		super();
 		
 		setLayout(new BorderLayout());
