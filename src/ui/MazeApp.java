@@ -11,15 +11,15 @@ import maze.Maze;
 
 public class MazeApp extends JFrame implements Observer {
 	
-	private final MenuBar MenuBar;
+	private final MenuBar menuBar;
 	private final WindowPanel windowPanel;
 	private Model model = new Model(this) ;
 
 	public MazeApp() {
 		super("Maze by Sheila & Frank");
 
-		MenuBar = new MenuBar(this);
-		this.setJMenuBar(MenuBar);
+		this.menuBar = new MenuBar(this);
+		this.setJMenuBar(menuBar);
 		
 		this.setContentPane(windowPanel = new WindowPanel(this));
 

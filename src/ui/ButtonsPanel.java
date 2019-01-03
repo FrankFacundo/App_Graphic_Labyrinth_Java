@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 
@@ -13,10 +14,11 @@ public final class ButtonsPanel extends JPanel {
 	public ButtonsPanel(MazeApp app) {
 		super();
 		this.app = app;
-		setBackground(Color.GRAY);
-		setPreferredSize(new Dimension(500,100));
 		
-		add(solveButton = new SolveButton(app));
+		setPreferredSize(new Dimension(512,128));
+		setBackground(Color.GRAY);
+		
+		add(solveButton = new SolveButton(app), BorderLayout.CENTER);
 		
 	}
 	

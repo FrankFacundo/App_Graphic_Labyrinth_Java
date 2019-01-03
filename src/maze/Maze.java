@@ -112,7 +112,7 @@ public class Maze implements GraphInterface{
 	 * @return the list of a vertexe's successors
 	 */
 	public final ArrayList<VertexInterface> getSuccessors(VertexInterface vertex) {
-		
+
 		MBox box = (MBox)vertex ; 
 		MBox successor;
 		ArrayList<VertexInterface> successors = new ArrayList<VertexInterface>();
@@ -202,15 +202,15 @@ public class Maze implements GraphInterface{
 	 */
 	@Override
 	public int getWeight(VertexInterface vertex1, VertexInterface vertex2) {
-		
+
 		if (this.getSuccessors(vertex1).contains(vertex2)) {
-			
+
 			return 1;
 		} else {
-			
+
 			return 0;
 		}
-		
+
 	}
 
 
@@ -358,7 +358,7 @@ public class Maze implements GraphInterface{
 	// Getter for the case's symbol (char)  ui will call this method
 	public char getBoxSymbol(int column, int row) {		
 		try {
-			char symbol = boxes[column][row].getChar();
+			char symbol = this.boxes[column][row].getChar();
 			return symbol;
 
 		} catch (Exception e) {
@@ -398,7 +398,7 @@ public class Maze implements GraphInterface{
 					boxes[row][column] = new EBox(this,column,row); break;  
 				case 'X' :
 					boxes[row][column] = new PBox(this,column,row); break; 
-					   		
+
 				default :  
 					return;
 				}
@@ -430,10 +430,10 @@ public class Maze implements GraphInterface{
 	}
 
 	public void setBoxes(MBox[][] boxes) {
-		
+
 		this.boxes = boxes;
 	}
-	
+
 	public MBox[][] getBoxes() {
 		return this.boxes;
 	}
@@ -484,7 +484,7 @@ public class Maze implements GraphInterface{
 
 				if (this.getBoxSymbol(j, i) == 'D') {
 					d++;
-					
+
 				} else if (this.getBoxSymbol(j,i) == 'A'){
 					a++;
 				}
@@ -517,6 +517,7 @@ public class Maze implements GraphInterface{
 				this.askToReinit();
 
 			} else if (this.isValid()) {
+
 
 				int i = 0;
 				int j = 0; 
@@ -551,8 +552,9 @@ public class Maze implements GraphInterface{
 
 			} else {
 
-				System.err.println("Error: the maze is not valid. A case for the depart and another one for the arrival must be chosen.");
-				JOptionPane.showMessageDialog(null, "The maze is not valid. A case for the depart and another one for the arrival must be chosen", "Maze error", JOptionPane.ERROR_MESSAGE);
+				System.err.println("Impossible to find the shortest path: the maze is not valid. A case for the depart and another one for the arrival must be chosen.");
+				JOptionPane.showMessageDialog(null, "Impossible to find the shortest path. A unique case for the depart (green) and another one for the arrival (red) must be chosen. Click a case multiple times to change its type (consequently its color).",
+						"Maze solving error", JOptionPane.ERROR_MESSAGE);
 
 				return;
 			} 
@@ -590,7 +592,7 @@ public class Maze implements GraphInterface{
 	}
 
 
-	
+
 	// Test method
 	@Override
 	public VertexInterface getSourceVertex() {
