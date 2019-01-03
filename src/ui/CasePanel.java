@@ -7,12 +7,11 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-public final class  CasePanel extends JButton implements ActionListener{
+public final class  CasePanel extends JButton implements ActionListener {
 
 	private final MazeApp mazeApp;
 	private int column; 
 	private int row;
-	private Color color;
 	private int numberOfClicks;
 
 	public CasePanel(MazeApp mazeApp, int column, int row) {
@@ -39,7 +38,6 @@ public final class  CasePanel extends JButton implements ActionListener{
 		this.mazeApp.getModel().setSelectedCase(this.column, this.row);
 
 		System.out.println("the selected case " + this.mazeApp.getModel().getSelectedCase());
-
 		System.out.println("the case is in column: "+this.mazeApp.getModel().getSelectedCase().getColumn()+" and row"+
 					this.mazeApp.getModel().getSelectedCase().getRow());	
 
@@ -63,7 +61,7 @@ public final class  CasePanel extends JButton implements ActionListener{
 
 		this.mazeApp.getModel().selectCaseColor();
 
-		System.out.println("the color has changed to: "+this.mazeApp.getModel().getSelectedColor());	
+		// System.out.println("the color has changed to: "+this.mazeApp.getModel().getSelectedColor());	
 
 
 	}
