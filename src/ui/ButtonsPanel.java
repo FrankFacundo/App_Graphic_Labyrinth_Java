@@ -7,10 +7,10 @@ import javax.swing.*;
 
 public final class ButtonsPanel extends JPanel {
 	
-	private final DrawingApp app;
+	private final MazeApp app;
 	private final SolveButton solveButton;
 	
-	public ButtonsPanel(DrawingApp app) {
+	public ButtonsPanel(MazeApp app) {
 		super();
 		this.app = app;
 		setBackground(Color.GRAY);
@@ -18,5 +18,9 @@ public final class ButtonsPanel extends JPanel {
 		
 		add(solveButton = new SolveButton(app));
 		
+	}
+	
+	public void notifyForUpdate() {
+		solveButton.notifyForUpdate() ;
 	}
 }

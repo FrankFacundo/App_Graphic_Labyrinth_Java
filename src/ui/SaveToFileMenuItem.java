@@ -3,12 +3,12 @@ package ui;
 import javax.swing.JMenuItem;
 public final class SaveToFileMenuItem extends JMenuItem
 {
-  private final DrawingApp drawingApp;
+  private final MazeApp MazeApp;
 
-  public SaveToFileMenuItem (DrawingApp drawingApp)
+  public SaveToFileMenuItem (MazeApp MazeApp)
   {
     super("Save to file");
-    this.drawingApp = drawingApp;
+    this.MazeApp = MazeApp;
   }
   
 }

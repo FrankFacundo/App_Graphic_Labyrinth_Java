@@ -1,5 +1,6 @@
 package maze;
 
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -27,5 +28,19 @@ public class DBox extends MBox
 	public char getChar() {
 	
 		return 'D';
+	}
+	
+	@Override
+	public void paint(Graphics g, int h, int w) {
+		
+		g.drawRect(5, 5, w - 10, h - 10);
+		
+	}
+	
+	@Override
+	public void draw(Graphics g, int h, int w) {
+		
+		g.drawRect(5, 5, w - 10, h - 10);
+		
 	}
 }

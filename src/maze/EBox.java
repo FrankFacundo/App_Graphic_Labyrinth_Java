@@ -1,9 +1,6 @@
 package maze;
+import java.awt.Graphics;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import dijsktra.VertexInterface;
 
 public class EBox extends MBox
 {
@@ -12,8 +9,7 @@ public class EBox extends MBox
 	}
 
 	
-	public boolean isEmpty()
-	{
+	public boolean isEmpty() {
 		return true;
 	}
 
@@ -22,6 +18,20 @@ public class EBox extends MBox
 	public char getChar() {
 		
 		return 'E';
+	}
+	
+	@Override
+	public void paint(Graphics g, int h, int w) {
+		
+		g.drawRect(5, 5, w - 10, h - 10);
+		
+	}
+	
+	@Override
+	public void draw(Graphics g, int h, int w) {
+		
+		g.drawRect(5, 5, w - 10, h - 10);
+		
 	}
 	
 }
