@@ -13,7 +13,7 @@ public final class MazePanel extends JPanel {
 		super();
 		this.app = app;
 
-		this.setPreferredSize(new Dimension(500,500));
+		this.setPreferredSize(new Dimension(512,512));
 		// this.setLayout(new GridLayout(10,10));
 
 		this.initializeEmptyMaze();
@@ -38,6 +38,7 @@ public final class MazePanel extends JPanel {
 			for (int j = 0; j < size; j++) {
 				
 				add(app.getModel().getCase(j, i));
+			
 			}
 			
 		}

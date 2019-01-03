@@ -358,7 +358,7 @@ public class Maze implements GraphInterface{
 	// Getter for the case's symbol (char)  ui will call this method
 	public char getBoxSymbol(int column, int row) {		
 		try {
-			char symbol = boxes[column][row].getChar();
+			char symbol = this.boxes[column][row].getChar();
 			return symbol;
 
 		} catch (Exception e) {
