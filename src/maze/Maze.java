@@ -1,20 +1,19 @@
 package maze;
 
 import java.awt.Graphics;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
 import javax.swing.JOptionPane;
 
-import dijsktra.Dijsktra;
-import dijsktra.GraphInterface;
-import dijsktra.Previous;
-import dijsktra.VertexInterface;
+import dijsktra.*;
 
 public class Maze implements GraphInterface{
 
@@ -113,7 +112,7 @@ public class Maze implements GraphInterface{
 	 * @return the list of a vertexe's successors
 	 */
 	public final ArrayList<VertexInterface> getSuccessors(VertexInterface vertex) {
-
+		
 		MBox box = (MBox)vertex ; 
 		MBox successor;
 		ArrayList<VertexInterface> successors = new ArrayList<VertexInterface>();
@@ -203,8 +202,15 @@ public class Maze implements GraphInterface{
 	 */
 	@Override
 	public int getWeight(VertexInterface vertex1, VertexInterface vertex2) {
-
-		return 1;
+		
+		if (this.getSuccessors(vertex1).contains(vertex2)) {
+			
+			return 1;
+		} else {
+			
+			return 0;
+		}
+		
 	}
 
 
@@ -422,6 +428,16 @@ public class Maze implements GraphInterface{
 		this.boxes[i][j].paint(g, h, w);
 
 	}
+
+	public void setBoxes(MBox[][] boxes) {
+		
+		this.boxes = boxes;
+	}
+	
+	public MBox[][] getBoxes() {
+		return this.boxes;
+	}
+
 
 
 

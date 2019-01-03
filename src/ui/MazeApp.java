@@ -9,27 +9,28 @@ import com.sun.prism.Graphics;
 import model.Model;
 import maze.Maze;
 
-public class DrawingApp extends JFrame implements Observer
-{
-	private final DrawingMenuBar drawingMenuBar;
+public class MazeApp extends JFrame implements Observer {
+	
+	private final MenuBar MenuBar;
 	private final WindowPanel windowPanel;
-	private Model model = new Model() ;
-	private Maze maze;
+	private Model model = new Model(this) ;
 
-	public DrawingApp() {
+	public MazeApp() {
 		super("Maze by Sheila & Frank");
 
-		drawingMenuBar = new DrawingMenuBar(this);
-		this.setJMenuBar(drawingMenuBar);
+		MenuBar = new MenuBar(this);
+		this.setJMenuBar(MenuBar);
 		
 		this.setContentPane(windowPanel = new WindowPanel(this));
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.pack();
 		this.setVisible(true);
-		model.addObserver(this);
+		this.model.addObserver(this);
+		
 	}
 
+	/*
 
 	public void paintComponents(java.awt.Graphics g) {
 
@@ -48,6 +49,7 @@ public class DrawingApp extends JFrame implements Observer
 
 	}
 
+	*/
 
 	public Model getModel() {
 		return this.model;

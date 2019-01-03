@@ -5,9 +5,9 @@ import maze.Maze;
 
 public class SolveButton extends JButton{
 
-	private final DrawingApp app;
+	private final MazeApp app;
 
-	public SolveButton (DrawingApp app) {
+	public SolveButton (MazeApp app) {
 		super("Find shortest path");
 		this.app = app;
 	}
@@ -36,10 +36,13 @@ public class SolveButton extends JButton{
 		 */
 	}
 	
+	
 	public void notifyForUpdate() {
-	   Case selectedCase  = app.getModel().getSelectedCase() ;
+	  // Case selectedCase  = app.getModel().getSelectedCase() ;
 
-	   setEnabled(selectedCase != null) ;		
+	  // setEnabled(selectedCase != null) ;		
 	}
+	
+	
 
 }

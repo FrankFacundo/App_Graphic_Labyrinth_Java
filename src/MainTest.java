@@ -1,10 +1,10 @@
-import ui.DrawingApp;
+import ui.MazeApp;
 
 public class MainTest {
 	
 	public static void main(String[] args)  {
 		
-		new DrawingApp();
+		new MazeApp();
 	}
 
 }
