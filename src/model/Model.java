@@ -273,9 +273,6 @@ public class Model extends Observable {
 		}*/
 		
 		this.setCase(column, row);
-		System.out.println("the symbol in the panel is " + this.maze.getBoxSymbol(
-				this.selectedCase.getColumn(), 
-				this.selectedCase.getRow()));
 		this.selectedCase = null;
 		this.modified = true;
 		

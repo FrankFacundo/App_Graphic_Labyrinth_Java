@@ -496,7 +496,7 @@ public class Maze implements GraphInterface{
 				j++;
 
 			}
-			j=0; 
+
 			i++;
 
 		}
@@ -516,8 +516,7 @@ public class Maze implements GraphInterface{
 
 				this.askToReinit();
 
-			} else 
-				if (this.isValid()) {
+			} else if (this.isValid()) {
 
 
 				int i = 0;
@@ -551,8 +550,7 @@ public class Maze implements GraphInterface{
 				this.solved = true;				
 				return;
 
-			} 
-			else {
+			} else {
 
 				System.err.println("Impossible to find the shortest path: the maze is not valid. A case for the depart and another one for the arrival must be chosen.");
 				JOptionPane.showMessageDialog(null, "Impossible to find the shortest path. A unique case for the depart (green) and another one for the arrival (red) must be chosen. Click a case multiple times to change its type (consequently its color).",
