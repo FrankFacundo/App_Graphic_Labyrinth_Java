@@ -34,7 +34,13 @@ public final class SaveToFileMenuItem extends JMenuItem implements ActionListene
 			File selectedFile = jfc.getSelectedFile();
 			String path = selectedFile.getAbsolutePath();
 			System.out.println(path);
-
+			
+			try {
+				MazeApp.getModel().getMaze().saveToTextFile(path);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	
 	}
