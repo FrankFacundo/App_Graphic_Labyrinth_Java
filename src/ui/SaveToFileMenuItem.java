@@ -32,7 +32,9 @@ public final class SaveToFileMenuItem extends JMenuItem implements ActionListene
 
 		if (returnValue == JFileChooser.APPROVE_OPTION) {
 			File selectedFile = jfc.getSelectedFile();
-			System.out.println(selectedFile.getAbsolutePath());
+			String path = selectedFile.getAbsolutePath();
+			System.out.println(path);
+
 		}
 	
 	}
