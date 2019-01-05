@@ -539,7 +539,7 @@ public class Maze implements GraphInterface{
 						j++;
 
 					}
-
+					j=0;
 					i++;
 				}
 
