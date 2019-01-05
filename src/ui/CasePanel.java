@@ -39,7 +39,7 @@ public final class  CasePanel extends JButton implements ActionListener {
 
 		System.out.println("the selected case " + this.mazeApp.getModel().getSelectedCase());
 		System.out.println("the case is in column: "+this.mazeApp.getModel().getSelectedCase().getColumn()+" and row"+
-					this.mazeApp.getModel().getSelectedCase().getRow());	
+					this.mazeApp.getModel().getSelectedCase().getRow());
 
 		/*
 		Color newColor = JColorChooser.showDialog(mazeApp,
@@ -60,6 +60,7 @@ public final class  CasePanel extends JButton implements ActionListener {
 		}
 
 		this.mazeApp.getModel().selectCaseColor();
+
 
 		// System.out.println("the color has changed to: "+this.mazeApp.getModel().getSelectedColor());	
 
