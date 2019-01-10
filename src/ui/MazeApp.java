@@ -61,7 +61,7 @@ public class MazeApp extends JFrame implements Observer {
 	}
 	
 	public void update(Observable observable, Object parameter) {
-		windowPanel.notifyForUpdate() ;	
+		this.windowPanel.notifyForUpdate() ;	
 	}
 
 }
