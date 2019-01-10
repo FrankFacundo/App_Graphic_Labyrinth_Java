@@ -27,4 +27,3 @@ public final class WindowPanel extends JPanel {
 	}
 	
 }
-

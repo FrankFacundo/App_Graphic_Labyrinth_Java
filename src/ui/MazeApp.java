@@ -18,49 +18,28 @@ public class MazeApp extends JFrame implements Observer {
 	public MazeApp() {
 		super("Maze by Sheila & Frank");
 
-		this.menuBar = new MenuBar(this);
-		this.setJMenuBar(menuBar);
-		
+		this.setJMenuBar(menuBar = new MenuBar(this));		
 		this.setContentPane(windowPanel = new WindowPanel(this));
-
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		this.pack();
 		this.setVisible(true);
 		this.model.addObserver(this);
 		
 	}
 
-	/*
-
-	public void paintComponents(java.awt.Graphics g) {
-
-		super.paintComponents(g);
-		int h = this.getHeight();
-		int w = this.getWidth();
-
-		for(int i = 0; i < 10; i++) {
-
-			for(int j = 0; j < 10; j++) {
-
-				this.maze.paint(i, j, g, h, w);
-			}
-		}
-
-
-	}
-
-	*/
-
 	public Model getModel() {
+		
 		return this.model;
 	}
 
-
 	public void setModel(Model model) {
+		
 		this.model = model;
 	}
 	
 	public void update(Observable observable, Object parameter) {
+		
 		this.windowPanel.notifyForUpdate() ;	
 	}
 
