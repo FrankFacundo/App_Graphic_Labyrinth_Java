@@ -1,11 +1,9 @@
 package ui;
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
+import java.awt.*;
+import java.awt.event.*;
+
+import javax.swing.*;
 
 import maze.Maze;
 
@@ -17,9 +15,10 @@ public class SolveButton extends JButton implements ActionListener {
 		super("Find shortest path");
 		this.mazeApp = mazeApp;
 		
+		//this.setBorder(BorderFactory.createLineBorder(Color.black));
+		// this.setPreferredSize(new Dimension(100,100));
 		this.addActionListener(this); // its own action listener
-		// this.setBackground(Color.WHITE); // default 
-	
+
 		// this.repaint(); // paint or update
 		
 	}

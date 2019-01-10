@@ -1,10 +1,9 @@
 package maze;
 
-import java.awt.Graphics;
+
 // import java.io.PrintWriter;
 
-import maze.MBox;
-import maze.Maze;
+import maze.*;
 
 public class PBox extends MBox {
 	
@@ -25,15 +24,11 @@ public class PBox extends MBox {
 	}
 
 	@Override
-	public void paint(Graphics g, int h, int w) {
-		// TODO Auto-generated method stub
+	public String getLabel() {
 		
+		return "STEP";
 	}
+	
 
-	@Override
-	public void draw(Graphics g, int h, int w) {
-		// TODO Auto-generated method stub
-		
-	}
 }
 

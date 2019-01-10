@@ -13,8 +13,7 @@ public final class MazePanel extends JPanel {
 		super();
 		this.app = app;
 
-		this.setPreferredSize(new Dimension(512,512));
-		// this.setLayout(new GridLayout(10,10));
+		this.setPreferredSize(new Dimension(650,650));
 
 		this.initializeEmptyMaze();
 		this.drawMaze();

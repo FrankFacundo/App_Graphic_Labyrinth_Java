@@ -381,7 +381,7 @@ public class Maze implements GraphInterface{
 		}     
 
 		else if (this.solved) {
-			askToReinit();
+			this.askToReinit();
 			return;
 		}
 
