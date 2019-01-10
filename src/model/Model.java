@@ -120,7 +120,9 @@ public class Model extends Observable {
 
 	public void setSelectedCase(int column, int row) {
 
-		this.selectedCase = (MBox) maze.getBox(column, row);
+		this.selectedCase = this.maze.getBox(column, row);
+		setChanged() ;
+	    notifyObservers() ;
 	}
 
 
@@ -175,18 +177,34 @@ public class Model extends Observable {
 	}
 
 	public void putEBox(int j, int i) {
-		this.maze.getBoxes()[j][i] = new EBox(this.maze, j, i);
+		
+		EBox ebox = new EBox(this.maze, j, i);
+		this.maze.getBoxes()[j][i] = ebox;
+		this.selectedCase = ebox;
 	}
 
 	public void putABox(int j, int i) {
-		this.maze.getBoxes()[j][i] = new ABox(this.maze, j, i);
+		
+		ABox abox = new ABox(this.maze, j, i);
+		this.maze.getBoxes()[j][i] = abox;
+		this.selectedCase = abox;
+		
 	}
+	
 	public void putWBox(int j, int i) {
-		this.maze.getBoxes()[j][i] = new WBox(this.maze, j, i);
+		
+		WBox wbox = new WBox(this.maze, j, i);
+		this.maze.getBoxes()[j][i] = wbox;
+		this.selectedCase = wbox;
+		
 	}
 
 	public void putDBox(int j, int i) {
-		this.maze.getBoxes()[j][i] = new DBox(this.maze, j, i);
+		
+		DBox dbox = new DBox(this.maze, j, i);
+		this.maze.getBoxes()[j][i] = dbox;
+		this.selectedCase = dbox;
+		
 	}
 
 
@@ -244,9 +262,9 @@ public class Model extends Observable {
 		return this.selectedColor;
 	}
 
-	public void selectCaseColor() {
+	public void changeCaseColor() {
 
-		System.out.println("In the model the selected case is "+this.selectedCase);
+		// System.out.println("In the model the selected case is "+this.selectedCase);
 		int column = this.selectedCase.getColumn();
 		int row = this.selectedCase.getRow();
 
@@ -276,8 +294,17 @@ public class Model extends Observable {
 		System.out.println("the symbol in the panel is " + this.maze.getBoxSymbol(
 				this.selectedCase.getColumn(), 
 				this.selectedCase.getRow()));
-		this.selectedCase = null;
+		// this.selectedCase = null;
 		this.modified = true;
+		
+		//System.out.println("Here's the selected case: "+this.getSelectedCase().getLabel());
+		
+	}
+	
+	
+	public void updateTextInPanel() {
+		
+		
 		
 	}
 

@@ -25,7 +25,7 @@ public final class  CasePanel extends JButton implements ActionListener {
 		this.addActionListener(this); // its own action listener
 		this.setBackground(Color.WHITE); // default 
 		//this.setOpaque(true);
-		this.repaint(); // paint or update
+
 
 	}
 
@@ -36,19 +36,17 @@ public final class  CasePanel extends JButton implements ActionListener {
 		// this.mazeApp.getModel().setModified(true);
 
 		this.mazeApp.getModel().setSelectedCase(this.column, this.row);
-
-		System.out.println("the selected case " + this.mazeApp.getModel().getSelectedCase());
-		System.out.println("the case is in column: "+this.mazeApp.getModel().getSelectedCase().getColumn()+" and row"+
-					this.mazeApp.getModel().getSelectedCase().getRow());
+		
+		//this.mazeApp.getModel().updateTextInPanel(this);
 
 		/*
-		Color newColor = JColorChooser.showDialog(mazeApp,
-				"Change case color",
-				this.mazeApp.getModel().getSelectedColor()) ; */
+		System.out.println("the selected case " + this.mazeApp.getModel().getSelectedCase());
+		System.out.println("the case is in column: "+this.mazeApp.getModel().getSelectedCase().getColumn()+" and row"+
+					this.mazeApp.getModel().getSelectedCase().getRow()); */
 
 
 		this.numberOfClicks++;
-		System.out.println("the number of clicks: "+numberOfClicks);
+		//System.out.println("the number of clicks: "+numberOfClicks);
 
 		switch (numberOfClicks) {
 
@@ -59,7 +57,9 @@ public final class  CasePanel extends JButton implements ActionListener {
 
 		}
 
-		this.mazeApp.getModel().selectCaseColor();
+		this.mazeApp.getModel().changeCaseColor();
+		
+	
 
 
 		// System.out.println("the color has changed to: "+this.mazeApp.getModel().getSelectedColor());	
@@ -69,8 +69,11 @@ public final class  CasePanel extends JButton implements ActionListener {
 
 	public void notifyToUpdate() {
 
-		repaint() ;	
+		this.repaint() ;	
+        
 	}
+	
+	
 
 
 
