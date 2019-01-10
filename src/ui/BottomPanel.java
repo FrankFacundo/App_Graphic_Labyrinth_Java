@@ -24,7 +24,7 @@ public final class BottomPanel extends JPanel {
 	public void notifyForUpdate() {
 
 		this.infoPanel.notifyForUpdate() ;
-		this.buttonsPanel.notifyForUpdate() ;
+		this.buttonsPanel.notifyForUpdate() ; // the solve button will be activated if the shortest path hasn't been found yet
 
 	}
 }

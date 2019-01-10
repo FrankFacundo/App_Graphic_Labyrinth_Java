@@ -19,20 +19,19 @@ import maze.WBox;
 import model.Model;
 
 
-public final class InitFromFileMenuItem extends JMenuItem implements ActionListener
-{
-  private final MazeApp MazeApp;
+public final class InitFromFileMenuItem extends JMenuItem implements ActionListener {
+	private final MazeApp MazeApp;
 
-  public InitFromFileMenuItem (MazeApp MazeApp)
-  {
-    super("Intialize from file");
-    this.MazeApp = MazeApp;
-    addActionListener(this) ;
-  }
+	public InitFromFileMenuItem (MazeApp MazeApp)
+	{
+		super("Intialize from file");
+		this.MazeApp = MazeApp;
+		addActionListener(this) ;
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent evt) {
-		
+
 		JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 
 		int returnValue = jfc.showOpenDialog(null);
@@ -98,7 +97,7 @@ public final class InitFromFileMenuItem extends JMenuItem implements ActionListe
 											this.MazeApp.getModel().getMaze().getBoxSymbol(j, i) + "." );
 
 								}
-								this.MazeApp.getModel().selectCaseColor();
+								this.MazeApp.getModel().changeCaseType();
 							} 
 
 						}
@@ -106,8 +105,8 @@ public final class InitFromFileMenuItem extends JMenuItem implements ActionListe
 					}
 
 				}
-				
-				
+
+
 				//MazeApp.getModel().getMaze().initFromTextFile(path);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -115,11 +114,9 @@ public final class InitFromFileMenuItem extends JMenuItem implements ActionListe
 			}
 		}
 	}
-	
-	public void notifyForUpdate() {
-		repaint();	
-	}
-  
+
+
+
 }
 
 

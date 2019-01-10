@@ -1,10 +1,8 @@
 package ui;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.*;
 
 public final class  CasePanel extends JButton implements ActionListener {
@@ -26,7 +24,6 @@ public final class  CasePanel extends JButton implements ActionListener {
 		this.setBackground(Color.WHITE); // default 
 		//this.setOpaque(true);
 
-
 	}
 
 	// If the case is clicked 
@@ -36,7 +33,7 @@ public final class  CasePanel extends JButton implements ActionListener {
 		// this.mazeApp.getModel().setModified(true);
 
 		this.mazeApp.getModel().setSelectedCase(this.column, this.row);
-		
+
 		//this.mazeApp.getModel().updateTextInPanel(this);
 
 		/*
@@ -57,45 +54,14 @@ public final class  CasePanel extends JButton implements ActionListener {
 
 		}
 
-		this.mazeApp.getModel().changeCaseColor();
-		
-	
-
-
-		// System.out.println("the color has changed to: "+this.mazeApp.getModel().getSelectedColor());	
-
+		this.mazeApp.getModel().changeCaseType();
 
 	}
 
 	public void notifyToUpdate() {
 
 		this.repaint() ;	
-        
+
 	}
-	
-	
-
-
-
-	/*
-	// Bellot ?
-	@Override
-	public void paintComponent(Graphics g) {
-
-		super.paintComponent(g);
-
-		int xcoord = this.getWidth();
-		int ycoord = this.getHeight();
-
-		g.drawRect(5, 5, xcoord - 10, ycoord - 10);
-		// first parameters are for x and y coordinates 
-		// second parameters are for the width and height of the case
-
-		// ens d elements qui servent a redessiner la fenetre, case par case, au moins le paneau : matrice de cases 
-	}
-
-	 */
-
-
 
 }
