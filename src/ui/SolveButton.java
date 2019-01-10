@@ -1,11 +1,8 @@
 package ui;
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 
 import maze.Maze;
 
@@ -14,23 +11,35 @@ public class SolveButton extends JButton implements ActionListener {
 	private final MazeApp mazeApp;
 
 	public SolveButton (MazeApp mazeApp) {
+
 		super("Find shortest path");
 		this.mazeApp = mazeApp;
-		
-		this.addActionListener(this); // its own action listener
-		// this.setBackground(Color.WHITE); // default 
-	
+
+		//this.setBorder(BorderFactory.createLineBorder(Color.black));
+		// this.setPreferredSize(new Dimension(100,100));
+		this.addActionListener(this); 
+
 		// this.repaint(); // paint or update
-		
+
 	}
 
 	//calculates the shortest path between the depart case and the arrival one
 	public final void calculateShortestPath(Maze maze)  {   
 
-
 		try {
 
-			((Maze) maze).findShortestPath();	
+			if (this.mazeApp.getModel().findShortestPath()) {
+
+				this.setEnabled(false);
+
+			} else {
+
+				JOptionPane.showMessageDialog(null, "Impossible to find the shortest path. "
+						+ "A unique case for the depart and another one for the arrival must be chosen. "
+						+ "These cases must be separated by at least one case.",
+						"Maze solving error", JOptionPane.ERROR_MESSAGE);
+			}
+			//((Maze) maze).findShortestPath();	
 
 
 		} catch (Exception e) {
@@ -55,17 +64,16 @@ public class SolveButton extends JButton implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		System.out.println("Where's the shortest path?");
 		this.calculateShortestPath(this.mazeApp.getModel().getMaze());
 
 	}
-	
+
 	public void notifyForUpdate() {
-		repaint();	
+
+		if (this.mazeApp.getModel().getIsSolved()) {
+			this.setEnabled(false);
+		} // fix this
+		// repaint();	
 	}
-
-
-
-
 
 }

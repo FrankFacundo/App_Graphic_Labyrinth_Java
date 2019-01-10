@@ -1,28 +1,15 @@
 package maze;
 
-import java.util.ArrayList;
-
-import java.util.HashMap;
-
-//import com.sun.prism.Graphics;
-import java.awt.Graphics;
-
-import dijsktra.VertexInterface;
-
-public class ABox extends MBox
-{
+public class ABox extends MBox {
 	
-	public ABox(Maze maze, int column, int row)
-	{
+	public ABox(Maze maze, int column, int row) {
 		super(maze , column, row);
 	}
-	public void setLabel()
-	{
+	public void setLabel() {
 		
 	}
 	
-	public boolean isEmpty()
-	{
+	public boolean isEmpty() {
 		return false;
 	}
 	
@@ -33,19 +20,12 @@ public class ABox extends MBox
 		return 'A';
 	}
 	
-
 	@Override
-	public void paint(Graphics g, int h, int w) {
+	public String getLabel() {
 		
-		g.drawRect(5, 5, w - 10, h - 10);
-		
+		return "ARRIVAL";
 	}
-	@Override
-	public void draw(Graphics g, int h, int w) {
-		
-		g.drawRect(5, 5, w - 10, h - 10);
-		
-	}
+	
 	
 	
 }

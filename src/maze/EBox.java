@@ -1,9 +1,7 @@
 package maze;
-import java.awt.Graphics;
 
-
-public class EBox extends MBox
-{
+public class EBox extends MBox {
+	
 	public EBox(Maze maze , int column, int row) {
 		super(maze, column, row);
 	}
@@ -20,18 +18,12 @@ public class EBox extends MBox
 		return 'E';
 	}
 	
+
 	@Override
-	public void paint(Graphics g, int h, int w) {
+	public String getLabel() {
 		
-		g.drawRect(5, 5, w - 10, h - 10);
-		
+		return "EMPTY";
 	}
 	
-	@Override
-	public void draw(Graphics g, int h, int w) {
-		
-		g.drawRect(5, 5, w - 10, h - 10);
-		
-	}
 	
 }

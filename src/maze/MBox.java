@@ -25,15 +25,9 @@ public  abstract class MBox implements VertexInterface{
 		
 	}
 
-	public String getLabel() {
+	public abstract String getLabel();	
+	// return "(" + this.column + 1 + "," + this.row + 1 + ")";
 		
-		return "(" + this.column + "," + this.row  + ")";
-				
-		//this.label;
-		
-		
-	}
-	
 	public int getColumn() {
 		
 		return this.column;
@@ -76,8 +70,5 @@ public  abstract class MBox implements VertexInterface{
 		return null;
 	}
 	
-	public abstract void paint(Graphics g, int h, int w);
-	
-	public abstract void draw(Graphics g, int h, int w);
 	
 }

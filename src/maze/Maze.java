@@ -82,6 +82,12 @@ public class Maze implements GraphInterface{
 
 	}
 
+	public void setBox(int column, int row, MBox mbox) {
+
+		this.boxes[column][row] = mbox;
+
+	}
+
 
 	public MBox getBox(int column, int row){
 
@@ -364,7 +370,7 @@ public class Maze implements GraphInterface{
 		} catch (Exception e) {
 			System.err.println("Error: impossible to access this case");
 
-			JOptionPane.showMessageDialog(null, "Impossible to access this case", "Case error", JOptionPane.ERROR_MESSAGE);
+			// JOptionPane.showMessageDialog(null, "Impossible to access this case", "Case error", JOptionPane.ERROR_MESSAGE);
 
 			return ' ';
 
@@ -376,16 +382,9 @@ public class Maze implements GraphInterface{
 
 		if (row <= 0 || column <= 0 || row >= this.height-1 || column >= this.width-1)	{
 			System.err.println("Error: impossible to edit this case");
-			JOptionPane.showMessageDialog(null, "Impossible to edit this case", "Case error", JOptionPane.ERROR_MESSAGE);
+			// JOptionPane.showMessageDialog(null, "Impossible to edit this case", "Case error", JOptionPane.ERROR_MESSAGE);
 			return;
-		}     
-
-		else if (this.solved) {
-			askToReinit();
-			return;
-		}
-
-		else {    	
+		} else {    	
 			try {
 				switch (c) {
 				case 'D' :
@@ -407,25 +406,10 @@ public class Maze implements GraphInterface{
 
 				System.err.println("Error: impossible to edit this case");
 
-				JOptionPane.showMessageDialog(null, "Impossible to edit this case", "Case error", JOptionPane.ERROR_MESSAGE);
+				//JOptionPane.showMessageDialog(null, "Impossible to edit this case", "Case error", JOptionPane.ERROR_MESSAGE);
 
 			}
 		}    
-
-	}
-
-
-
-
-	public void drawBox(int i, int j, Graphics g, int h, int w) {
-
-		this.boxes[i][j].draw(g, h, w);
-
-	}
-
-	public void paintBox(int i, int j, Graphics g, int h, int w) {
-
-		this.boxes[i][j].paint(g, h, w);
 
 	}
 
@@ -438,34 +422,6 @@ public class Maze implements GraphInterface{
 		return this.boxes;
 	}
 
-
-
-
-	// To reinitialize the maze
-	private void askToReinit() {
-
-		int option = JOptionPane.showConfirmDialog(null, "The shortest path has been found for this maze. Do you want to reinitialize the maze?", 
-				"Maze reinitialization", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);	
-
-		if(option == JOptionPane.OK_OPTION) {
-			for (int i=1 ; i < this.height-1 ; i++)
-			{
-				for (int j=1 ; j < this.width-1 ; j++)
-				{					
-					//if(this.getBoxSymbol(j, i) == '*')	{
-					setBox(j, i, 'E');
-				}
-			}
-
-			this.solved = false;
-
-		} else {
-
-			return;
-		}
-
-
-	}
 
 	// To verify that the maze is valid 
 	public boolean isValid() {
@@ -512,12 +468,8 @@ public class Maze implements GraphInterface{
 
 		try {   
 
-			if (this.solved) {
 
-				this.askToReinit();
-
-			} else 
-				if (this.isValid()) {
+			if (this.isValid()) {
 
 
 				int i = 0;
@@ -555,8 +507,8 @@ public class Maze implements GraphInterface{
 			else {
 
 				System.err.println("Impossible to find the shortest path: the maze is not valid. A case for the depart and another one for the arrival must be chosen.");
-				JOptionPane.showMessageDialog(null, "Impossible to find the shortest path. A unique case for the depart (green) and another one for the arrival (red) must be chosen. Click a case multiple times to change its type (consequently its color).",
-						"Maze solving error", JOptionPane.ERROR_MESSAGE);
+				//JOptionPane.showMessageDialog(null, "Impossible to find the shortest path. A unique case for the depart (green) and another one for the arrival (red) must be chosen. Click a case multiple times to change its type (consequently its color).",
+				//		"Maze solving error", JOptionPane.ERROR_MESSAGE);
 
 				return;
 			} 
@@ -564,7 +516,7 @@ public class Maze implements GraphInterface{
 		} catch(NullPointerException e){
 
 			System.err.println("Error: no maze has been initialized.");
-			JOptionPane.showMessageDialog(null, "No maze has been initialized", "Maze error", JOptionPane.ERROR_MESSAGE);
+			// JOptionPane.showMessageDialog(null, "No maze has been initialized", "Maze error", JOptionPane.ERROR_MESSAGE);
 
 		} finally {
 

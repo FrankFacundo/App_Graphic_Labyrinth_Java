@@ -1,10 +1,15 @@
 package model;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Observable;
 
 import javax.swing.*;
 
+import dijsktra.Dijsktra;
+import dijsktra.Previous;
+import dijsktra.VertexInterface;
 import maze.*;
 import ui.*;
 
@@ -15,15 +20,13 @@ public class Model extends Observable {
 	private CasePanel[][] cases;
 	private MBox selectedCase;
 	private Color selectedColor;
-	private final int size = 10; // to begin with
+	private final int size = 10; // the maze will be size*size 
 	private boolean isValid;
 
 	private boolean modified;
 
-
-	// will be true when the shortest path has been found 
-	private boolean isSolved	= false; 
-	private MBox[][] modifiedBoxes;
+	private boolean isSolved; // will be true when the shortest path has been found 
+	// private MBox[][] modifiedBoxes;
 
 
 	public Model(MazeApp mazeApp) {
@@ -63,41 +66,63 @@ public class Model extends Observable {
 	}
 
 
-	// To verify that the maze is valid : 1 depart and 1 arrival point
+	/**
+	 * To verify that the maze is valid
+	 * @return true if he maze is valid (one unique depart and one unique arrival point), else false
+	 */
 	public boolean isValid() {
 
-		boolean isValid = false;
+		boolean valid = true;
 
-		int i = 0;
-		int j = 0; 
-		int a = 0; 
-		int d = 0;
+		int i = 0; 
+		int a = 0; int d = 0;
+		MBox depart = null; MBox arrival = null;
 
-		while (i < this.size && !isValid) {
+		while (i < this.size && valid) {
 
-			while (j < this.size && !isValid) {
-
+			int j = 0; 
+			
+			while (j < this.size && valid) {
+	
+				// System.out.println("this box is: "+this.maze.getBox(j,i).getLabel());
 				if (this.maze.getBoxSymbol(j, i) == 'D') {
+					depart = this.maze.getBox(j, i);
 					d++;
 
 				} else if (this.maze.getBoxSymbol(j,i) == 'A'){
+					arrival = this.maze.getBox(j, i);
 					a++;
 				}
 
-				if (a == 1 && d == 1) {
-					isValid = true;
-				}
 
 				j++;
 
+			}
+			
+			if (a > 1 || d > 1) {
+				valid = false;
 			}
 
 			i++;
 
 		}
-		return isValid;
-	} 
 
+		if(depart!= null & arrival!= null) {
+			
+			if (this.maze.getSuccessors(depart).contains(arrival)){
+				valid = false;
+			}
+			
+		} else {
+			valid = false;
+		}
+
+		this.isValid = valid;
+		// System.out.println("Validation: "+this.isValid);
+		return valid;
+		
+		
+	} 
 
 
 	public boolean getIsValid() {
@@ -118,9 +143,16 @@ public class Model extends Observable {
 		return this.selectedCase;
 	}
 
+	/**
+	 * To set the current selected case
+	 * @parameter column the column of the (eventually new) current selected case
+	 * @parameter row the row of the (eventually new) current selected case
+	 */
 	public void setSelectedCase(int column, int row) {
 
-		this.selectedCase = (MBox) maze.getBox(column, row);
+		this.selectedCase = this.maze.getBox(column, row);
+		setChanged() ;
+		notifyObservers() ;
 	}
 
 
@@ -131,11 +163,13 @@ public class Model extends Observable {
 
 
 	public boolean getIsSolved() {
+
 		return this.isSolved;
 	}
 
 
 	public void setIsSolved(boolean isSolved) {
+
 		this.isSolved = isSolved;
 	}
 
@@ -157,7 +191,6 @@ public class Model extends Observable {
 	}
 
 
-
 	public void setCase(int j, int i) {
 
 		if (this.selectedColor == Color.RED ) {
@@ -174,25 +207,47 @@ public class Model extends Observable {
 		}
 	}
 
+	public void putABox(int j, int i) {
+
+		ABox abox = new ABox(this.maze, j, i);
+		this.maze.setBox(j, i, abox);
+		this.selectedCase = abox;
+
+	}
+	
 	public void putEBox(int j, int i) {
-		this.maze.getBoxes()[j][i] = new EBox(this.maze, j, i);
+
+		EBox ebox = new EBox(this.maze, j, i);
+		this.maze.setBox(j, i, ebox);
+		this.selectedCase = ebox;
 	}
 
-	public void putABox(int j, int i) {
-		this.maze.getBoxes()[j][i] = new ABox(this.maze, j, i);
-	}
+
+
 	public void putWBox(int j, int i) {
-		this.maze.getBoxes()[j][i] = new WBox(this.maze, j, i);
+
+		WBox wbox = new WBox(this.maze, j, i);
+		this.maze.setBox(j, i, wbox);
+		//this.maze.getBoxes()[j][i] = wbox;
+		this.selectedCase = wbox;
+
 	}
 
 	public void putDBox(int j, int i) {
-		this.maze.getBoxes()[j][i] = new DBox(this.maze, j, i);
+
+		DBox dbox = new DBox(this.maze, j, i);
+		this.maze.setBox(j, i, dbox);
+		//this.maze.getBoxes()[j][i] = dbox;
+		this.selectedCase = dbox;
+
 	}
 
 
+	/**
+	 * A method to be used by initFromFile, or another similar method Frank
+	 */
 	public void initializeMaze() {
 
-		// this.cases = new CasPanel[this.size][this.size];
 		for (int i = 0; i < this.size; i++) {
 
 			for(int j = 0; j < this.size; j++) {
@@ -225,8 +280,12 @@ public class Model extends Observable {
 		}
 	}
 
-	// To set the color of the case that we intend to modify
+
+	/**
+	 * To set the current color to the selected one
+	 */
 	public void setSelectedColor(char charFromButton){
+
 		switch(charFromButton) {
 		case 'A':
 			this.selectedColor = Color.RED; break;
@@ -238,88 +297,104 @@ public class Model extends Observable {
 			this.selectedColor = Color.GRAY; break;		
 		}
 	}
-	
+
 	public Color getSelectedColor() {
-		
+
 		return this.selectedColor;
 	}
 
-	public void selectCaseColor() {
+	/**
+	 * To change a cases's type
+	 * For example, from wall(gray) to depart(green) case
+	 * Observers will be notified by setCase(int, int) method
+	 */
+	public void changeCaseType() {
 
-		System.out.println("In the model the selected case is "+this.selectedCase);
 		int column = this.selectedCase.getColumn();
 		int row = this.selectedCase.getRow();
 
-		this.isValid = isValid();
 		
+		// this.isValid = isValid();
+
 		if (this.selectedColor  == Color.GRAY || this.selectedColor == Color.WHITE
 				|| (this.selectedColor == Color.RED  || (this.selectedColor == Color.GREEN ))) {
-				
-		
+
+
 			this.getCase(column, row).setBackground(this.selectedColor);
 			this.getCase(column, row).setOpaque(true);
 			//this.getCase(column, row).setBorderPainted(false); // MAC
 
-			
+
 		} 
-		
+
 		/*else if (this.selectedColor == Color.RED && !this.isValid) {
 			JOptionPane.showMessageDialog(null, "One unique depart case must be selected.", "Depart case error", JOptionPane.WARNING_MESSAGE);
 		} */
-		
+
 		/*else {
 			// error on the arrival case 
 			JOptionPane.showMessageDialog(null, "One unique arrival case must be selected.", "Arrival case error", JOptionPane.WARNING_MESSAGE);        
 		}*/
-		
+
 		this.setCase(column, row);
-		System.out.println("the symbol in the panel is " + this.maze.getBoxSymbol(
-				this.selectedCase.getColumn(), 
-				this.selectedCase.getRow()));
-		this.selectedCase = null;
-		this.modified = true;
 		
+		this.isValid();
+		
+		// System.out.println("now the box is "+this.maze.getBox(column, row).getLabel());
+
+		// this.selectedCase = null;
+		this.modified = true;
+
 	}
+
+	// To reinitialize the maze when the button Restart is clicked Sheila
+	/*
+	private void reinitializeMaze() {
+
+		int option = JOptionPane.showConfirmDialog(null, "The shortest path has been found for this maze. Do you want to reinitialize the maze?", 
+				"Maze reinitialization", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);	
+
+		if(option == JOptionPane.OK_OPTION) {
+			for (int i=1 ; i < this.size-1 ; i++)
+			{
+				for (int j=1 ; j < this.size-1 ; j++)
+				{					
+					//if(this.getBoxSymbol(j, i) == '*')	{
+					this.setCase(j, i, 'E');
+				}
+			}
+
+			this.isSolved = false;
+
+		} else {
+
+			return;
+		}
+
+
+	}
+	 */
+
+	// Finds the shortest path between d and a cases
+	
+	/**
+	 * To find the shortest path between the depart and the arrival cases
+	 * @return true if the shortest path has been successfully found, else false
+	 */
+	public boolean findShortestPath() {		
+  
+			if (this.isValid()) {
+
+				this.maze.findShortestPath();
+				this.isSolved = true;	
+				this.initializeMaze();
+				
+				return true; 
+			} else {
+
+				return false; 
+			} 
+	}  
 
 
 }
-
-/*
-
-	public final void paintCase(Graphics g) {
-		//for (Case c : editedCases)
-		//this.selectedCase.paint(g,false,false) ;
-
-		if (selectedCase != null)
-			this.selectedCase.paint(g, 10, 10) ;
-
-	}	
-
- */
-
-
-/**
- *  Method to draw all cases at the beginning 
- * 
- * */
-
-/*
-	public final void drawCases(Graphics g) {
-
-		for (MBox[] boxLine : this.cases) {
-
-			for (MBox box : boxLine) {
-
-				box.draw(g, 10, 10);
-
-			}
-
-		}
-
-		//this.selectedCase.paint(g,false,false) ;
-
-
-	}
-
- */
-
