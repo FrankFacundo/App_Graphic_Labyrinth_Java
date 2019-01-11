@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class Dijsktra {
 
 
-	// Public method of Dijkstra's algorithm	
+	// Public method of Dijkstra's algorithm
 	public static PreviousInterface dijkstra(GraphInterface graph, VertexInterface r) {
 		// what if r is the source attribute of the graph? 
 

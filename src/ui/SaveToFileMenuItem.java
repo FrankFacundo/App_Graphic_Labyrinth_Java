@@ -28,7 +28,6 @@ public final class SaveToFileMenuItem extends JMenuItem implements ActionListene
 		JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 
 		int returnValue = jfc.showSaveDialog(null);
-		// int returnValue = jfc.showSaveDialog(null);
 
 		if (returnValue == JFileChooser.APPROVE_OPTION) {
 			File selectedFile = jfc.getSelectedFile();

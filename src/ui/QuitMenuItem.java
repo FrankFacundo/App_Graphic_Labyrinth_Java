@@ -1,7 +1,11 @@
 package ui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+
 import javax.swing.*;
+import javax.swing.filechooser.FileSystemView;
+
 import model.Model;
 
 public final class QuitMenuItem extends JMenuItem implements ActionListener {
@@ -29,7 +33,24 @@ public final class QuitMenuItem extends JMenuItem implements ActionListener {
 				null);
 		if (n == JOptionPane.YES_OPTION) {
 
-			//MazeAppModel.saveToFile() ;
+			JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+
+			int returnValue = jfc.showSaveDialog(null);
+
+			if (returnValue == JFileChooser.APPROVE_OPTION) {
+				File selectedFile = jfc.getSelectedFile();
+				String path = selectedFile.getAbsolutePath();
+				System.out.println(path);
+				
+				try {
+					app.getModel().getMaze().saveToTextFile(path);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			
 			System.exit(0) ;
 
 		} else if (n == JOptionPane.NO_OPTION) {
