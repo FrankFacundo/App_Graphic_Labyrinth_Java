@@ -26,9 +26,6 @@ public class Maze implements GraphInterface{
 	private VertexInterface depart;
 	private VertexInterface arrival;
 
-	private boolean solved = false; 
-
-
 	public Maze(int width, int height){
 
 		this.width = width;
@@ -129,26 +126,32 @@ public class Maze implements GraphInterface{
 		// upper neighbors
 		if (row > 0) { 
 			successor = boxes[column][row-1];
-			successors.add(successor);
+			if(successor.isEmpty())
+				successors.add(successor);
+
 		}
 
 		// lower neighbors
 		if (row < this.height - 1) { 
 			successor = boxes[column][row+1];
-			successors.add(successor);
+			if(successor.isEmpty())
+				successors.add(successor);
 		}
 
 		// left neighbors
 		if (column > 0) { 
 			successor = boxes[column-1][row];
-			successors.add(successor);
+			if(successor.isEmpty())
+				successors.add(successor);
 		}
 
 		// right neighbors
 		if (column < width - 1) { 
 			successor = boxes[column+1][row];
-			successors.add(successor);
+			if(successor.isEmpty())
+				successors.add(successor);
 		}	
+
 
 		return successors;
 
@@ -156,11 +159,12 @@ public class Maze implements GraphInterface{
 
 
 	/**
-	 * 
+	 * DELETE
 	 * @param vertex
 	 * @return the list of vertexes accessible to a vertex 
 	 */
 	public final ArrayList<VertexInterface> getAccessibleVertexes(VertexInterface vertex) {
+
 		MBox box = (MBox)vertex ; 
 		ArrayList<VertexInterface> accessibleVertexes = new ArrayList<VertexInterface>();
 
@@ -196,6 +200,7 @@ public class Maze implements GraphInterface{
 				accessibleVertexes.add(neighbor);
 		}	
 
+
 		return accessibleVertexes;
 	}
 
@@ -212,6 +217,8 @@ public class Maze implements GraphInterface{
 		if (this.getSuccessors(vertex1).contains(vertex2)) {
 
 			return 1;
+
+
 		} else {
 
 			return 0;
@@ -380,7 +387,7 @@ public class Maze implements GraphInterface{
 	// To change the case's symbol 
 	public void setBoxSymbol(int column, int row, char c) {  
 
-		if (row <= 0 || column <= 0 || row >= this.height-1 || column >= this.width-1)	{
+		if (row < 0 || column < 0 || row > this.height-1 || column > this.width-1)	{
 			System.err.println("Error: impossible to edit this case");
 			// JOptionPane.showMessageDialog(null, "Impossible to edit this case", "Case error", JOptionPane.ERROR_MESSAGE);
 			return;
@@ -430,12 +437,12 @@ public class Maze implements GraphInterface{
 		boolean valid = false; 
 
 		int i = 0;
-		int j = 0; 
 		int a = 0; 
 		int d = 0;
 
 		while (i < this.height && !valid) {
 
+			int j = 0; 
 			while (j < this.width && !valid) {
 
 				if (this.getBoxSymbol(j, i) == 'D') {
@@ -467,63 +474,66 @@ public class Maze implements GraphInterface{
 	public void findShortestPath() throws NullPointerException {		
 
 		try {   
+			int i = 0;
+			int j; 
+			int flags = 0;
 
+			while (i < this.height && flags < 2) {
+				j = 0;
+				while (j < this.width && flags < 2) {
 
-			if (this.isValid()) {
-
-
-				int i = 0;
-				int j = 0; 
-				int flags = 0;
-
-				while (i < this.height && flags < 2) {
-
-					while (j < this.width && flags < 2) {
-
-						if (this.getBoxSymbol(j, i) == 'D') {
-							this.depart = getBox(j,i);
-							flags++;
-						} else if (this.getBoxSymbol(j,i) == 'A'){
-							this.arrival = getBox(j,i);
-							flags++;
-						}
-
-						j++;
-
+					if (this.getBoxSymbol(j, i) == 'D') {
+						this.depart = getBox(j,i);
+						System.out.println("Got the departure case in "+getBox(j,i).toString());
+						flags++;
+					} else if (this.getBoxSymbol(j,i) == 'A'){
+						this.arrival = getBox(j,i);
+						System.out.println("Got the arrival case in "+getBox(j,i).toString());
+						flags++;
 					}
-					j=0;
-					i++;
+
+					j++;
+
 				}
 
+				i++;
+			}
 
-				Previous p = (Previous) Dijsktra.dijkstra(this, depart);      	    	
-				ArrayList<VertexInterface> shortestPath = p.getShortestPath(arrival);
 
-				this.printShortestPath(shortestPath); 
-				this.solved = true;				
-				return;
+			Previous p = (Previous) Dijsktra.dijkstra(this, depart);    
+		
+			// System.out.println("Previous: "+ p);
 
-			} 
-			else {
+			ArrayList<VertexInterface> shortestPath = p.getShortestPath(arrival);
 
-				System.err.println("Impossible to find the shortest path: the maze is not valid. A case for the depart and another one for the arrival must be chosen.");
-				//JOptionPane.showMessageDialog(null, "Impossible to find the shortest path. A unique case for the depart (green) and another one for the arrival (red) must be chosen. Click a case multiple times to change its type (consequently its color).",
-				//		"Maze solving error", JOptionPane.ERROR_MESSAGE);
+			// System.out.println("number of elements in pcch: "+shortestPath.size());
+			/*
+				for(VertexInterface mbox:shortestPath){
 
-				return;
-			} 
+					System.out.println(mbox.getLabel());
+				} */
+			this.printShortestPath(shortestPath); 	
+
+			System.out.println("depart has "+this.getSuccessors(depart).size()+" accessible neighbors");
+			for(VertexInterface mbox : this.getSuccessors(depart)) {
+
+
+				System.out.println(mbox.toString());
+			}
+
+			System.out.println("arrival has "+this.getSuccessors(arrival).size()+" accessible neighbors");
+
+			for(VertexInterface mbox : this.getSuccessors(arrival)) {
+
+
+				System.out.println(mbox.toString());
+			}
 
 		} catch(NullPointerException e){
 
-			System.err.println("Error: no maze has been initialized.");
-			// JOptionPane.showMessageDialog(null, "No maze has been initialized", "Maze error", JOptionPane.ERROR_MESSAGE);
+			System.err.println("Error: Impossible to find the shortest path for this maze.");
 
-		} finally {
-
-			// repaint cases with paint();
-			// TO DO 
-
-		}
+		} 
 	}  
 
 
@@ -532,6 +542,8 @@ public class Maze implements GraphInterface{
 
 		if(shortestPath != null) {
 
+			System.out.println("shortest's path size: "+shortestPath.size());
+			
 			Iterator<VertexInterface> iterator = shortestPath.iterator();
 			int i, j;
 
@@ -541,7 +553,25 @@ public class Maze implements GraphInterface{
 				i = c.getRow();
 				j = c.getColumn();
 				this.setBoxSymbol(i, j, 'X'); 
-			}			
+			}	
+
+			i = 0;
+			while (i < this.height) {
+				j = 0;
+				while (j < this.width) {
+
+
+					System.out.print(this.getBox(j, i).getChar());
+
+
+					j++;
+
+				}
+				System.out.println();
+				i++;
+			}
+
+
 		}
 	}
 

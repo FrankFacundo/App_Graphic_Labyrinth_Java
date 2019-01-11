@@ -17,7 +17,11 @@ public interface PreviousInterface {
 	 */
 	public void setValue(VertexInterface vertex, VertexInterface previousVertexVal);
 
-	// By going through the previous vertexes we will find the shortest path
+	/**
+	 * By going through the previous vertexes we will find the shortest path
+	 * @param vertex
+	 * @return a list of vertexes describing the shortest path
+	 */
 	public ArrayList<VertexInterface> getShortestPath(VertexInterface vertex);
 
 }

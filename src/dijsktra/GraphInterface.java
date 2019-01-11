@@ -10,6 +10,7 @@ public interface GraphInterface {
 	public int getWeight(VertexInterface vertex1, VertexInterface vertex2);
 
 
+	public ArrayList<VertexInterface> getSuccessors(VertexInterface vertex);
 	// Test method 
 	public VertexInterface getSourceVertex();
 

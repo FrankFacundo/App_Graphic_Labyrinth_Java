@@ -13,7 +13,7 @@ public class Dijsktra {
 		ASet aSet = new ASet(); // initially empty 
 
 		graph.setSourceVertex(r);
-
+		
 		ArrayList<VertexInterface> allVertexes = graph.getAllVertexes();
 		int n = allVertexes.size();	
 
@@ -36,46 +36,76 @@ public class Dijsktra {
 		// We search the Pi value for all vertexes except for root
 		for (int i = 1 ; i<n ; i++) {
 
-			ArrayList<VertexInterface> pivotSuccessors = pivot.getAdjacentVertexes();
-
-
+			ArrayList<VertexInterface> pivotSuccessors = graph.getSuccessors(pivot);
+			//ArrayList<VertexInterface> pivotSuccessors = pivot.getSuccessors();
+			int j = 0;
+			//System.out.println(pivot.getLabel()+i+" has this number of adjacent accessible vertexes: "+ pivotSuccessors.size());
+			if(pivotSuccessors!=null)
 			for (VertexInterface v : pivotSuccessors) {
+
 				if (!aSet.contains(v)) {
 					int newPi = piPivot + graph.getWeight(pivot, v);
+					 System.out.println(j+"times doing weight: "+ graph.getWeight(pivot, v));
 
 					if (newPi < pi.getValue(v)) {
 						pi.setValue(v, newPi);
 						prev.setValue(v, pivot);
 					}
 				}
+
+				//System.out.println("adding element number "+j);
 			}
+
+			j++;
 
 			VertexInterface newPivot = null;
 			int piNewPivot = Integer.MAX_VALUE;
 
 			//We search the new pivot and its Pi value
+
 			for (VertexInterface v : allVertexes) {
 				if (!aSet.contains(v)) {
-					int piV = pi.getValue(v);
-					if (piV < piNewPivot) {
+					int piValue = pi.getValue(v);
+
+					// System.out.println("pi value: "+ piValue);
+					// System.out.println("v value: "+ v);
+					if (piValue < piNewPivot) {
+						// System.out.println("I do this once");
 						newPivot = v;
-						piNewPivot = piV;
+						piNewPivot = piValue;
+
+						// System.out.println("setting newpivot to " + v);
+						// System.out.println("after setting " + newPivot);
+					} else {
+						// System.out.println("setting newpivot to " + v);
+						System.out.println("after setting " + newPivot);
 
 					}
 				}
 			}	
 
-			//if there are no more vertexes to process then we return the previous values (path)
+			//If there are no more vertexes to process then we return the previous values (path)
+
+			// on passe par ce for une fois
 			if (newPivot == null) {
+
+				//System.out.println("newPivotnull");
+				// System.out.println("number of vertexes in prev: "+prev.getShortestPath(r));
 				return prev;
 			}
 
+			// on ne vient pas ici 
 			pivot = newPivot;
 			piPivot = piNewPivot;
-			aSet.add(pivot);		
+			aSet.add(pivot);	
+
+
 		}		
 
+		System.out.println("We get to the end once at least: "+prev.getShortestPath(r));
 		return prev;
+
+		
 
 	}
 

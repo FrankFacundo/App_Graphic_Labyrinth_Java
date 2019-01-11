@@ -7,9 +7,7 @@ import java.util.Observable;
 
 import javax.swing.*;
 
-import dijsktra.Dijsktra;
-import dijsktra.Previous;
-import dijsktra.VertexInterface;
+import dijsktra.*;
 import maze.*;
 import ui.*;
 
@@ -244,9 +242,10 @@ public class Model extends Observable {
 
 
 	/**
-	 * A method to be used by initFromFile, or another similar method Frank
+	 * To repaint the maze once the shortest path has been found
+	 * A method to be used by initFromFile too or another similar method Frank
 	 */
-	public void initializeMaze() {
+	public void repaintMaze() {
 
 		for (int i = 0; i < this.size; i++) {
 
@@ -273,6 +272,12 @@ public class Model extends Observable {
 					this.createCase(i,j);
 					this.getCase(i, j).setBackground(Color.GRAY);
 					break;
+					
+				case 'X' : 
+					this.createCase(i,j);
+					this.getCase(i, j).setBackground(Color.YELLOW);
+					break;
+					
 
 				}
 			}
@@ -387,7 +392,7 @@ public class Model extends Observable {
 
 				this.maze.findShortestPath();
 				this.isSolved = true;	
-				this.initializeMaze();
+				this.repaintMaze();
 				
 				return true; 
 			} else {
