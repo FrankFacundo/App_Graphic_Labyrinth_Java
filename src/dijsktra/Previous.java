@@ -42,9 +42,14 @@ public class Previous implements PreviousInterface{
 			
 			path.add(vertex);
 			vertex = this.getValue(vertex);
+			
+			System.out.println("vertex is not null");
 		}
 
+		System.out.println("number of elements in shorthest path "+path.size());
 		return path;
+		
+		
 	}
 	
 

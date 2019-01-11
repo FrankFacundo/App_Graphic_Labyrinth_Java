@@ -44,12 +44,18 @@ public  abstract class MBox implements VertexInterface{
 	}
 	
 	public abstract char getChar();
+	
+	public String toString() {
+		
+		return "(" + this.column + "," + this.row  +")";
+		
+	}
 
 	
 	@Override
 	public int getDistanceTo(VertexInterface anotherVertex) {
 		// TODO Auto-generated method stub
-		return 0;
+		return 1;
 	}
 
 	@Override
@@ -60,8 +66,13 @@ public  abstract class MBox implements VertexInterface{
 
 	@Override
 	public ArrayList<VertexInterface> getAdjacentVertexes() {
-		// TODO Auto-generated method stub
+		
 		return null;
+		
+		 //return this.maze.getSuccessors(this);
+		
+		// return this.maze.getSuccessors(this);
+		
 	}
 
 	@Override

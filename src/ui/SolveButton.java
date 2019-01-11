@@ -45,7 +45,7 @@ public class SolveButton extends JButton implements ActionListener {
 		} catch (Exception e) {
 			System.err.println("Error: Impossible to solve");
 
-			JOptionPane.showMessageDialog(null, "No maze to solve.", "Error maze", JOptionPane.ERROR_MESSAGE);   
+			JOptionPane.showMessageDialog(null, "Impossible to solve.", "Error maze", JOptionPane.ERROR_MESSAGE);   
 
 		} finally {
 

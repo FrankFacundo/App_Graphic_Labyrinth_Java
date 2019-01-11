@@ -82,4 +82,11 @@ public class Graph implements GraphInterface {
 	}
 
 
+	@Override
+	public ArrayList<VertexInterface> getSuccessors(VertexInterface vertex) {
+		
+		return null;
+	}
+
+
 }

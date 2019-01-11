@@ -11,9 +11,9 @@ public class Vertex implements VertexInterface {
 	/**
 	 * The list of vertexes that are adjacent to the current vertex
 	 */
-	
+
 	private final HashMap<VertexInterface, Integer> adjacents; 
-	
+
 	//private ArrayList<VertexInterface> adjacents;
 	/**
 	 * The list of distances between the current vertex and the adjacent ones
@@ -85,35 +85,35 @@ public class Vertex implements VertexInterface {
 
 
 	public int getDistanceTo(VertexInterface anotherVertex) {
-		
-		
+
+
 		if (this.adjacents.containsKey(anotherVertex)){
-			
+
 			return this.adjacents.get(anotherVertex);
-		  
+
 		} else {
 			return -1;
 		}
-		
+
 	}
 
-	
+
 	public void addAdjacentVertex(VertexInterface vertex, int distance) {
-		
+
 		this.adjacents.put(vertex, distance);
 
 	}
 
 	public ArrayList<VertexInterface> getAdjacentVertexes() {
 
-		
+
 		ArrayList<VertexInterface> vertexesList = new ArrayList<VertexInterface>();
-		
-		for(VertexInterface v: this.adjacents.keySet()) {	
+
+		for (VertexInterface v: this.adjacents.keySet()) {	
 			vertexesList.add(v); 
 		}
 		//ArrayList<VertexInterface> vertexesList = new ArrayList<VertexInterface>(this.adjacents.keySet());
-		
+
 		return vertexesList;
 		//return (ArrayList<VertexInterface>) this.adjacents.keySet();
 	}
@@ -124,9 +124,9 @@ public class Vertex implements VertexInterface {
 		ArrayList<VertexInterface>  = new ArrayList<VertexInterface>();
 		for(VertexInterface v: adjacents.keySet())
 			vertexesList.add(v.clone()); */
-		
+
 		//ArrayList<VertexInterface> vertexesList = new ArrayList<VertexInterface>(this.adjacents.keySet());
-		
+
 		return this.adjacents;
 	}
 
