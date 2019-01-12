@@ -1,4 +1,5 @@
 package dijsktra;
+
 public interface PiInterface {
 
 	/**

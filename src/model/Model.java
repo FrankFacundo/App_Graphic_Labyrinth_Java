@@ -246,6 +246,8 @@ public class Model extends Observable {
 	 * A method to be used by initFromFile too or another similar method Frank
 	 */
 	public void repaintMaze() {
+		
+		// notify for update and repaint 
 
 		for (int i = 0; i < this.size; i++) {
 
@@ -332,14 +334,7 @@ public class Model extends Observable {
 
 		} 
 
-		/*else if (this.selectedColor == Color.RED && !this.isValid) {
-			JOptionPane.showMessageDialog(null, "One unique depart case must be selected.", "Depart case error", JOptionPane.WARNING_MESSAGE);
-		} */
-
-		/*else {
-			// error on the arrival case 
-			JOptionPane.showMessageDialog(null, "One unique arrival case must be selected.", "Arrival case error", JOptionPane.WARNING_MESSAGE);        
-		}*/
+	
 
 		this.setCase(column, row);
 		
@@ -397,6 +392,7 @@ public class Model extends Observable {
 				return true; 
 			} else {
 
+				System.out.println("This maze is not valid!");
 				return false; 
 			} 
 	}  

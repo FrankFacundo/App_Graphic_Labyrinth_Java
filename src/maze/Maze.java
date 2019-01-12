@@ -1,36 +1,24 @@
 package maze;
 
-import java.awt.Graphics;
-
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintWriter;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-
-import javax.swing.JOptionPane;
-
+import java.io.*;
+import java.util.*;
 import dijsktra.*;
 
-public class Maze implements GraphInterface{
+public final class Maze implements GraphInterface{
 
-	// To determine the size
+	// To determine the size of the maze
 	private int width;
 	private int height; 
 
 	private MBox[][] boxes;
 
-	private VertexInterface depart;
-	private VertexInterface arrival;
+	private MBox depart;
+	private MBox arrival;
 
 	public Maze(int width, int height){
 
 		this.width = width;
 		this.height = height;
-		// or +2 to have walls in the end 
 
 		this.boxes = new MBox[this.width][this.height];
 
@@ -46,6 +34,63 @@ public class Maze implements GraphInterface{
 		}
 
 	}
+
+	// COME BACK 
+	/**
+	 * To get the vertex (cannot be a wall) that has the smallest pi distance to the root and that hasn't been analyzed yet
+	 * @param pi contains all distances from root to the other vertexes
+	 * @param a, set which contains the already analyzed vertexes
+	 * @return the vertex with the smallest pi value  
+	 */
+	@Override
+	public VertexInterface getShortestDistanceVertex(PiInterface pi, ASetInterface a) {
+
+		int minimalLength = Integer.MAX_VALUE ;
+		MBox pivot = null;
+
+		for(int i = 0; i < height; i++) {
+
+			for(int j = 0; j < width; j++) {
+
+				MBox box = this.boxes[j][i];
+
+				if (!a.contains(box) && pi.getValue(box) < minimalLength && !box.isWall()) {
+
+					minimalLength = pi.getValue(box);
+					pivot = box;
+
+				}
+
+			}
+		}
+
+		return pivot;
+
+	}
+
+
+	/**
+	 * To get the number of boxes in the maze that are not walls 
+	 * @return the number of boxes that are not walls 
+	 */
+	@Override
+	public int getSize() {
+
+		int notWallBoxes = 0;
+
+		for(int i = 0; i < height; i++) {
+
+			for(int j = 0; j < width; j++) {
+
+				if( !this.boxes[j][i].isWall())
+					notWallBoxes++;
+			}
+		}
+
+
+		return notWallBoxes;
+	}
+
 
 	public void setBox(int column, int row, char type) {
 
@@ -100,9 +145,12 @@ public class Maze implements GraphInterface{
 
 		for (int i = 0 ; i < this.height ; i++) {
 			MBox[] row = boxes[i];
-			for (int j = 0 ; j < this.width ; j++)
+
+			for (int j = 0 ; j < this.width ; j++) {
 
 				allVertexes.add(row[j]);
+
+			}
 		}
 
 		return allVertexes;
@@ -126,85 +174,50 @@ public class Maze implements GraphInterface{
 		// upper neighbors
 		if (row > 0) { 
 			successor = boxes[column][row-1];
-			if(successor.isEmpty())
+			if(!successor.isWall()) {
+				// this.addEdge(box, successor, 1);
+				// box.addAdjacentVertex(successor, 1);
 				successors.add(successor);
+
+			}
 
 		}
 
 		// lower neighbors
 		if (row < this.height - 1) { 
 			successor = boxes[column][row+1];
-			if(successor.isEmpty())
+			if(!successor.isWall()) {
+				// this.addEdge(box, successor, 1);
+				// box.addAdjacentVertex(successor, 1);
 				successors.add(successor);
+
+			}
 		}
 
 		// left neighbors
 		if (column > 0) { 
 			successor = boxes[column-1][row];
-			if(successor.isEmpty())
+			if(!successor.isWall()) {
+				// this.addEdge(box, successor, 1);
+				// box.addAdjacentVertex(successor, 1);
 				successors.add(successor);
+			}
 		}
 
 		// right neighbors
 		if (column < width - 1) { 
 			successor = boxes[column+1][row];
-			if(successor.isEmpty())
+			if(!successor.isWall()) {
+				// this.addEdge(box, successor, 1);
+				// box.addAdjacentVertex(successor, 1);
 				successors.add(successor);
-		}	
+			}
+		}
 
 
 		return successors;
 
 	}
-
-
-	/**
-	 * DELETE
-	 * @param vertex
-	 * @return the list of vertexes accessible to a vertex 
-	 */
-	public final ArrayList<VertexInterface> getAccessibleVertexes(VertexInterface vertex) {
-
-		MBox box = (MBox)vertex ; 
-		ArrayList<VertexInterface> accessibleVertexes = new ArrayList<VertexInterface>();
-
-		int row = box.getRow();
-		int column = box.getColumn();
-		MBox neighbor;
-
-		// upper neighbors
-		if (row > 0) { 
-			neighbor = boxes[column][row-1];
-			if (neighbor.isEmpty())
-				accessibleVertexes.add(neighbor);
-		}
-
-		// lower neighbors
-		if (row < this.height - 1) { 
-			neighbor = boxes[column][row+1];
-			if (neighbor.isEmpty())
-				accessibleVertexes.add(neighbor);
-		}
-
-		// left neighbors
-		if (column > 0) { 
-			neighbor = boxes[column-1][row];
-			if (neighbor.isEmpty())
-				accessibleVertexes.add(neighbor);
-		}
-
-		// right neighbors
-		if (column < width - 1) { 
-			neighbor = boxes[column+1][row];
-			if (neighbor.isEmpty())
-				accessibleVertexes.add(neighbor);
-		}	
-
-
-		return accessibleVertexes;
-	}
-
-
 
 	/**
 	 * 
@@ -217,7 +230,6 @@ public class Maze implements GraphInterface{
 		if (this.getSuccessors(vertex1).contains(vertex2)) {
 
 			return 1;
-
 
 		} else {
 
@@ -368,7 +380,7 @@ public class Maze implements GraphInterface{
 	}
 
 
-	// Getter for the case's symbol (char)  ui will call this method
+	// Getter for the case's symbol (char) UI will call this method
 	public char getBoxSymbol(int column, int row) {		
 		try {
 			char symbol = this.boxes[column][row].getChar();
@@ -376,9 +388,6 @@ public class Maze implements GraphInterface{
 
 		} catch (Exception e) {
 			System.err.println("Error: impossible to access this case");
-
-			// JOptionPane.showMessageDialog(null, "Impossible to access this case", "Case error", JOptionPane.ERROR_MESSAGE);
-
 			return ' ';
 
 		}
@@ -413,8 +422,6 @@ public class Maze implements GraphInterface{
 
 				System.err.println("Error: impossible to edit this case");
 
-				//JOptionPane.showMessageDialog(null, "Impossible to edit this case", "Case error", JOptionPane.ERROR_MESSAGE);
-
 			}
 		}    
 
@@ -432,7 +439,6 @@ public class Maze implements GraphInterface{
 
 	// To verify that the maze is valid 
 	public boolean isValid() {
-
 
 		boolean valid = false; 
 
@@ -467,11 +473,114 @@ public class Maze implements GraphInterface{
 		return valid;
 
 	}
+	// COME BACK
+	public final VertexInterface getDepartureBox() {
 
+
+		for (int i = 0 ; i < this.height ; i++) {
+
+			for (int j = 0 ; j < this.width ; j++) {
+
+				if (this.getBoxSymbol(j, i) == 'D') {
+					return this.getBox(j, i);
+				}
+
+			}
+
+		}
+
+		return null;
+
+	}
+
+	
+	/**
+	 * To get the arrival box 
+	 * @return The arrival box
+	 */
+	public final VertexInterface getArrivalBox() {
+
+
+		for (int i = 0 ; i < this.height ; i++) {
+
+			for (int j = 0 ; j < this.width ; j++) {
+
+				if (this.getBoxSymbol(j, i) == 'A') {
+					return this.getBox(j, i);
+				}
+
+			}
+			
+		}
+
+		return null;
+
+	}
+
+	/**
+	 * This method is used to find the path from the departure box to the arrival box
+	 * @see Dijkstra 
+	 */
+	public final void findShortestPath() throws NullPointerException{
+
+		int i = 0;
+		int j; 
+		int flags = 0;
+
+		while (i < this.height && flags < 2) {
+			j = 0;
+			while (j < this.width && flags < 2) {
+
+				if (this.getBoxSymbol(j, i) == 'D') {
+					this.depart = getBox(j,i);
+					System.out.println("Got the departure case in "+getBox(j,i).toString());
+					flags++;
+				} else if (this.getBoxSymbol(j,i) == 'A'){
+					this.arrival = getBox(j,i);
+					System.out.println("Got the arrival case in "+getBox(j,i).toString());
+					// System.out.println("the arrival case in "+this.arrival.toString());
+					flags++;
+				}
+
+				j++;
+
+			}
+
+			i++;
+		}
+
+		System.out.println("the arrival case in "+this.arrival.toString());
+
+
+		PreviousInterface p = (Previous) Dijsktra.dijkstra(this, this.getDepartureBox());    
+
+		System.out.println("Got to solve ...");
+
+		ArrayList<VertexInterface> shortestPath = p.getShortestPath(this.getArrivalBox());
+		// works for adjacent : this.boxes[this.arrival.getColumn()-1][this.arrival.getRow()]
+		System.out.println("Shortest path contains: "+ shortestPath.size() + " elements");
+
+		for ( i = 0 ; i < this.height ; i++) {
+
+			for (j = 0 ; j < this.width ; j++) {
+
+				if (shortestPath.contains(this.boxes[j][i])) {
+
+					System.out.println("The case: "+ this.boxes[j][i] + " is in the path");
+				}
+
+			}
+			// System.out.println();
+		}
+
+		this.printShortestPath(shortestPath); 
+	}
 
 	// Finds the shortest path between d and a cases
-
-	public void findShortestPath() throws NullPointerException {		
+	// DELETE
+	// @deprecated
+	@Deprecated
+	public void findShortestPath2() throws NullPointerException {		
 
 		try {   
 			int i = 0;
@@ -500,18 +609,13 @@ public class Maze implements GraphInterface{
 			}
 
 
+			System.out.println("About to solve ...");
 			Previous p = (Previous) Dijsktra.dijkstra(this, depart);    
-		
-			// System.out.println("Previous: "+ p);
+
+			System.out.println("Got to solve ...");
 
 			ArrayList<VertexInterface> shortestPath = p.getShortestPath(arrival);
 
-			// System.out.println("number of elements in pcch: "+shortestPath.size());
-			/*
-				for(VertexInterface mbox:shortestPath){
-
-					System.out.println(mbox.getLabel());
-				} */
 			this.printShortestPath(shortestPath); 	
 
 			System.out.println("depart has "+this.getSuccessors(depart).size()+" accessible neighbors");
@@ -537,13 +641,13 @@ public class Maze implements GraphInterface{
 	}  
 
 
-	// To print the shortest path later on 
+	// To print the shortest path
 	private void printShortestPath(ArrayList<VertexInterface> shortestPath) {
 
 		if(shortestPath != null) {
 
 			System.out.println("shortest's path size: "+shortestPath.size());
-			
+
 			Iterator<VertexInterface> iterator = shortestPath.iterator();
 			int i, j;
 
@@ -571,41 +675,8 @@ public class Maze implements GraphInterface{
 				i++;
 			}
 
-
 		}
 	}
-
-
-
-	// Test method
-	@Override
-	public VertexInterface getSourceVertex() {
-
-		return this.depart;
-	}
-
-	// Test method
-	public void setSourceVertex(VertexInterface sourceVertex) {
-
-		this.depart = sourceVertex;
-
-	}
-
-	// Test method
-	@Override
-	public void addVertex(VertexInterface vertex) {
-		// TODO Auto-generated method stub
-
-	}
-
-	// Test method
-	@Override
-	public void addEdge(VertexInterface vertex1, VertexInterface vertex2,
-			int weight) {
-		// TODO Auto-generated method stub
-
-	}
-
 
 }
 

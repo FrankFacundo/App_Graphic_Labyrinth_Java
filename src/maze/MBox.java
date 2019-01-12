@@ -1,12 +1,5 @@
 package maze;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-//import com.sun.prism.Graphics;
-
-import java.awt.Graphics;
-
 import dijsktra.VertexInterface;
 
 public  abstract class MBox implements VertexInterface{
@@ -14,19 +7,17 @@ public  abstract class MBox implements VertexInterface{
 	private Maze maze;
 	private int column; 
 	private int row;
-	//private String label;
+
 	
 	public MBox(Maze maze, int column, int row){
 	
 		this.maze = maze;
 		this.column = column;
 		this.row = row;
-		// this.label = "(" + this.column + "," + this.row  + ")";
 		
 	}
 
 	public abstract String getLabel();	
-	// return "(" + this.column + 1 + "," + this.row + 1 + ")";
 		
 	public int getColumn() {
 		
@@ -39,10 +30,6 @@ public  abstract class MBox implements VertexInterface{
 		return this.row;
 	}
 	
-	public boolean isEmpty() {
-		return true;
-	}
-	
 	public abstract char getChar();
 	
 	public String toString() {
@@ -52,34 +39,51 @@ public  abstract class MBox implements VertexInterface{
 	}
 
 	
+	
 	@Override
 	public int getDistanceTo(VertexInterface anotherVertex) {
-		// TODO Auto-generated method stub
+		
 		return 1;
 	}
-
-	@Override
-	public void addAdjacentVertex(VertexInterface vertex, int distance) {
-		// TODO Auto-generated method stub
+	
+	/**
+	 * To compare two boxes' types 
+	 * @param vertex, the first box 
+	 * @return true if the boxes have the same type, else false
+	 */
+	public boolean hasSameType(VertexInterface vertex) {
+		
+		return vertex.getLabel() == this.getLabel();
 		
 	}
-
-	@Override
-	public ArrayList<VertexInterface> getAdjacentVertexes() {
-		
-		return null;
-		
-		 //return this.maze.getSuccessors(this);
-		
-		// return this.maze.getSuccessors(this);
-		
-	}
-
-	@Override
-	public HashMap<VertexInterface, Integer> getAdjacentVertexesAndDistances() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
+	
+	/** 
+	 * To know whether the box is a empty or not
+	 * @return true if the box is empty, else false 
+	 * @see EBox
+	 */
+	public abstract boolean isEmpty();
+	
+	/** 
+	 * To know whether the box is a wall or not
+	 * @return true if the box is a wall, else false 
+	 * @see WBox
+	 */
+	public abstract boolean isWall();
+	
+	/** To know whether the box is a start or not
+	 * @return true if the box is the depart, else false 
+	 * @see DBox
+	 */
+	public abstract boolean isDepart();
+	
+	/** To know whether the box is a exit or not
+	 * @return true if the box is the arrival, else false 
+	 * @see ABox
+	 */
+	public abstract boolean isArrival();
+	
 	
 	
 }

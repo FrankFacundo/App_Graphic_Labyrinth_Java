@@ -1,12 +1,12 @@
 package maze;
 
 public class DBox extends MBox {
-	
+
 	public DBox(Maze maze, int column, int row) {
 		super(maze, column, row);
 	}
-	
-	
+
+
 	public boolean isEmpty() {
 		return false;
 	}
@@ -14,13 +14,34 @@ public class DBox extends MBox {
 
 	@Override
 	public char getChar() {
-	
+
 		return 'D';
 	}
-	
+
 	@Override
 	public String getLabel() {
-		
+
 		return "DEPART";
+	}
+
+
+	@Override
+	public boolean isWall() {
+
+		return false;
+	}
+
+
+	@Override
+	public boolean isDepart() {
+
+		return true;
+	}
+
+
+	@Override
+	public boolean isArrival() {
+
+		return false;
 	}
 }

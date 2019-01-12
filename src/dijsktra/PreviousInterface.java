@@ -24,4 +24,5 @@ public interface PreviousInterface {
 	 */
 	public ArrayList<VertexInterface> getShortestPath(VertexInterface vertex);
 
+
 }

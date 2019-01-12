@@ -65,6 +65,7 @@ public class SolveButton extends JButton implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		this.calculateShortestPath(this.mazeApp.getModel().getMaze());
+		this.mazeApp.getModel().repaintMaze();
 
 	}
 

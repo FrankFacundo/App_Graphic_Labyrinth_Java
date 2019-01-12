@@ -10,20 +10,19 @@ public class Pi implements PiInterface {
 	
 	public Pi() {
 		
-		this.piTable = new Hashtable<VertexInterface, Integer>();
+		this.piTable = new Hashtable<VertexInterface, Integer>(100);
 		
 	}
     
 	public int getValue(VertexInterface vertex) {
-	
 		
-		return piTable.get(vertex).intValue();
+		return this.piTable.get(vertex).intValue();
 		
 	}
 
 	public void setValue(VertexInterface vertex, int newPi) {
 		
-		piTable.put(vertex, new Integer(newPi));
+		this.piTable.put(vertex, new Integer(newPi));
 	
 		
 	}
