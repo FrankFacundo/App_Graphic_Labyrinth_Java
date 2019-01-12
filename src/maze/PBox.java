@@ -3,7 +3,6 @@ package maze;
 
 // import java.io.PrintWriter;
 
-import maze.*;
 
 public class PBox extends MBox {
 	
@@ -27,6 +26,30 @@ public class PBox extends MBox {
 	public String getLabel() {
 		
 		return "STEP";
+	}
+
+	@Override
+	public boolean isEmpty() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isWall() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isDepart() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isArrival() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 

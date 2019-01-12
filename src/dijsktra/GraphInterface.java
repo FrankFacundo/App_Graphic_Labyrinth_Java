@@ -3,33 +3,37 @@ import java.util.ArrayList;
 
 public interface GraphInterface {
 
-	// To get all the vertexes 
-	public ArrayList<VertexInterface> getAllVertexes();
 
 	// To get the weight of an edge joining two vertexes 
 	public int getWeight(VertexInterface vertex1, VertexInterface vertex2);
 
-
-	public ArrayList<VertexInterface> getSuccessors(VertexInterface vertex);
-	// Test method 
-	public VertexInterface getSourceVertex();
-
-	// Test method 
-	public void setSourceVertex(VertexInterface sourceVertex);
-
-	// Test method 
-	// To add a vertex to the graph 
-	public void addVertex(VertexInterface vertex); // TO DO deleted afterwards
-
-	// Test method 
-	// To add an edge to the graph
 	/**
-	 * Adds an edge of a certain weight from vertex1 to vertex2 
-	 * @param vertex1 the source of the edge 
-	 * @param vertex2 the target of the edge
-	 * @param weight the new edge's weight
+	 * To get all the vertexes of the graph
+	 * @return an array containing all the vertexes
 	 */
-	public void addEdge(VertexInterface vertex1, VertexInterface vertex2, int weight); // TO DO deleted afterwards
+	public ArrayList<VertexInterface> getAllVertexes();
+
+	/**
+	 * To get the all the successors of a given vertex
+	 * @param vertex, the vertex whose successors we want to find
+	 * @return an array containing all the successors of vertex
+	 */
+	public ArrayList<VertexInterface> getSuccessors(VertexInterface vertex);
+
+
+	/**
+	 * To get the vertex whose distance is the shortest among the vertexes other in aSet
+	 * @param pi, contains all the distances from the root to other vertexes
+	 * @param aSet, the set containing the analyzed vertexes
+	 * @return the vertex whose path to root has the lowest weight 
+	 */
+	public VertexInterface getShortestDistanceVertex(PiInterface pi, ASetInterface aSet);
+
+	/**
+	 * To get the number of vertexes the the graph
+	 * @return the number of vertexes in the graph
+	 */
+	public int getSize();
 
 
 }

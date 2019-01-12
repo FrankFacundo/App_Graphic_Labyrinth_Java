@@ -3,172 +3,83 @@ import java.util.ArrayList;
 
 public class Dijsktra {
 
-
-	// Public method of Dijkstra's algorithm
+	/**
+	 * Public method of Dijkstra's algorithm 
+	 * @param g, the graph whose shortest path will be found
+	 * @param r, the root vertex (source) for which we will find the shortest path to all others vertexes in the graph
+	 * @return a Previous object which will contain all the shortest paths which depart from the root vertex
+	 */
 	public static PreviousInterface dijkstra(GraphInterface graph, VertexInterface r) {
-		// what if r is the source attribute of the graph? 
 
-		Pi pi = new Pi();
-		Previous prev = new Previous();
-		ASet aSet = new ASet(); // initially empty 
+		ASetInterface aSet = new ASet();
+		PiInterface pi = new Pi();
+		PreviousInterface previous = new Previous();
 
-		graph.setSourceVertex(r);
-		
-		ArrayList<VertexInterface> allVertexes = graph.getAllVertexes();
-		int n = allVertexes.size();	
+		return Dijsktra.dijkstra(graph,r,aSet,pi,previous);
 
-		//"aSet" receives the root vertex "r"
+	}
+
+	/**
+	 * To apply Dijkstra's algorithm to a given graph, departing from a given root vertex
+	 * @param g, the graph whose shortest path will be found
+	 * @param r, the root vertex (source) for which we will find the shortest path to all others vertexes in the graph
+	 * @param aSet, a set which will contain the analyzed vertexes
+	 * @param pi, a Pi object which will contain the distances to the root vertex
+	 * @param previous, a Previous object which will contain the shortest paths
+	 * @return a Previous object which will contain all the shortest paths which depart from the root vertex
+	 */
+	private static PreviousInterface dijkstra(GraphInterface graph, VertexInterface r, ASetInterface aSet, PiInterface pi, PreviousInterface previous) {
+
+		//All the vertex from the graph/maze
+		ArrayList<VertexInterface> allvertex = graph.getAllVertexes();
+
+		// The first pivot is root "r" (source vertex)
+		VertexInterface pivot = r;
+		// The successors of pivot (accessible and adjacent vertexes) 
+		ArrayList<VertexInterface> pivotSuccessors;
+
 		aSet.add(r);
 
-		//Initialization: we assign great values to all vertexes 
-		for (VertexInterface v : allVertexes) {
-			pi.setValue(v, Integer.MAX_VALUE);
+		// The Pi value of the root vertex receives 0 
+		pi.setValue(r, 0);
+
+		// Initialization: we assign great values to all vertexes, except for root
+		for(VertexInterface v : allvertex) {
+
+			if (!v.hasSameType(r)) {
+				
+				pi.setValue(v, Integer.MAX_VALUE);
+			}
 		}
 
-		//The Pi value of root vertex receives 0 
-		pi.setValue(r,0);
-
-		//The first pivot is root "r"
-		VertexInterface pivot = r;
-		int piPivot = 0;
-
-
-		// We search the Pi value for all vertexes except for root
-		for (int i = 1 ; i<n ; i++) {
-
-			ArrayList<VertexInterface> pivotSuccessors = graph.getSuccessors(pivot);
-			//ArrayList<VertexInterface> pivotSuccessors = pivot.getSuccessors();
-			int j = 0;
-			//System.out.println(pivot.getLabel()+i+" has this number of adjacent accessible vertexes: "+ pivotSuccessors.size());
-			if(pivotSuccessors!=null)
-			for (VertexInterface v : pivotSuccessors) {
-
-				if (!aSet.contains(v)) {
-					int newPi = piPivot + graph.getWeight(pivot, v);
-					 System.out.println(j+"times doing weight: "+ graph.getWeight(pivot, v));
-
-					if (newPi < pi.getValue(v)) {
-						pi.setValue(v, newPi);
-						prev.setValue(v, pivot);
-					}
-				}
-
-				//System.out.println("adding element number "+j);
-			}
-
-			j++;
-
-			VertexInterface newPivot = null;
-			int piNewPivot = Integer.MAX_VALUE;
-
-			//We search the new pivot and its Pi value
-
-			for (VertexInterface v : allVertexes) {
-				if (!aSet.contains(v)) {
-					int piValue = pi.getValue(v);
-
-					// System.out.println("pi value: "+ piValue);
-					// System.out.println("v value: "+ v);
-					if (piValue < piNewPivot) {
-						// System.out.println("I do this once");
-						newPivot = v;
-						piNewPivot = piValue;
-
-						// System.out.println("setting newpivot to " + v);
-						// System.out.println("after setting " + newPivot);
-					} else {
-						// System.out.println("setting newpivot to " + v);
-						System.out.println("after setting " + newPivot);
-
-					}
-				}
-			}	
-
-			//If there are no more vertexes to process then we return the previous values (path)
-
-			// on passe par ce for une fois
-			if (newPivot == null) {
-
-				//System.out.println("newPivotnull");
-				// System.out.println("number of vertexes in prev: "+prev.getShortestPath(r));
-				return prev;
-			}
-
-			// on ne vient pas ici 
-			pivot = newPivot;
-			piPivot = piNewPivot;
-			aSet.add(pivot);	
-
-
-		}		
-
-		System.out.println("We get to the end once at least: "+prev.getShortestPath(r));
-		return prev;
-
+		// We compare distances for all accessible vertexes that are not yet in aSet
+		int i = 1; 
+		int newPi;
 		
+		while (i < graph.getSize() && pivot != null) {
 
-	}
+			pivotSuccessors = graph.getSuccessors(pivot);
 
-	public static void main(String[] args) {
+			for(VertexInterface v : pivotSuccessors) {   
 
+				if (!aSet.contains(v)) {
 
-		Vertex v1 = new Vertex("Lima");
-		Vertex v2 = new Vertex("Ica");
-		Vertex v3 = new Vertex("Trujillo");
-		Vertex v4 = new Vertex("Arequipa");
-		Vertex v5 = new Vertex("Cuzco");
-		Vertex v6 = new Vertex("Loreto");
+					newPi = pi.getValue(pivot) + graph.getWeight(pivot, v);
 
+					if (newPi <  pi.getValue(v)) {
 
-		Graph graph = new Graph();
-		//graph.setSourceVertex(v1);
+						pi.setValue(v, newPi);
+						previous.setValue(v, pivot);  
 
-		graph.addVertex(v1);
-		graph.addVertex(v2);
-		graph.addVertex(v3);
-		graph.addVertex(v4);
-		graph.addVertex(v5);
-		graph.addVertex(v6);
-
-
-		graph.addEdge(v1, v2, 3);
-		graph.addEdge(v1, v3, 5);
-		graph.addEdge(v1, v4, 6);
-		graph.addEdge(v1, v5, 7);
-
-		graph.addEdge(v2, v3, 1);
-		graph.addEdge(v2, v4, 5);
-		graph.addEdge(v2, v6, 7);
-
-		graph.addEdge(v3, v4, 2);
-
-		graph.addEdge(v4, v5, 2);
-		graph.addEdge(v4, v6, 5);
-
-		graph.addEdge(v5, v6, 2); 
-
-		// System.out.println("Number of vertexes adjacent to the source : "+v1.getAdjacentVertexesAndDistances().size());
-
-		PreviousInterface previous = dijkstra(graph, v1);
-
-		System.out.println("The graph: \n" + graph.toString());
-
-
-		ArrayList <VertexInterface> previousVertexes = previous.getShortestPath(v3);
-
-		System.out.println("The shortest path to " + v3.getLabel() + ": ");
-
-
-		String str = "";
-		for(VertexInterface v : previousVertexes) {
-
-			str += "<-" + v.toString();
-
+					}
+				}	
+			}
+			// We get the vertex in aSet whose distance is the shortest to root 
+			pivot = graph.getShortestDistanceVertex(pi, aSet);
+			aSet.add(pivot);
+			i++;
 		}
-		str = str.substring(("<-").length());
-		System.out.println(str);
 
-		System.out.println("Number of vertexes in the shortest path: "+previousVertexes.size());
+		return previous;
 	}
-
 }

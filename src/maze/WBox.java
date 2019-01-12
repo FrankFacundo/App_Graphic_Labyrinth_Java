@@ -27,5 +27,23 @@ public class WBox extends MBox {
 		
 		return "WALL";
 	}
+
+	@Override
+	public boolean isWall() {
+		
+		return true;
+	}
+
+	@Override
+	public boolean isDepart() {
+		
+		return false;
+	}
+
+	@Override
+	public boolean isArrival() {
+		
+		return false;
+	}
 	
 }
