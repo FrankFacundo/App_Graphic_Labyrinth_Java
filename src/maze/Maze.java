@@ -349,11 +349,11 @@ public final class Maze implements GraphInterface{
 			// the row 
 			for (int i = 0; i < this.height; i++) {
 
-				MBox[] rows = boxes[i] ;
+				//MBox[] rows = boxes[i];
 
 				for (int j = 0 ; j < this.width ; j++) {	
-
-					pw.print(rows[j].getChar());
+					MBox letter = boxes[j][i];
+					pw.print(letter.getChar());
 					// System.out.print("index: "+ rows[j].getLabel());
 				} 
 
