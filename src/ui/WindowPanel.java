@@ -19,6 +19,11 @@ public final class WindowPanel extends JPanel {
 		
 	}
 	
+	public BottomPanel getBottomPanel ()
+	{
+		return this.bottomPanel;
+	}
+	
 	public void notifyForUpdate() {
 		
 	   mazePanel.notifyForUpdate() ;

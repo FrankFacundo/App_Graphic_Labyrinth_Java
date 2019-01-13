@@ -57,11 +57,11 @@ public final class  CasePanel extends JButton implements ActionListener {
 		this.mazeApp.getModel().changeCaseType();
 
 	}
-
-	public void notifyToUpdate() {
+/*
+	public void notifyForUpdate() {
 
 		this.repaint() ;	
 
 	}
-
+*/
 }

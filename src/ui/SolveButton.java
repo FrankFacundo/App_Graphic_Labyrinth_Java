@@ -67,14 +67,18 @@ public class SolveButton extends JButton implements ActionListener {
 		this.calculateShortestPath(this.mazeApp.getModel().getMaze());
 		this.mazeApp.getModel().repaintMaze();
 
+		if (this.mazeApp.getModel().getIsSolved()) {
+			this.mazeApp.getModel().blockCases();
+		}
 	}
 
 	public void notifyForUpdate() {
 
-		if (this.mazeApp.getModel().getIsSolved()) {
+		/*if (this.mazeApp.getModel().getIsSolved()) {
 			this.setEnabled(false);
 		} // fix this
-		// repaint();	
+		*/
+		repaint();	
 	}
 
 }

@@ -108,12 +108,14 @@ public final class Maze implements GraphInterface{
 
 		case 'A':
 			this.boxes[row][column] = new ABox(this, column, row);
-
-
 			break; 
 
 		case 'D':
 			this.boxes[row][column] = new DBox(this, column, row);
+			break; 
+			
+		case 'X':
+			this.boxes[row][column] = new PBox(this, column, row);
 			break; 
 
 		default:
@@ -526,7 +528,8 @@ public final class Maze implements GraphInterface{
 		int i = 0;
 		int j; 
 		int flags = 0;
-
+		
+		
 		while (i < this.height && flags < 2) {
 			j = 0;
 			while (j < this.width && flags < 2) {
@@ -567,6 +570,7 @@ public final class Maze implements GraphInterface{
 				if (shortestPath.contains(this.boxes[j][i])) {
 
 					System.out.println("The case: "+ this.boxes[j][i] + " is in the path");
+					//this.setBox(i,j,'X');
 				}
 
 			}
@@ -658,6 +662,15 @@ public final class Maze implements GraphInterface{
 				j = c.getColumn();
 				this.setBoxSymbol(i, j, 'X'); 
 			}	
+			
+			int departColumn = this.depart.getColumn();
+			int departRow = this.depart.getRow();
+			this.setBoxSymbol(departRow, departColumn, 'D'); 
+
+			int arrivalColumn = this.arrival.getColumn();
+			int arrivalRow = this.arrival.getRow();
+			this.setBoxSymbol(arrivalRow, arrivalColumn, 'A'); 
+			
 
 			i = 0;
 			while (i < this.height) {

@@ -20,6 +20,11 @@ public final class BottomPanel extends JPanel {
 		this.add(buttonsPanel = new ButtonsPanel(app));
 
 	}
+	
+	public ButtonsPanel getButtonsPanel ()
+	{
+		return this.buttonsPanel;
+	}
 
 	public void notifyForUpdate() {
 

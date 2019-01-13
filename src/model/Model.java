@@ -170,7 +170,35 @@ public class Model extends Observable {
 
 		this.isSolved = isSolved;
 	}
+	public void blockCases() {
 
+		if(this.isSolved)
+		{
+			for(int i = 0; i< this.size ;i++) {
+
+				for(int j = 0; j < this.size ;j++) {
+
+					this.cases[i][j].setEnabled(false);
+
+				}
+
+			}
+		}
+	}
+	
+	public void enableCases() {
+
+
+			for(int i = 0; i< this.size ;i++) {
+
+				for(int j = 0; j < this.size ;j++) {
+
+					this.cases[i][j].setEnabled(true);
+
+				}
+
+			}
+	}
 
 	public int getSize() {
 
@@ -203,6 +231,10 @@ public class Model extends Observable {
 		} else if(this.selectedColor == Color.GRAY) {
 			this.putWBox(j,i);
 		}
+	}
+	
+	public void setSolution() {
+
 	}
 
 	public void putABox(int j, int i) {
@@ -253,30 +285,30 @@ public class Model extends Observable {
 
 			for(int j = 0; j < this.size; j++) {
 
-				switch(this.maze.getBox(j,i).getChar()) {
+				switch(this.maze.getBox(i,j).getChar()) {
 
 				case 'A' : 
-					this.createCase(j,i);
-					this.getCase(j, i).setBackground(Color.RED);
+					//this.createCase(j,i);
+					this.getCase(i, j).setBackground(Color.RED);
 					break;
 
 				case 'D' : 
-					this.createCase(i,j);
+					//this.createCase(i,j);
 					this.getCase(i, j).setBackground(Color.GREEN);
 					break;
 
 				case 'E' : 
-					this.createCase(i,j);
+					//this.createCase(i,j);
 					this.getCase(i, j).setBackground(Color.WHITE);
 					break;
 
 				case 'W' : 
-					this.createCase(i,j);
+					//this.createCase(i,j);
 					this.getCase(i, j).setBackground(Color.GRAY);
 					break;
 					
 				case 'X' : 
-					this.createCase(i,j);
+					//this.createCase(i,j);
 					this.getCase(i, j).setBackground(Color.YELLOW);
 					break;
 					
@@ -302,6 +334,8 @@ public class Model extends Observable {
 			this.selectedColor = Color.WHITE; break;		
 		case 'W': 
 			this.selectedColor = Color.GRAY; break;		
+		case 'X': 
+			this.selectedColor = Color.YELLOW; break;
 		}
 	}
 
@@ -348,19 +382,25 @@ public class Model extends Observable {
 	}
 
 	// To reinitialize the maze when the button Restart is clicked Sheila
-	/*
-	private void reinitializeMaze() {
+	
+	public void reinitializeMaze() {
 
 		int option = JOptionPane.showConfirmDialog(null, "The shortest path has been found for this maze. Do you want to reinitialize the maze?", 
 				"Maze reinitialization", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);	
 
 		if(option == JOptionPane.OK_OPTION) {
-			for (int i=1 ; i < this.size-1 ; i++)
+			for (int i=0 ; i < this.size ; i++)
 			{
-				for (int j=1 ; j < this.size-1 ; j++)
+				for (int j=0 ; j < this.size ; j++)
 				{					
 					//if(this.getBoxSymbol(j, i) == '*')	{
-					this.setCase(j, i, 'E');
+					this.enableCases();
+					this.putEBox(i, j);
+					this.setSelectedColor('E');
+					this.repaintMaze();
+					this.mazeApp.getWindowPanel().getBottomPanel().getButtonsPanel()
+					.getSolveButton().setEnabled(true);
+				
 				}
 			}
 
@@ -373,7 +413,7 @@ public class Model extends Observable {
 
 
 	}
-	 */
+	 
 
 	// Finds the shortest path between d and a cases
 	
