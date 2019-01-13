@@ -1,11 +1,15 @@
 package model;
 
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Observable;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileSystemView;
 
 import dijsktra.*;
 import maze.*;
@@ -20,6 +24,7 @@ public class Model extends Observable {
 	private Color selectedColor;
 	private final int size = 10; // the maze will be size*size 
 	private boolean isValid;
+	private String pathFile;
 
 	private boolean modified;
 
@@ -60,6 +65,7 @@ public class Model extends Observable {
 
 		this.maze.setBoxes(boxes);
 		this.cases = casePanel;
+		pathFile = System.getProperty("user.home");
 
 	}
 
@@ -128,7 +134,16 @@ public class Model extends Observable {
 		return this.isValid;
 	}
 
+	public String getPathFile() {
 
+		return this.pathFile;
+	}
+	
+	public void setPathFile(String path) {
+
+		this.pathFile = path;
+	}
+	
 	public void setModified(boolean modified) {
 
 		this.modified = modified;
@@ -277,6 +292,95 @@ public class Model extends Observable {
 	 * To repaint the maze once the shortest path has been found
 	 * A method to be used by initFromFile too or another similar method Frank
 	 */
+	
+	public void initFromFile()
+
+	{
+		//JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+		JFileChooser jfc = new JFileChooser(new File(pathFile));
+
+		int returnValue = jfc.showOpenDialog(null);
+		// int returnValue = jfc.showSaveDialog(null);
+
+		if (returnValue == JFileChooser.APPROVE_OPTION) {
+			File selectedFile = jfc.getSelectedFile();
+			String path = selectedFile.getAbsolutePath();
+			pathFile = path;
+			System.out.println(path);
+			try {
+				FileReader fr = new FileReader(path);
+				BufferedReader bufferedReader = new BufferedReader(fr);	
+
+				// the object already exists so height and width are already determined
+				for (int i = 0 ; i < this.getSize() ; i++) {
+
+					String row = bufferedReader.readLine();
+
+					// If the row we are reading is null 
+					if (row == null) {
+
+						// System.err.println("Insufficient number of rows");
+						throw new MazeReadingException(path, i, " Insufficient number of rows." );
+
+					} else {
+
+						// we check the size
+						if (row.length() < this.getSize()) {
+
+							// System.err.println("The row "+ i + 1 + " does not contain enough cases");
+							throw new MazeReadingException(path, i, "The row " + i + 1 +
+									" does not contain enough cases" );
+
+						} else if (row.length() > this.getSize()) {
+
+
+							// System.err.println("The row "+ i + 1 + " contains too many cases");
+							throw new MazeReadingException(path, i, "The row " + i + 1 + " contains too many cases" );
+
+						} else {
+
+							for (int j = 0 ; j < this.getSize() ; j++)
+							{
+								this.setSelectedCase(j, i);
+								switch (row.charAt(j)) 
+								{
+								case 'D' :
+									this.setSelectedColor('D');
+									break;
+								case 'A' :
+									this.setSelectedColor('A');
+									break;
+								case 'W' :
+									this.setSelectedColor('W');
+									break;
+								case 'E' :
+									this.setSelectedColor('E');
+									break;         	
+								default :
+
+									//System.err.println("Invalid character");
+									throw new MazeReadingException(path, i, " Unknown character: " +
+											this.getMaze().getBoxSymbol(j, i) + "." );
+
+								}
+								this.changeCaseType();
+							} 
+
+						}
+
+					}
+
+				}
+
+
+				//MazeApp.getModel().getMaze().initFromTextFile(path);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	public void repaintMaze() {
 		
 		// notify for update and repaint 

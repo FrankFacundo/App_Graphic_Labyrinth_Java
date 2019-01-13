@@ -25,13 +25,14 @@ public final class SaveToFileMenuItem extends JMenuItem implements ActionListene
   
 	public void actionPerformed(ActionEvent evt){
 	
-		JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+		JFileChooser jfc = new JFileChooser(new File(this.MazeApp.getModel().getPathFile()));
 
 		int returnValue = jfc.showSaveDialog(null);
 
 		if (returnValue == JFileChooser.APPROVE_OPTION) {
 			File selectedFile = jfc.getSelectedFile();
 			String path = selectedFile.getAbsolutePath();
+			this.MazeApp.getModel().setPathFile(path);
 			System.out.println(path);
 			
 			try {
