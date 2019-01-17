@@ -1,5 +1,10 @@
 package dijsktra;
 
+/**
+ * Pi's interface
+ *
+ */
+
 public interface PiInterface {
 
 	/**
@@ -15,6 +20,5 @@ public interface PiInterface {
 	 * @param newPi, the distance to be set 
 	 */
 	public void setValue(VertexInterface vertex, int newPi);
-
 
 }

@@ -1,8 +1,12 @@
 package dijsktra;
-import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.*;
 
-public class Previous implements PreviousInterface{
+/**
+ * Previous vertexes' class: by going through the previous vertexes we will find the shortest path
+ *
+ */
+
+public final class Previous implements PreviousInterface{
 
 	private Hashtable<VertexInterface, VertexInterface> previousTable = new Hashtable<VertexInterface,VertexInterface>();
 
@@ -17,7 +21,6 @@ public class Previous implements PreviousInterface{
 		this.previousTable.put(vertex, previousVertexVal);
 
 	}
-
 
 	public ArrayList<VertexInterface> getShortestPath(VertexInterface vertex){
 

@@ -1,6 +1,6 @@
 package maze;
 
-public class EBox extends MBox {
+public final class EBox extends MBox {
 
 	public EBox(Maze maze , int column, int row) {
 		super(maze, column, row);
