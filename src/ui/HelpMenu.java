@@ -3,14 +3,12 @@ import javax.swing.*;
 
 public final class HelpMenu extends JMenu
 {
-  private final InstructionsItem instructionsItem;
+	private final InstructionsItem instructionsItem;
 
-  public HelpMenu (MazeApp MazeApp)
-  {
-    super("Help");
+	public HelpMenu (MazeApp MazeApp)
+	{
+		super("Help");
+		add(instructionsItem = new InstructionsItem(MazeApp));
 
-    add(instructionsItem = new InstructionsItem(MazeApp));
-
-    
-  }
+	}
 }

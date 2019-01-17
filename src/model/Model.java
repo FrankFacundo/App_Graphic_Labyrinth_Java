@@ -4,14 +4,8 @@ import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Observable;
-
 import javax.swing.*;
-import javax.swing.filechooser.FileSystemView;
-
-import dijsktra.*;
 import maze.*;
 import ui.*;
 
@@ -136,6 +130,8 @@ public final class Model extends Observable {
 
 		return this.modified;
 	}
+	
+	
 
 	public String getPathFile() {
 
@@ -239,7 +235,6 @@ public final class Model extends Observable {
 
 		WBox wbox = new WBox(this.maze, j, i);
 		this.maze.setBox(j, i, wbox);
-		//this.maze.getBoxes()[j][i] = wbox;
 		this.selectedCase = wbox;
 
 	}
