@@ -22,7 +22,7 @@ public interface VertexInterface {
 	/**
 	 * To get the distance to another vertex (weight)
 	 * @param anotherVertex, the other vertex
-	 * @return the distance between the current and the other vertex, -1 if anotherVertex is not adjacent to the current vertex
+	 * @return the distance between the current and the other vertex
 	 */
 	public int getDistanceTo(VertexInterface anotherVertex);
 
