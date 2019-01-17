@@ -15,7 +15,7 @@ public class MazeApp extends JFrame implements Observer {
 	public MazeApp() {
 		super("Maze by Sheila & Frank");
 		
-		this.setIconImage(new ImageIcon(""+System.getProperty("user.dir")+"/src/icon.png").getImage());
+		this.setIconImage(new ImageIcon(""+System.getProperty("user.dir")+"/data/icon.png").getImage());
 		
 		this.setJMenuBar(menuBar = new MenuBar(this));		
 		this.setContentPane(windowPanel = new WindowPanel(this));
