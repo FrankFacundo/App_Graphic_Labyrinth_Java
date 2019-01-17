@@ -4,10 +4,7 @@ import java.util.Observer;
 
 import javax.swing.*;
 
-import com.sun.prism.Graphics;
-
 import model.Model;
-import maze.Maze;
 
 public class MazeApp extends JFrame implements Observer {
 	
@@ -17,7 +14,9 @@ public class MazeApp extends JFrame implements Observer {
 
 	public MazeApp() {
 		super("Maze by Sheila & Frank");
-
+		
+		this.setIconImage(new ImageIcon(""+System.getProperty("user.dir")+"/src/icon.png").getImage());
+		
 		this.setJMenuBar(menuBar = new MenuBar(this));		
 		this.setContentPane(windowPanel = new WindowPanel(this));
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -36,6 +35,11 @@ public class MazeApp extends JFrame implements Observer {
 	public void setModel(Model model) {
 		
 		this.model = model;
+	}
+	
+	public WindowPanel getWindowPanel()
+	{
+		return this.windowPanel;
 	}
 	
 	public void update(Observable observable, Object parameter) {

@@ -35,7 +35,6 @@ public final class MazePanel extends JPanel {
 	}
 
 	public void notifyForUpdate() {
-		
 		this.repaint() ;		
 	}
 
