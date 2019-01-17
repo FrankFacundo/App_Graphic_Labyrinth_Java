@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
+import model.Model;
+
 public final class  CasePanel extends JButton implements ActionListener {
 
 	private final MazeApp mazeApp;
@@ -15,7 +17,6 @@ public final class  CasePanel extends JButton implements ActionListener {
 	public CasePanel(MazeApp mazeApp, int column, int row) {
 
 		super();
-
 		this.mazeApp = mazeApp;
 		this.column = column;
 		this.row = row;
@@ -30,20 +31,8 @@ public final class  CasePanel extends JButton implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		// this.mazeApp.getModel().setModified(true);
-
 		this.mazeApp.getModel().setSelectedCase(this.column, this.row);
-
-		//this.mazeApp.getModel().updateTextInPanel(this);
-
-		/*
-		System.out.println("the selected case " + this.mazeApp.getModel().getSelectedCase());
-		System.out.println("the case is in column: "+this.mazeApp.getModel().getSelectedCase().getColumn()+" and row"+
-					this.mazeApp.getModel().getSelectedCase().getRow()); */
-
-
 		this.numberOfClicks++;
-		//System.out.println("the number of clicks: "+numberOfClicks);
 
 		switch (numberOfClicks) {
 
@@ -57,11 +46,32 @@ public final class  CasePanel extends JButton implements ActionListener {
 		this.mazeApp.getModel().changeCaseType();
 
 	}
-/*
-	public void notifyForUpdate() {
 
-		this.repaint() ;	
+	protected final void paintComponent(Graphics g) {
+		// Paint the background
+		super.paintComponent(g) ;
+		// Block if the maze was solved 
+		if (this.mazeApp.getModel().getIsSolved()) {
+
+			this.setEnabled(false);
+		} else {
+			this.setEnabled(true);
+			
+		}
+
+		/*
+		if (this.mazeApp.getModel().getIsSolved()) {
+
+			this.setEnabled(false);
+		}*/
+
 
 	}
-*/
+
+	public void notifyForUpdate() {
+
+		repaint();	
+
+	}
+
 }

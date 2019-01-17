@@ -52,6 +52,7 @@ public final class ABox extends MBox {
 	public boolean isDepart() {
 
 		return false;
+		
 	}
 
 	@Override

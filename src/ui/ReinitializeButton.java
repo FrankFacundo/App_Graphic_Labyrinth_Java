@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -26,6 +27,21 @@ public class ReinitializeButton extends JButton implements ActionListener {
 		this.mazeApp.getModel().reinitializeMaze();
 		
 		
+	}
+	
+	protected final void paintComponent(Graphics g) {
+	
+		super.paintComponent(g) ;
+		
+		// If no modifications were made in the maze we cannot reinitialize 
+		if(this.mazeApp.getModel().getIsModified()) {
+			
+			this.setEnabled(true);
+		} else {
+			this.setEnabled(false);
+		}
+
+
 	}
 
 	

@@ -13,17 +13,14 @@ public class SolveButton extends JButton implements ActionListener {
 	public SolveButton (MazeApp mazeApp) {
 
 		super("Find shortest path");
+		
 		this.mazeApp = mazeApp;
 
-		//this.setBorder(BorderFactory.createLineBorder(Color.black));
-		// this.setPreferredSize(new Dimension(100,100));
 		this.addActionListener(this); 
-
-		// this.repaint(); // paint or update
 
 	}
 
-	//calculates the shortest path between the depart case and the arrival one
+	// Calculates the shortest path between the depart case and the arrival one
 	public final void calculateShortestPath(Maze maze)  {   
 
 		try {
@@ -39,27 +36,15 @@ public class SolveButton extends JButton implements ActionListener {
 						+ "These cases must be separated by at least one case.",
 						"Maze solving error", JOptionPane.ERROR_MESSAGE);
 			}
-			//((Maze) maze).findShortestPath();	
-
 
 		} catch (Exception e) {
-			System.err.println("Error: Impossible to solve");
 
+			System.err.println("Error: Impossible to solve");
 			JOptionPane.showMessageDialog(null, "Impossible to solve.", "Error maze", JOptionPane.ERROR_MESSAGE);   
 
-		} finally {
-
-			/*
-				Window[] windows = Window.getWindows();
-				for(int i=0 ; i < windows.length ; i++)
-				{
-					windows[i].repaint();	
-			 */			
-		}
+		} 
 
 	}
-
-
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -67,18 +52,24 @@ public class SolveButton extends JButton implements ActionListener {
 		this.calculateShortestPath(this.mazeApp.getModel().getMaze());
 		this.mazeApp.getModel().repaintMaze();
 
-		if (this.mazeApp.getModel().getIsSolved()) {
-			this.mazeApp.getModel().blockCases();
-		}
 	}
 
+	@Override
+	protected final void paintComponent(Graphics g) {
+
+		super.paintComponent(g) ;
+
+		if (!this.mazeApp.getModel().getIsSolved()) 
+			this.setEnabled(true);
+		else 
+			this.setEnabled(false);	
+
+	}
+	
 	public void notifyForUpdate() {
 
-		/*if (this.mazeApp.getModel().getIsSolved()) {
-			this.setEnabled(false);
-		} // fix this
-		*/
 		repaint();	
+		
 	}
 
 }

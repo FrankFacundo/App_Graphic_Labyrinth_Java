@@ -11,7 +11,6 @@ public final class Maze implements GraphInterface{
 	private int height; 
 
 	private MBox[][] boxes;
-
 	private MBox depart;
 	private MBox arrival;
 
@@ -35,15 +34,14 @@ public final class Maze implements GraphInterface{
 
 	}
 
-	// COME BACK 
 	/**
 	 * To get the vertex (cannot be a wall) that has the smallest pi distance to the root and that hasn't been analyzed yet
 	 * @param pi contains all distances from root to the other vertexes
-	 * @param a, set which contains the already analyzed vertexes
+	 * @param aSet, set which contains the already analyzed vertexes
 	 * @return the vertex with the smallest pi value  
 	 */
 	@Override
-	public VertexInterface getShortestDistanceVertex(PiInterface pi, ASetInterface a) {
+	public VertexInterface getShortestDistanceVertex(PiInterface pi, ASetInterface aSet) {
 
 		int minimalLength = Integer.MAX_VALUE ;
 		MBox pivot = null;
@@ -54,7 +52,7 @@ public final class Maze implements GraphInterface{
 
 				MBox box = this.boxes[j][i];
 
-				if (!a.contains(box) && pi.getValue(box) < minimalLength && !box.isWall()) {
+				if (!aSet.contains(box) && pi.getValue(box) < minimalLength && !box.isWall()) {
 
 					minimalLength = pi.getValue(box);
 					pivot = box;
@@ -113,7 +111,7 @@ public final class Maze implements GraphInterface{
 		case 'D':
 			this.boxes[row][column] = new DBox(this, column, row);
 			break; 
-			
+
 		case 'X':
 			this.boxes[row][column] = new PBox(this, column, row);
 			break; 
@@ -182,7 +180,6 @@ public final class Maze implements GraphInterface{
 				successors.add(successor);
 
 			}
-
 		}
 
 		// lower neighbors
@@ -210,8 +207,7 @@ public final class Maze implements GraphInterface{
 		if (column < width - 1) { 
 			successor = boxes[column+1][row];
 			if(!successor.isWall()) {
-				// this.addEdge(box, successor, 1);
-				// box.addAdjacentVertex(successor, 1);
+	
 				successors.add(successor);
 			}
 		}
@@ -241,149 +237,9 @@ public final class Maze implements GraphInterface{
 	}
 
 
-	public void initFromTextFile(String fileName) throws FileNotFoundException, IOException, MazeReadingException, Exception {
-
-		FileReader fr =  null; 
-		BufferedReader bufferedReader = null;
-
-		try {
-
-			fr = new FileReader(fileName);
-			bufferedReader = new BufferedReader(fr);	
-
-			// the object already exists so height and width are already determined
-			for (int i = 0 ; i < this.height ; i++) {
-
-				String row = bufferedReader.readLine();
-
-				// If the row we are reading is null 
-				if (row == null) {
-
-					// System.err.println("Insufficient number of rows");
-					throw new MazeReadingException(fileName, i, " Insufficient number of rows." );
-
-				} else {
-
-					// we check the size
-					if (row.length() < this.width) {
-
-						// System.err.println("The row "+ i + 1 + " does not contain enough cases");
-						throw new MazeReadingException(fileName, i, "The row " + i + 1 +
-								" does not contain enough cases" );
-
-					} else if (row.length() > this.width) {
-
-
-						// System.err.println("The row "+ i + 1 + " contains too many cases");
-						throw new MazeReadingException(fileName, i, "The row " + i + 1 + " contains too many cases" );
-
-					} else {
-
-						for (int j = 0 ; j < this.width ; j++)
-						{
-							switch (row.charAt(j)) 
-							{
-							case 'D' :
-								this.boxes[i][j] = new DBox(this, j, i); 
-								break;
-							case 'A' :
-								boxes[i][j] = new ABox(this, j, i);
-								break;
-							case 'W' :
-								boxes[i][j] = new WBox(this, j, i); 
-								break;
-							case 'E' :
-								boxes[i][j] = new EBox(this, j, i);
-								break;         	
-							default :
-
-								//System.err.println("Invalid character");
-								throw new MazeReadingException(fileName, i, " Unknown character: " +
-										boxes[j][i] + "." );
-
-							}
-						} 
-
-					}
-
-				}
-
-			}
-
-		} finally {
-
-			if (fr != null) {
-				try {
-
-					fr.close(); 
-
-				} catch (Exception e) {
-
-					System.err.println("Failed to close file");
-				};		
-			}
-
-			if (bufferedReader != null) {
-				try {
-
-					bufferedReader.close(); 
-
-				} catch (Exception e) {
-
-					System.err.println("Failed to close reader");
-
-				};		
-			}
-
-
-		}
-
-
-	}
-
-	public void saveToTextFile(String textFileName) throws FileNotFoundException, IOException, Exception {
-
-		PrintWriter pw = null;
-
-		try {
-
-			pw = new PrintWriter(textFileName);
-			// the row 
-			for (int i = 0; i < this.height; i++) {
-
-				//MBox[] rows = boxes[i];
-
-				for (int j = 0 ; j < this.width ; j++) {	
-					MBox letter = boxes[j][i];
-					pw.print(letter.getChar());
-					// System.out.print("index: "+ rows[j].getLabel());
-				} 
-
-				pw.println();
-
-			}
-
-		} catch (Exception e) {
-
-			System.err.println("Printer failed");
-		} finally {
-
-			if (pw != null) {
-				try {
-					pw.close(); 
-				} catch (Exception e) {
-
-					System.err.println("Failed to close file");
-				};		
-			}		
-
-		}
-
-	}
-
-
-	// Getter for the case's symbol (char) UI will call this method
-	public char getBoxSymbol(int column, int row) {		
+	// Getter for the case's symbol (char) 
+	public char getBoxSymbol(int column, int row) {	
+		
 		try {
 			char symbol = this.boxes[column][row].getChar();
 			return symbol;
@@ -475,7 +331,11 @@ public final class Maze implements GraphInterface{
 		return valid;
 
 	}
-	// COME BACK
+	
+	/**
+	 * To get the departure box 
+	 * @return The departure box
+	 */
 	public final VertexInterface getDepartureBox() {
 
 
@@ -495,7 +355,7 @@ public final class Maze implements GraphInterface{
 
 	}
 
-	
+
 	/**
 	 * To get the arrival box 
 	 * @return The arrival box
@@ -512,11 +372,10 @@ public final class Maze implements GraphInterface{
 				}
 
 			}
-			
+
 		}
 
 		return null;
-
 	}
 
 	/**
@@ -528,20 +387,21 @@ public final class Maze implements GraphInterface{
 		int i = 0;
 		int j; 
 		int flags = 0;
-		
-		
+
+
 		while (i < this.height && flags < 2) {
 			j = 0;
 			while (j < this.width && flags < 2) {
 
 				if (this.getBoxSymbol(j, i) == 'D') {
 					this.depart = getBox(j,i);
+					// Console Trace
 					System.out.println("Got the departure case in "+getBox(j,i).toString());
 					flags++;
 				} else if (this.getBoxSymbol(j,i) == 'A'){
 					this.arrival = getBox(j,i);
+					// Console Trace
 					System.out.println("Got the arrival case in "+getBox(j,i).toString());
-					// System.out.println("the arrival case in "+this.arrival.toString());
 					flags++;
 				}
 
@@ -552,97 +412,27 @@ public final class Maze implements GraphInterface{
 			i++;
 		}
 
-		System.out.println("the arrival case in "+this.arrival.toString());
-
-
 		PreviousInterface p = (Previous) Dijsktra.dijkstra(this, this.getDepartureBox());    
 
-		System.out.println("Got to solve ...");
-
 		ArrayList<VertexInterface> shortestPath = p.getShortestPath(this.getArrivalBox());
-		// works for adjacent : this.boxes[this.arrival.getColumn()-1][this.arrival.getRow()]
-		System.out.println("Shortest path contains: "+ shortestPath.size() + " elements");
+		// Console Trace
+		System.out.println("The shortest path has: "+ shortestPath.size() + " elements");
 
 		for ( i = 0 ; i < this.height ; i++) {
 
 			for (j = 0 ; j < this.width ; j++) {
 
 				if (shortestPath.contains(this.boxes[j][i])) {
-
+					// Console Trace
 					System.out.println("The case: "+ this.boxes[j][i] + " is in the path");
-					//this.setBox(i,j,'X');
 				}
 
 			}
-			// System.out.println();
+
 		}
 
 		this.printShortestPath(shortestPath); 
 	}
-
-	// Finds the shortest path between d and a cases
-	// DELETE
-	// @deprecated
-	@Deprecated
-	public void findShortestPath2() throws NullPointerException {		
-
-		try {   
-			int i = 0;
-			int j; 
-			int flags = 0;
-
-			while (i < this.height && flags < 2) {
-				j = 0;
-				while (j < this.width && flags < 2) {
-
-					if (this.getBoxSymbol(j, i) == 'D') {
-						this.depart = getBox(j,i);
-						System.out.println("Got the departure case in "+getBox(j,i).toString());
-						flags++;
-					} else if (this.getBoxSymbol(j,i) == 'A'){
-						this.arrival = getBox(j,i);
-						System.out.println("Got the arrival case in "+getBox(j,i).toString());
-						flags++;
-					}
-
-					j++;
-
-				}
-
-				i++;
-			}
-
-
-			System.out.println("About to solve ...");
-			Previous p = (Previous) Dijsktra.dijkstra(this, depart);    
-
-			System.out.println("Got to solve ...");
-
-			ArrayList<VertexInterface> shortestPath = p.getShortestPath(arrival);
-
-			this.printShortestPath(shortestPath); 	
-
-			System.out.println("depart has "+this.getSuccessors(depart).size()+" accessible neighbors");
-			for(VertexInterface mbox : this.getSuccessors(depart)) {
-
-
-				System.out.println(mbox.toString());
-			}
-
-			System.out.println("arrival has "+this.getSuccessors(arrival).size()+" accessible neighbors");
-
-			for(VertexInterface mbox : this.getSuccessors(arrival)) {
-
-
-				System.out.println(mbox.toString());
-			}
-
-		} catch(NullPointerException e){
-
-			System.err.println("Error: Impossible to find the shortest path for this maze.");
-
-		} 
-	}  
 
 
 	// To print the shortest path
@@ -662,7 +452,7 @@ public final class Maze implements GraphInterface{
 				j = c.getColumn();
 				this.setBoxSymbol(i, j, 'X'); 
 			}	
-			
+
 			int departColumn = this.depart.getColumn();
 			int departRow = this.depart.getRow();
 			this.setBoxSymbol(departRow, departColumn, 'D'); 
@@ -670,20 +460,18 @@ public final class Maze implements GraphInterface{
 			int arrivalColumn = this.arrival.getColumn();
 			int arrivalRow = this.arrival.getRow();
 			this.setBoxSymbol(arrivalRow, arrivalColumn, 'A'); 
-			
 
 			i = 0;
 			while (i < this.height) {
 				j = 0;
 				while (j < this.width) {
 
-
 					System.out.print(this.getBox(j, i).getChar());
-
 
 					j++;
 
 				}
+
 				System.out.println();
 				i++;
 			}
@@ -692,4 +480,3 @@ public final class Maze implements GraphInterface{
 	}
 
 }
-
