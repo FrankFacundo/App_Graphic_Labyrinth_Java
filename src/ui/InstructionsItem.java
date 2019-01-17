@@ -18,7 +18,7 @@ public final class InstructionsItem extends JMenuItem implements ActionListener
   }
   
 	public void actionPerformed(ActionEvent evt){
-		JOptionPane.showMessageDialog(null, "Click in cases to change the states in the Maze \n\n"
+		JOptionPane.showMessageDialog(null, "Click the cases types in the Maze \n\n" 
 				+ "The color WHITE is an EMPTY case\n"
 				+ "The color GREEN is a DEPART case\n"
 				+ "The color RED is an ARRIVAL case\n"
