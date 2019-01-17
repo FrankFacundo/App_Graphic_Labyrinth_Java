@@ -294,6 +294,47 @@ public final class Maze implements GraphInterface{
 		return this.boxes;
 	}
 
+	
+	public void saveToTextFile(String textFileName) throws FileNotFoundException, IOException, Exception {
+
+		PrintWriter pw = null;
+
+		try {
+
+			pw = new PrintWriter(textFileName);
+			// the row 
+			for (int i = 0; i < this.height; i++) {
+
+				//MBox[] rows = boxes[i];
+
+				for (int j = 0 ; j < this.width ; j++) {	
+					MBox letter = boxes[j][i];
+					pw.print(letter.getChar());
+					// System.out.print("index: "+ rows[j].getLabel());
+				} 
+
+				pw.println();
+
+			}
+
+		} catch (Exception e) {
+
+			System.err.println("Printer failed");
+		} finally {
+
+			if (pw != null) {
+				try {
+					pw.close(); 
+				} catch (Exception e) {
+
+					System.err.println("Failed to close file");
+				};		
+			}		
+
+		}
+
+	}
+
 
 	// To verify that the maze is valid 
 	public boolean isValid() {
