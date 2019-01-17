@@ -1,7 +1,12 @@
 package dijsktra;
 import java.util.ArrayList;
 
-public class Dijsktra {
+/**
+ * Dijsktra's class which will allow us to find the shortest path by using Dijsktra's algorithm
+ *
+ */
+
+public final class Dijsktra {
 
 	/**
 	 * Public method of Dijkstra's algorithm 
@@ -30,16 +35,15 @@ public class Dijsktra {
 	 */
 	private static PreviousInterface dijkstra(GraphInterface graph, VertexInterface r, ASetInterface aSet, PiInterface pi, PreviousInterface previous) {
 
-		//All the vertex from the graph/maze
+		// All the vertex from the graph/maze
 		ArrayList<VertexInterface> allvertex = graph.getAllVertexes();
 
 		// The first pivot is root "r" (source vertex)
 		VertexInterface pivot = r;
 		// The successors of pivot (accessible and adjacent vertexes) 
 		ArrayList<VertexInterface> pivotSuccessors;
-
+		// The aSet's first element is the root 
 		aSet.add(r);
-
 		// The Pi value of the root vertex receives 0 
 		pi.setValue(r, 0);
 
@@ -47,7 +51,7 @@ public class Dijsktra {
 		for(VertexInterface v : allvertex) {
 
 			if (!v.hasSameType(r)) {
-				
+
 				pi.setValue(v, Integer.MAX_VALUE);
 			}
 		}
@@ -55,7 +59,7 @@ public class Dijsktra {
 		// We compare distances for all accessible vertexes that are not yet in aSet
 		int i = 1; 
 		int newPi;
-		
+
 		while (i < graph.getSize() && pivot != null) {
 
 			pivotSuccessors = graph.getSuccessors(pivot);
@@ -82,4 +86,5 @@ public class Dijsktra {
 
 		return previous;
 	}
+
 }

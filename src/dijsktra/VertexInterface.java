@@ -1,5 +1,10 @@
 package dijsktra;
 
+/**
+ * Vertex's interface
+ *
+ */
+
 public interface VertexInterface {
 
 	/**
@@ -7,13 +12,12 @@ public interface VertexInterface {
 	 * @return the String associated to the vertex
 	 */
 	public String getLabel();
-	
+
 	/**
-	 * 
-	 * @return the String representation of the vertex
+	 * To get a String representation of the position of the vertex (x coordinate, y coordinate) 
+	 * @return the String representation of the vertex's coordinates
 	 */
 	public String toString();
-	
 
 	/**
 	 * To get the distance to another vertex (weight)
@@ -23,9 +27,10 @@ public interface VertexInterface {
 	public int getDistanceTo(VertexInterface anotherVertex);
 
 	/**
-	 * Determines whether a vertex has the same type or not
+	 * To determine whether two vertexes are from a same type or not (label comparison)
+	 * @param vertex, the other vertex
+	 * @return true if the two vertexes are from the same type, else false 
 	 * */
 	public boolean hasSameType(VertexInterface vertex);
-
 
 }

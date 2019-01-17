@@ -1,6 +1,11 @@
 package dijsktra;
 import java.util.ArrayList;
 
+/**
+ * Previous vertexes' interface 
+ *
+ */
+
 public interface PreviousInterface {
  
 	/**
@@ -23,6 +28,5 @@ public interface PreviousInterface {
 	 * @return a list of vertexes describing the shortest path
 	 */
 	public ArrayList<VertexInterface> getShortestPath(VertexInterface vertex);
-
 
 }
