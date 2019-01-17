@@ -1,10 +1,17 @@
 package dijsktra;
 import java.util.ArrayList;
 
+/**
+ * Graph's interface
+ *
+ */
+
 public interface GraphInterface {
 
-
-	// To get the weight of an edge joining two vertexes 
+	/**
+	 * To get the weight of the distance between two vertexes 
+	 * @return the weight of the distance between two vertexes
+	 */
 	public int getWeight(VertexInterface vertex1, VertexInterface vertex2);
 
 	/**
@@ -20,7 +27,6 @@ public interface GraphInterface {
 	 */
 	public ArrayList<VertexInterface> getSuccessors(VertexInterface vertex);
 
-
 	/**
 	 * To get the vertex whose distance is the shortest among the vertexes other in aSet
 	 * @param pi, contains all the distances from the root to other vertexes
@@ -34,6 +40,5 @@ public interface GraphInterface {
 	 * @return the number of vertexes in the graph
 	 */
 	public int getSize();
-
 
 }
