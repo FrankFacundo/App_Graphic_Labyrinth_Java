@@ -1,20 +1,25 @@
 package maze;
 
-public class WBox extends MBox {
+/**
+ *	WBox represents a wall box in the maze
+ * 
+ */
+
+public final class WBox extends MBox {
 	
 	public WBox(Maze maze, int column, int row) {
+		
 		super(maze, column, row);
-	}
-	
-	public void setLabel() {
 		
 	}
 	
-	public boolean isEmpty() {
-		return false;
-	}
 
-	
+	@Override
+	public boolean isEmpty() {
+		
+		return false;
+		
+	}
 
 	@Override
 	public char getChar() {

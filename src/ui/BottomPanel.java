@@ -21,15 +21,15 @@ public final class BottomPanel extends JPanel {
 
 	}
 	
-	public ButtonsPanel getButtonsPanel ()
-	{
+	public ButtonsPanel getButtonsPanel () {
+		
 		return this.buttonsPanel;
 	}
 
 	public void notifyForUpdate() {
 
 		this.infoPanel.notifyForUpdate() ;
-		this.buttonsPanel.notifyForUpdate() ; // the solve button will be activated if the shortest path hasn't been found yet
+		this.buttonsPanel.notifyForUpdate() ; // the solve button will be deactivated if the shortest path has been found 
 
 	}
 }
