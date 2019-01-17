@@ -1,14 +1,23 @@
 package maze;
 
-public class DBox extends MBox {
+/**
+ *	DBox represents the departure box (the depart  point in the maze) 
+ * 
+ */
+
+public final class DBox extends MBox {
 
 	public DBox(Maze maze, int column, int row) {
+
 		super(maze, column, row);
+
 	}
 
-
+	@Override
 	public boolean isEmpty() {
+
 		return false;
+
 	}
 
 
@@ -44,4 +53,6 @@ public class DBox extends MBox {
 
 		return false;
 	}
+
 }
+

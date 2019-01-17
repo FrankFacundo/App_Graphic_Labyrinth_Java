@@ -11,14 +11,12 @@ public final class InfoPanel extends JPanel {
 	public InfoPanel(MazeApp mazeApp) {
 
 		this.mazeApp = mazeApp;
-
-		// this.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+		
 		this.setBackground(Color.GRAY);
 		this.setLayout(new BorderLayout());
 
 		this.label = new JLabel("");
 
-		//this.setLayout(new FlowLayout());
 		this.add(label, BorderLayout.CENTER);   
 		this.label.setHorizontalAlignment(JLabel.CENTER);
 
@@ -26,16 +24,25 @@ public final class InfoPanel extends JPanel {
 
 	@Override
 	protected final void paintComponent(Graphics g) {
-		// Paint the background
+
 		super.paintComponent(g) ;
 
-		if (this.mazeApp.getModel().getSelectedCase()!= null) 
+		if (this.mazeApp.getModel().getIsSolved()) {
+			this.label.setText("Shortest path found!");
+			
+		} else if (this.mazeApp.getModel().getSelectedCase()!= null) {
 			this.label.setText(this.mazeApp.getModel().getSelectedCase().getLabel() + " case set");
+		} else {
+			// No selected case
+			this.label.setText("");
+		}
 
 	}
 
 	public void notifyForUpdate() {
+		
 		repaint();	
+		
 	}
 
 }

@@ -31,6 +31,7 @@ public final class EBox extends MBox {
 	public char getChar() {
 
 		return 'E';
+		
 	}
 
 	@Override
