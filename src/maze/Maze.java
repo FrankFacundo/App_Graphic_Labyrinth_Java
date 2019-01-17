@@ -440,8 +440,6 @@ public final class Maze implements GraphInterface{
 
 		if(shortestPath != null) {
 
-			System.out.println("shortest's path size: "+shortestPath.size());
-
 			Iterator<VertexInterface> iterator = shortestPath.iterator();
 			int i, j;
 
